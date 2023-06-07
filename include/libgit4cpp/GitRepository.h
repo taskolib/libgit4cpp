@@ -22,13 +22,16 @@
 
 // SPDX-License-Identifier: LGPL-2.1-or-later
 
+#ifndef LIBGIT4CPP_GITREPOSITORY_H_
+#define LIBGIT4CPP_GITREPOSITORY_H_
+
 #include <filesystem>
 #include <string>
 #include <vector>
 
 #include <git2.h>
 
-#include "taskolib/GitObjectWrapper.h"
+#include "libgit4cpp/LibGitPointer.h"
 
 namespace git {
 
@@ -163,9 +166,9 @@ private:
     LibGitPointer<git_commit> get_commit();
 
     /**
-     * Load a git signature or create a default signature
-    */
-   void make_signature();
+     * Load a git signature or create a default signature.
+     */
+    void make_signature();
 
     /**
      * Translate all status information for each submodule into String.
@@ -174,10 +177,10 @@ private:
      */
     std::vector<FileStatus> collect_status(LibGitPointer<git_status_list>& status) const;
 
-    /** Update the tracked files in the repository.
-     * This member function stages all changes of already tracked
-     * files in the repository.
-    */
+    /**
+     * Update the tracked files in the repository.
+     * This member function stages all changes of already tracked files in the repository.
+     */
     void update();
 
     /**
@@ -201,3 +204,5 @@ private:
 };
 
 } // namespace git
+
+#endif
