@@ -1,6 +1,6 @@
 /**
  * \file   Error.h
- * \author Lars Froehlich, Jannik Woehnert
+ * \author Lars Fröhlich, Jannik Wöhnert
  * \date   Created on June 7, 2023
  * \brief  Definition of the Error exception class.
  *

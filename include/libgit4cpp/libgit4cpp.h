@@ -1,6 +1,6 @@
 /**
  * \file   libgit4cpp.h
- * \author Lars Froehlich, Jannik Woehnert
+ * \author Lars Fröhlich, Jannik Wöhnert
  * \date   Created on June 7, 2023
  * \brief  Main include file for libgit4cpp.
  *
