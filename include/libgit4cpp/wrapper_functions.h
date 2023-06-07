@@ -31,7 +31,7 @@
 
 #include <git2.h>
 
-#include "gitlib4cpp/LibGitPointer.h"
+#include "libgit4cpp/LibGitPointer.h"
 
 namespace git {
 

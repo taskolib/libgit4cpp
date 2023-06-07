@@ -1,17 +1,17 @@
-gitlib4cpp
+libgit4cpp
 ==========
 
-gitlib4cpp is a lightweight C++ wrapper around the [libgit2](https://libgit2.org/) C
+libgit4cpp is a lightweight C++ wrapper around the [libgit2](https://libgit2.org/) C
 library. It was mainly developed for use in
 [taskolib](https://taskolib.github.io/taskolib/) and covers only a tiny subset of the
 functionality of the original library.
 
 The library API is documented with Doxygen on the web page
-https://taskolib.github.io/gitlib4cpp/ .
+https://taskolib.github.io/libgit4cpp/ .
 
 License
 -------
-gitlib4cpp is free software distributed under the terms of the GNU Lesser General Public
+libgit4cpp is free software distributed under the terms of the GNU Lesser General Public
 License version 2.1 (LGPLv2.1).
 
 Building

@@ -1,8 +1,8 @@
 /**
- * \file   Error.h
+ * \file   libgit4cpp.h
  * \author Lars Froehlich, Jannik Woehnert
  * \date   Created on June 7, 2023
- * \brief  Definition of the Error exception class.
+ * \brief  Main include file for libgit4cpp.
  *
  * \copyright Copyright 2023 Deutsches Elektronen-Synchrotron (DESY), Hamburg
  *
@@ -22,41 +22,12 @@
 
 // SPDX-License-Identifier: LGPL-2.1-or-later
 
-#ifndef LIBGIT4CPP_ERROR_H_
-#define LIBGIT4CPP_ERROR_H_
+#ifndef LIBGIT4CPP_LIBGIT4CPP_H_
+#define LIBGIT4CPP_LIBGIT4CPP_H_
 
-#include <stdexcept>
+#include "libgit4cpp/Error.h"
 
-namespace git {
-
-/**
- * An exception class carrying an error message.
- *
- * Error is used as the standard exception class throughout gitlib4cpp.
- * It can be used directly or inherited from.
- *
- * \code
- * try
- * {
- *     throw git::Error("An error has occurred");
- * }
- * catch (const git::Error& e)
- * {
- *     std::cerr << e.what() << "\n";
- * }
- * \endcode
- *
- * \note
- * git::Error is derived from std::runtime_error. It can therefore be caught by
- * `catch (const std::exception&)`, `catch (const std::runtime_error&)`, and
- * `catch (const git::Error&)`.
- */
-class Error : public std::runtime_error
-{
-public:
-    using std::runtime_error::runtime_error;
-};
-
-} // namespace git
+/// Namespace git contains all functions, classes, and other declarations of libgit4cpp.
+namespace git { }
 
 #endif
