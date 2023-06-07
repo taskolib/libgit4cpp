@@ -56,7 +56,7 @@ subdir('src')
 
 inc = [ include_directories('include', 'src') ]
 
-gul_dep = dependency('libgul14', version : '> 2.7', fallback : ['libgul14', 'libgul_dep'])
+gul_dep = dependency('libgul14', version : '> 2.6', fallback : ['libgul14', 'libgul_dep'])
 
 deps = [
     gul_dep.partial_dependency(compile_args : true, includes : true),
@@ -89,6 +89,12 @@ pkg.generate(lib,
 
 
 ## Build tests
+
+libgit4cpp_dep = declare_dependency(
+    include_directories : inc,
+    link_with : lib,
+    dependencies : [ deps, gul_dep, ],
+)
 
 subdir('tests')
 
