@@ -1,0 +1,14 @@
+<map id="libgit4cpp.h" name="libgit4cpp.h">
+<area shape="rect" id="node1" title="Main include file for libgit4cpp." alt="" coords="365,5,463,32"/>
+<area shape="rect" id="node2" href="$Error_8h.html" title="Definition of the Error exception class." alt="" coords="49,87,181,114"/>
+<area shape="rect" id="node4" href="$GitRepository_8h.html" title="Wrapper for C&#45;Package libgit2." alt="" coords="254,87,443,114"/>
+<area shape="rect" id="node9" href="$LibGitPointer_8h.html" title="Definition of the LibGitPointer class template and declarations of associated functions." alt="" coords="471,169,656,196"/>
+<area shape="rect" id="node12" href="$wrapper__functions_8h.html" title="Declaration of wrappers for libgit2 functions." alt="" coords="604,80,747,121"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,169,92,196"/>
+<area shape="rect" id="node5" title=" " alt="" coords="203,169,294,196"/>
+<area shape="rect" id="node6" title=" " alt="" coords="403,244,462,271"/>
+<area shape="rect" id="node7" title=" " alt="" coords="116,169,179,196"/>
+<area shape="rect" id="node8" title=" " alt="" coords="534,244,593,271"/>
+<area shape="rect" id="node10" title=" " alt="" coords="641,244,717,271"/>
+<area shape="rect" id="node11" title=" " alt="" coords="753,244,813,271"/>
+</map>

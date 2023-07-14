@@ -1,0 +1,5 @@
+<map id="GitRepository.h" name="GitRepository.h">
+<area shape="rect" id="node1" title="Wrapper for C&#45;Package libgit2." alt="" coords="62,5,183,32"/>
+<area shape="rect" id="node2" href="$libgit4cpp_8h.html" title="Main include file for libgit4cpp." alt="" coords="5,80,104,107"/>
+<area shape="rect" id="node3" href="$GitRepository_8cc.html" title="Implementation of the GitRepository class." alt="" coords="129,80,255,107"/>
+</map>

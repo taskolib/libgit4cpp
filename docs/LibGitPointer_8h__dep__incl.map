@@ -1,0 +1,9 @@
+<map id="LibGitPointer.h" name="LibGitPointer.h">
+<area shape="rect" id="node1" title="Definition of the LibGitPointer class template and declarations of associated functions." alt="" coords="127,5,244,32"/>
+<area shape="rect" id="node2" href="$GitRepository_8h.html" title="Wrapper for C&#45;Package libgit2." alt="" coords="43,80,165,107"/>
+<area shape="rect" id="node3" href="$libgit4cpp_8h.html" title="Main include file for libgit4cpp." alt="" coords="5,155,104,181"/>
+<area shape="rect" id="node5" href="$wrapper__functions_8h.html" title="Declaration of wrappers for libgit2 functions." alt="" coords="189,80,344,107"/>
+<area shape="rect" id="node7" href="$LibGitPointer_8cc.html" title="Implementation of functions associated with the LibGitPointer class." alt="" coords="368,80,491,107"/>
+<area shape="rect" id="node4" href="$GitRepository_8cc.html" title="Implementation of the GitRepository class." alt="" coords="129,155,255,181"/>
+<area shape="rect" id="node6" href="$wrapper__functions_8cc.html" title="Implementation of wrappers for libgit2 functions." alt="" coords="280,155,440,181"/>
+</map>
