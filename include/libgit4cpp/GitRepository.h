@@ -63,7 +63,11 @@ public:
      * Constructor which specifies the root dir of the git repository.
      * \param file_path: path to git directory
      */
-    explicit GitRepository(const std::filesystem::path& file_path);
+    explicit GitRepository(const std::filesystem::path& file_path, const std::string& url):
+             url_{url}, repo_path_{file_path} {construct();};
+
+    explicit GitRepository(const std::filesystem::path& file_path):
+             url_{""}, repo_path_{file_path} {construct();};
 
     /**
      * Reset all knowledge this object knows about the repository and load the knowledge again.
@@ -101,6 +105,24 @@ public:
     void commit(const std::string& commit_message);
 
     /**
+     * push commits to a sequernce repository
+     * \param addr: address of the git repository host
+    */
+    void push(const std::string& addr);
+
+    /**
+     * pull changes from a sequence repository
+     * \param addr: address of the git repository host
+    */
+    void pull(const std::string& addr);
+
+    /**
+     * clone a sequence repository
+     * \param addr: address of the git repository host
+    */
+    void clone(const std::string& addr);
+
+    /**
      * Deletes seq_repository and all files within.
      * \param directory: directory holding sequence
      * \attention directory is a relative path within repo_path_
@@ -130,6 +152,9 @@ private:
 
     /// Signature used in commits.
     LibGitPointer<git_signature> my_signature_;
+
+    /// url of remote repository
+    const std::string url_;
 
     /**
      * Initialize a new git repository and commit all files in its path.
@@ -182,6 +207,11 @@ private:
      * This member function stages all changes of already tracked files in the repository.
      */
     void update();
+
+    /**
+     * Basic construction code, extracted because of constructor overload
+     */
+    void construct();
 
     /**
      * Check if the file from the status entry is not staged and collect the status in filestats.

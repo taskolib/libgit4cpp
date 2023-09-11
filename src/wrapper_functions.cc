@@ -83,6 +83,25 @@ tree_lookup(git_repository* repo, git_oid tree_id)
     return LibGitPointer(tree);
 }
 
+LibGitPointer<git_remote>
+remote_create(git_repository* repo, const std::string& remote_name,
+              const std::string& url)
+{
+    git_remote *remote;
+    if (git_remote_create(&remote, repo, remote_name.c_str(), url.c_str()))
+        remote = nullptr;
+    return LibGitPointer(remote);
+}
+
+LibGitPointer<git_remote>
+remote_lookup(git_repository* repo, const std::string& remote_name)
+{
+    git_remote *remote;
+    if (git_remote_lookup(&remote, repo, remote_name.c_str()))
+        remote = nullptr;
+    return LibGitPointer(remote);
+}
+
 LibGitPointer<git_status_list>
 status_list_new(git_repository* repo, const git_status_options& status_opt)
 {

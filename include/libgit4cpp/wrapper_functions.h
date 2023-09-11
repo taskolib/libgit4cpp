@@ -115,6 +115,27 @@ status_list_new(git_repository* repo, const git_status_options& status_opt);
 LibGitPointer<git_reference>
 repository_head(git_repository* repo);
 
+/**
+ * Create a new remote connection in the repository and returns it
+ * \param repo C-type repository
+ * \param remote_name typically 'origin'
+ * \param url adress of remote connection, e.g https://github.com/...
+ * \return Wrapper of a remote connection
+ */
+LibGitPointer<git_remote>
+remote_create (git_repository* repo, const std::string& remote_name,
+                const std::string& url);
+
+
+/**
+ * Collects the remove connection by name and returns it
+ * \param repo C-type repository
+ * \param remote_name typically 'origin'
+ * \return Wrapper of a remote connection
+ */
+LibGitPointer<git_remote>
+remote_lookup (git_repository* repo, const std::string& remote_name);
+
 /** \}*/
 
 } // namespace git
