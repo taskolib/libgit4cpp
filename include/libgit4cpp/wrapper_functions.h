@@ -136,6 +136,16 @@ remote_create (git_repository* repo, const std::string& remote_name,
 LibGitPointer<git_remote>
 remote_lookup (git_repository* repo, const std::string& remote_name);
 
+
+
+/**
+ * Clone existing git repository into local filesystem
+ * \param url adress of remote connection, e.g https://github.com/...
+ *  \param repo_path absolute or relative path from executable
+*/
+LibGitPointer<git_repository>
+clone (const std::string& url, const std::string& repo_path);
+
 /** \}*/
 
 } // namespace git

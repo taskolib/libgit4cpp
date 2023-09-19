@@ -479,9 +479,16 @@ void GitRepository::pull(const std::string& addr)
 
 }
 
-void GitRepository::clone(const std::string& addr)
+void GitRepository::clone_repo(const std::string& url, const std::filesystem::path& repo_path )
 {
-  
+    LibGitPointer<git_repository> repo = clone(url, repo_path);
+    if (repo.get() == nullptr) throw git::Error(gul14::cat("Cannot clone repository."));
+    else
+    {
+        url_ = url;
+        repo_path_ = repo_path;
+        repo_=repo.get(); // move ownership: repo -> repo_ && nullptr -> repo
+    }
 }
 
 

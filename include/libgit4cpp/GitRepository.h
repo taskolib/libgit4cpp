@@ -120,7 +120,7 @@ public:
      * clone a sequence repository
      * \param addr: address of the git repository host
     */
-    void clone(const std::string& addr);
+    void clone_repo(const std::string& url, const std::filesystem::path& repo_path );
 
     /**
      * Deletes seq_repository and all files within.
@@ -154,7 +154,7 @@ private:
     LibGitPointer<git_signature> my_signature_;
 
     /// url of remote repository
-    const std::string url_;
+    std::string url_;
 
     /**
      * Initialize a new git repository and commit all files in its path.

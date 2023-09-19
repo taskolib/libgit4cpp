@@ -120,4 +120,14 @@ repository_head(git_repository* repo)
     return LibGitPointer(reference);
 }
 
+LibGitPointer<git_repository>
+clone (const std::string& url, const std::string& repo_path)
+{
+    git_repository* repo;
+    if (git_clone(&repo, url.c_str(), repo_path.c_str(), nullptr))
+        repo = nullptr;
+    return LibGitPointer(repo);
+
+}
+
 } // namespace git
