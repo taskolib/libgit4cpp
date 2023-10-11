@@ -282,3 +282,106 @@ TEST_CASE("GitRepository Wrapper Test all", "[GitWrapper]")
         std::filesystem::remove_all("sequences");
     }
 }
+
+
+/**
+ * To test a remote repository, the following steps are executed
+ * 1) Create a GitReposiotry with a link to a remote repository
+ * 2) Commit and push files to remote repository (2x)
+ * 3) Reset local repo to first commit and pull 2nd commit from remote
+ * 4) Delete local repository and clone from remote
+ * 
+ * Tidy up) Reset remote, delete all local files
+
+TEST_CASE("GitRepository Wrapper Test Remote", "[GitWrapper]")
+{
+    
+
+    SECTION("Init empty GitRepository with remote connection")
+    {
+        std::filesystem::create_directories("sequences");
+
+        GitRepository gl{"sequences", "https://gitlab.desy.de/jannik.woehnert/taskolib_remote_test.git"};
+
+        REQUIRE(not gl.get_path().empty());
+        REQUIRE(gl.get_path() == "sequences");
+        LibGitPointer<git_reference> ref{repository_head(gl.get_repo())};
+        REQUIRE(ref.get() != nullptr);
+
+
+        // Test if repo_ got initialized
+        REQUIRE(gl.get_last_commit_message() == "Initial commit");
+
+    }
+
+    SECTION("make commit and push to remote repository")
+    {
+        GitRepository gl{"sequences", "https://gitlab.desy.de/jannik.woehnert/taskolib_remote_test.git"};
+
+        create_testfiles("unit_test_1", 2, "commit and push");
+
+        gl.add();
+        gl.commit("Test push");
+
+
+        std::vector<FileStatus> stats = gl.status();
+        // every file in unit_test_2 should have the tag deleted
+        REQUIRE(stats.size() != 0);
+        for(const auto& elm: stats)
+        {
+            if (gul14::starts_with(elm.path_name, "unit_test_1"))
+            {
+                REQUIRE(elm.handling == "unchanged");
+                REQUIRE(elm.changes == "unchanged");
+            }
+        }
+
+        // check if remote and local repo are not in the same state
+        REQUIRE( ! gl.branch_up_to_date("origin"));
+
+        gl.push();
+
+        // check if remote and local repo are in same state
+        REQUIRE( gl.branch_up_to_date("origin"));
+
+    }
+
+    SECTION("Reset repository to former commit and pull current commit from remote repository")
+    {
+        GitRepository gl{"sequences", "https://gitlab.desy.de/jannik.woehnert/taskolib_remote_test.git"};
+
+        //second commit
+        create_testfiles("unit_test_2", 1, "commit and push 2");
+        gl.add();
+        gl.commit("Second commit");
+        gl.push();
+
+        REQUIRE( gl.branch_up_to_date("origin"));
+
+        // reset local repository
+        gl.reset(1);
+
+        REQUIRE_FALSE( gl.branch_up_to_date("origin"));
+
+        gl.pull();
+
+        REQUIRE( gl.branch_up_to_date("origin"));
+    }
+
+
+    SECTION("Clone from remote connection")
+    {
+        // Delete local repository
+        std::filesystem::remove_all("sequences");
+
+
+        //clone reposiotry from remote
+        GitRepository gl{"sequences"};
+        gl.clone_repo("https://gitlab.desy.de/jannik.woehnert/taskolib_remote_test.git", "sequences");
+
+        REQUIRE(gl.get_last_commit_message() == "Second commit");
+    }
+
+
+}
+**/
