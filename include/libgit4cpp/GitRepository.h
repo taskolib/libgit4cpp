@@ -64,10 +64,10 @@ public:
      * \param file_path: path to git directory
      */
     explicit GitRepository(const std::filesystem::path& file_path, const std::string& url):
-             url_{url}, repo_path_{file_path} {construct();};
+             url_{url}, repo_path_{file_path} {construct(file_path);};
 
     explicit GitRepository(const std::filesystem::path& file_path):
-             url_{""}, repo_path_{file_path} {construct();};
+             url_{""}, repo_path_{file_path} {construct(file_path);};
 
     /**
      * Reset all knowledge this object knows about the repository and load the knowledge again.
@@ -104,23 +104,32 @@ public:
      */
     void commit(const std::string& commit_message);
 
+
+    /**
+     * Hard reset of repository.
+     * \param nr_of_commits number of commits to jump back
+    */
+    void reset(int nr_of_commits);
+
     /**
      * push commits to a sequernce repository
      * \param addr: address of the git repository host
     */
-    void push(const std::string& addr);
+    void push();
 
     /**
      * pull changes from a sequence repository
      * \param addr: address of the git repository host
     */
-    void pull(const std::string& addr);
+    void pull();
 
     /**
      * clone a sequence repository
      * \param addr: address of the git repository host
     */
     void clone_repo(const std::string& url, const std::filesystem::path& repo_path );
+
+    bool branch_up_to_date(const std::string& branch_name);
 
     /**
      * Deletes seq_repository and all files within.
@@ -144,6 +153,10 @@ public:
     ~GitRepository();
 
 private:
+
+    /// url of remote repository
+    std::string url_;
+
     /// Pointer which holds all infos of the active repository.
     LibGitPointer<git_repository> repo_;
 
@@ -152,9 +165,6 @@ private:
 
     /// Signature used in commits.
     LibGitPointer<git_signature> my_signature_;
-
-    /// url of remote repository
-    std::string url_;
 
     /**
      * Initialize a new git repository and commit all files in its path.
@@ -210,8 +220,9 @@ private:
 
     /**
      * Basic construction code, extracted because of constructor overload
+     * \param file_path path to the repository
      */
-    void construct();
+    void construct(const std::filesystem::path& file_path);
 
     /**
      * Check if the file from the status entry is not staged and collect the status in filestats.
