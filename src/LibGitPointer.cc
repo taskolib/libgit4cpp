@@ -67,5 +67,10 @@ void free_libgit_ptr(git_reference* reference)
     git_reference_free(reference);
 }
 
+void free_libgit_ptr(git_buf* buf)
+{
+    git_buf_dispose(buf);
+}
+
 } // namespace detail
 } // namespace git

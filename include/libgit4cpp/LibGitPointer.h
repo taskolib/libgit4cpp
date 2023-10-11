@@ -45,6 +45,7 @@ void free_libgit_ptr(git_remote* remote);
 void free_libgit_ptr(git_commit* commit);
 void free_libgit_ptr(git_status_list* status);
 void free_libgit_ptr(git_reference* reference);
+void free_libgit_ptr(git_buf* buf);
 
 } // namespace detail
 
