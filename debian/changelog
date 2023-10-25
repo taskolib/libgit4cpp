@@ -1,0 +1,10 @@
+libgit4cpp-0-1-0 (0.1.0) unstable; urgency=low
+
+  * initial debian version.
+
+ -- Jannik Woehnert <Jannik.Woehnert@desy.de>  Wed, 25 Oct 2023 16:55:36 +0100
+
+
+Local variables:
+mode: debian-changelog
+End:
