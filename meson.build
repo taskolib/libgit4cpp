@@ -63,7 +63,7 @@ deps = [
     dependency('libgit2')
 ]
 
-lib = both_libraries(meson.project_name(),
+lib = both_libraries('git4cpp',
     sources,
     dependencies : deps,
     soversion : libno_full,
