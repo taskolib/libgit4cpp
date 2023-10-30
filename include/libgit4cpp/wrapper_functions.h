@@ -166,7 +166,7 @@ branch_lookup(git_repository* repo, const std::string& branch_name, git_branch_t
  * \return remote name, typically 'origin/master' or 'origin/3_fix_bugs'
  * 
 */
-std::string&
+std::string
 branch_remote_name(git_repository* repo, const std::string& branch_name);
 
 /** \}*/

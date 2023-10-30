@@ -63,11 +63,9 @@ public:
      * Constructor which specifies the root dir of the git repository.
      * \param file_path: path to git directory
      */
-    explicit GitRepository(const std::filesystem::path& file_path, const std::string& url):
-             url_{url}, repo_path_{file_path} {construct(file_path);};
+    explicit GitRepository(const std::filesystem::path& file_path, const std::string& url);
 
-    explicit GitRepository(const std::filesystem::path& file_path):
-             url_{""}, repo_path_{file_path} {construct(file_path);};
+    explicit GitRepository(const std::filesystem::path& file_path);
 
     /**
      * Reset all knowledge this object knows about the repository and load the knowledge again.
@@ -129,6 +127,10 @@ public:
     */
     void clone_repo(const std::string& url, const std::filesystem::path& repo_path );
 
+    /**
+     * Check if remote and local branch are in same state
+     * \param branch_name 
+    */
     bool branch_up_to_date(const std::string& branch_name);
 
     /**
@@ -155,7 +157,10 @@ public:
 private:
 
     /// url of remote repository
-    std::string url_;
+    std::string url_{""};
+
+    /// git remote object
+    LibGitPointer<git_remote> remote_{LibGitPointer<git_remote>(nullptr)};
 
     /// Pointer which holds all infos of the active repository.
     LibGitPointer<git_repository> repo_;

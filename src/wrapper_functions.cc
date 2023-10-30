@@ -24,6 +24,7 @@
 
 #include <git2.h>
 #include <gul14/cat.h>
+#include<iostream>
 
 #include "libgit4cpp/wrapper_functions.h"
 #include "libgit4cpp/Error.h"
@@ -36,7 +37,7 @@ repository_open(const std::string& repo_path)
     git_repository *repo;
     if (git_repository_open(&repo, repo_path.c_str()))
     {
-        git::Error(gul14::cat("repository_open: ", git_error_last()->message));
+        std::cout << gul14::cat("repository_open: ", git_error_last()->message);
         repo=nullptr;
     }
 
@@ -47,9 +48,10 @@ LibGitPointer<git_repository>
 repository_init(const std::string& repo_path, bool is_bare)
 {
     git_repository *repo;
-    if (git_repository_init(&repo, repo_path.c_str(), is_bare))
+    int error = git_repository_init(&repo, repo_path.c_str(), is_bare);
+    if (error)
     {
-        git::Error(gul14::cat("repository_init: ", git_error_last()->message));
+        std::cout << gul14::cat("repository_init: ", git_error_last()->message);
         repo = nullptr;
     }
     return LibGitPointer(repo);
@@ -61,7 +63,7 @@ repository_index(git_repository* repo)
     git_index *index;
     if (git_repository_index(&index, repo))
     {
-        git::Error(gul14::cat("repository_index: ", git_error_last()->message));
+        std::cout << gul14::cat("repository_index: ", git_error_last()->message);
         index = nullptr;
     }
     return LibGitPointer(index);
@@ -73,7 +75,7 @@ signature_default(git_repository* repo)
     git_signature *signature;
     if (git_signature_default(&signature, repo))
     {
-        git::Error(gul14::cat("signature_default: ", git_error_last()->message));
+        std::cout << gul14::cat("signature_default: ", git_error_last()->message);
         signature = nullptr;
     }
     return LibGitPointer(signature);
@@ -85,7 +87,7 @@ signature_new(const std::string& name, const std::string& email, time_t time, in
     git_signature *signature;
     if (git_signature_new(&signature, name.c_str(), email.c_str(), time, offset))
     {
-        git::Error(gul14::cat("signature_new: ", git_error_last()->message));
+        std::cout << gul14::cat("signature_new: ", git_error_last()->message);
         signature = nullptr;
     }
     return LibGitPointer(signature);
@@ -97,7 +99,7 @@ tree_lookup(git_repository* repo, git_oid tree_id)
     git_tree *tree;
     if (git_tree_lookup(&tree, repo, &tree_id))
     {
-        git::Error(gul14::cat("tree_lookup: ", git_error_last()->message));
+        std::cout << gul14::cat("tree_lookup: ", git_error_last()->message);
         tree = nullptr;
     }
     return LibGitPointer(tree);
@@ -110,7 +112,7 @@ remote_create(git_repository* repo, const std::string& remote_name,
     git_remote *remote;
     if (git_remote_create(&remote, repo, remote_name.c_str(), url.c_str()))
     {
-        git::Error(gul14::cat("remote_create: ", git_error_last()->message));
+        std::cout << gul14::cat("remote_create: ", git_error_last()->message);
         remote = nullptr;
     }
     return LibGitPointer(remote);
@@ -122,7 +124,7 @@ remote_lookup(git_repository* repo, const std::string& remote_name)
     git_remote *remote;
     if (git_remote_lookup(&remote, repo, remote_name.c_str()))
     {
-        git::Error(gul14::cat("remote_lookup: ", git_error_last()->message));
+        std::cout << gul14::cat("remote_lookup: ", git_error_last()->message);
         remote = nullptr;
     }
     return LibGitPointer(remote);
@@ -134,7 +136,7 @@ status_list_new(git_repository* repo, const git_status_options& status_opt)
     git_status_list *status;
     if (git_status_list_new(&status, repo, &status_opt))
     {
-        git::Error(gul14::cat("status_list_new: ", git_error_last()->message));
+        std::cout << gul14::cat("status_list_new: ", git_error_last()->message);
         status = nullptr;
     }
     return LibGitPointer(status);
@@ -146,7 +148,7 @@ repository_head(git_repository* repo)
     git_reference *reference;
     if (git_repository_head(&reference, repo))
     {
-        git::Error(gul14::cat("reposiotry_head: ", git_error_last()->message));
+        std::cout << gul14::cat("reposiotry_head: ", git_error_last()->message);
         reference = nullptr;
     }
     return LibGitPointer(reference);
@@ -158,7 +160,7 @@ clone (const std::string& url, const std::string& repo_path)
     git_repository* repo;
     if (git_clone(&repo, url.c_str(), repo_path.c_str(), nullptr))
     {
-        git::Error(gul14::cat("branch_remote_name: ", git_error_last()->message));
+        std::cout << gul14::cat("branch_remote_name: ", git_error_last()->message);
         repo = nullptr;
     }
     return LibGitPointer(repo);
@@ -171,23 +173,22 @@ branch_lookup(git_repository* repo, const std::string& branch_name, git_branch_t
     git_reference* ref;
     if (git_branch_lookup(&ref, repo, branch_name.c_str(), branch_type))
     {
-        git::Error(gul14::cat("branch_lookup: ", git_error_last()->message));
+        std::cout << gul14::cat("branch_lookup: ", git_error_last()->message);
         ref = nullptr;
     }
     return LibGitPointer(ref);
 }
 
-std::string&
+std::string
 branch_remote_name(git_repository* repo, const std::string& branch_name)
 {
     git_buf buf;
     if (git_branch_remote_name(&buf, repo, branch_name.c_str()))
     {
-        git::Error(gul14::cat("branch_remote_name: ", git_error_last()->message));
-        return (std::string&) "";
+        std::cout << gul14::cat("branch_remote_name: ", git_error_last()->message);
+        return "";
     }
-    else
-        return (std::string&) buf.ptr;
+    return buf.ptr;
 }
 
 } // namespace git

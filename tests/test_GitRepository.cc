@@ -24,6 +24,7 @@
 
 #include <filesystem>
 #include <fstream>
+#include <iostream>
 
 #include <git2.h>
 #include <gul14/catch.h>
@@ -73,9 +74,11 @@ TEST_CASE("GitRepository Wrapper Test all", "[GitWrapper]")
      * Check if a repository is created (HEAD exists)
      * Check if a comit was created (initial commit)
      *
-     */
+    */
     SECTION("Construct GitRepository object")
     {
+        std::filesystem::remove_all("sequences");
+
         create_testfiles("unit_test_1", 2, "Construct");
 
         // Create Git Library
@@ -279,7 +282,7 @@ TEST_CASE("GitRepository Wrapper Test all", "[GitWrapper]")
         // check if path got removed
         REQUIRE(not std::filesystem::exists("sequences" / mypath));
 
-        std::filesystem::remove_all("sequences");
+        //std::filesystem::remove_all("sequences");
     }
 }
 
@@ -292,14 +295,14 @@ TEST_CASE("GitRepository Wrapper Test all", "[GitWrapper]")
  * 4) Delete local repository and clone from remote
  * 
  * Tidy up) Reset remote, delete all local files
-
+ */
 TEST_CASE("GitRepository Wrapper Test Remote", "[GitWrapper]")
 {
     
 
     SECTION("Init empty GitRepository with remote connection")
     {
-        std::filesystem::create_directories("sequences");
+        std::filesystem::remove_all("sequences");
 
         GitRepository gl{"sequences", "https://gitlab.desy.de/jannik.woehnert/taskolib_remote_test.git"};
 
@@ -337,12 +340,12 @@ TEST_CASE("GitRepository Wrapper Test Remote", "[GitWrapper]")
         }
 
         // check if remote and local repo are not in the same state
-        REQUIRE( ! gl.branch_up_to_date("origin"));
+        REQUIRE( ! gl.branch_up_to_date("master"));
 
         gl.push();
 
         // check if remote and local repo are in same state
-        REQUIRE( gl.branch_up_to_date("origin"));
+        REQUIRE( gl.branch_up_to_date("master"));
 
     }
 
@@ -356,16 +359,16 @@ TEST_CASE("GitRepository Wrapper Test Remote", "[GitWrapper]")
         gl.commit("Second commit");
         gl.push();
 
-        REQUIRE( gl.branch_up_to_date("origin"));
+        REQUIRE( gl.branch_up_to_date("master"));
 
         // reset local repository
         gl.reset(1);
 
-        REQUIRE_FALSE( gl.branch_up_to_date("origin"));
+        REQUIRE_FALSE( gl.branch_up_to_date("master"));
 
         gl.pull();
 
-        REQUIRE( gl.branch_up_to_date("origin"));
+        REQUIRE( gl.branch_up_to_date("master"));
     }
 
 
@@ -384,4 +387,3 @@ TEST_CASE("GitRepository Wrapper Test Remote", "[GitWrapper]")
 
 
 }
-**/
