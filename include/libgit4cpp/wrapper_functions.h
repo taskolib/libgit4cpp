@@ -115,6 +115,60 @@ status_list_new(git_repository* repo, const git_status_options& status_opt);
 LibGitPointer<git_reference>
 repository_head(git_repository* repo);
 
+/**
+ * Create a new remote connection in the repository and returns it
+ * \param repo C-type repository
+ * \param remote_name typically 'origin'
+ * \param url adress of remote connection, e.g https://github.com/...
+ * \return Wrapper of a remote connection
+ */
+LibGitPointer<git_remote>
+remote_create (git_repository* repo, const std::string& remote_name,
+                const std::string& url);
+
+
+/**
+ * Collects the remove connection by name and returns it
+ * \param repo C-type repository
+ * \param remote_name typically 'origin'
+ * \return Wrapper of a remote connection
+ */
+LibGitPointer<git_remote>
+remote_lookup (git_repository* repo, const std::string& remote_name);
+
+
+
+/**
+ * Clone existing git repository into local filesystem
+ * \param url adress of remote connection, e.g https://github.com/...
+ * \param repo_path absolute or relative path from executable
+ * \return Wrapper of a repository
+*/
+LibGitPointer<git_repository>
+clone (const std::string& url, const std::string& repo_path);
+
+
+/**
+ * Find the reference to a branch where the name is known
+ * \param repo C-type repository
+ * \param branch_name e.g. 'master', '3_fix bugs', etc...
+ * \param branch_type enum with 1=GIT_BRANCH_LOCAL, 2=GIT_BRANCH_REMOTE, 3=GIT_BRANCH_ALL
+ * \return Wrapper of git reference
+*/
+LibGitPointer<git_reference>
+branch_lookup(git_repository* repo, const std::string& branch_name, git_branch_t branch_type);
+
+
+/**
+ * Return the name of a remote name
+ * \param repo C-type repository
+ * \param branch_name e.g. 'master', '3_fix bugs', etc...
+ * \return remote name, typically 'origin/master' or 'origin/3_fix_bugs'
+ * 
+*/
+std::string
+branch_remote_name(git_repository* repo, const std::string& branch_name);
+
 /** \}*/
 
 } // namespace git

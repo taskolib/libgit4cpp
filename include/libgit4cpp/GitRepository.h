@@ -63,6 +63,8 @@ public:
      * Constructor which specifies the root dir of the git repository.
      * \param file_path: path to git directory
      */
+    explicit GitRepository(const std::filesystem::path& file_path, const std::string& url);
+
     explicit GitRepository(const std::filesystem::path& file_path);
 
     /**
@@ -100,6 +102,37 @@ public:
      */
     void commit(const std::string& commit_message);
 
+
+    /**
+     * Hard reset of repository.
+     * \param nr_of_commits number of commits to jump back
+    */
+    void reset(int nr_of_commits);
+
+    /**
+     * push commits to a sequernce repository
+     * \param addr: address of the git repository host
+    */
+    void push();
+
+    /**
+     * pull changes from a sequence repository
+     * \param addr: address of the git repository host
+    */
+    void pull();
+
+    /**
+     * clone a sequence repository
+     * \param addr: address of the git repository host
+    */
+    void clone_repo(const std::string& url, const std::filesystem::path& repo_path );
+
+    /**
+     * Check if remote and local branch are in same state
+     * \param branch_name 
+    */
+    bool branch_up_to_date(const std::string& branch_name);
+
     /**
      * Deletes seq_repository and all files within.
      * \param directory: directory holding sequence
@@ -122,6 +155,13 @@ public:
     ~GitRepository();
 
 private:
+
+    /// url of remote repository
+    std::string url_{""};
+
+    /// git remote object
+    LibGitPointer<git_remote> remote_{LibGitPointer<git_remote>(nullptr)};
+
     /// Pointer which holds all infos of the active repository.
     LibGitPointer<git_repository> repo_;
 
@@ -182,6 +222,12 @@ private:
      * This member function stages all changes of already tracked files in the repository.
      */
     void update();
+
+    /**
+     * Basic construction code, extracted because of constructor overload
+     * \param file_path path to the repository
+     */
+    void construct(const std::filesystem::path& file_path);
 
     /**
      * Check if the file from the status entry is not staged and collect the status in filestats.

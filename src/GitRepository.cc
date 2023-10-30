@@ -34,12 +34,27 @@
 
 namespace git {
 
+GitRepository::GitRepository(const std::filesystem::path& file_path, const std::string& url)
+{
+    construct(file_path);
+    url_= url;
+
+    //check if remote already exists, else create new remote
+    LibGitPointer<git_remote> remote_ = remote_lookup(repo_.get(), "origin");
+    if (remote_.get() == nullptr) remote_ = remote_create(repo_.get(), "origin", url.c_str());
+}
+
 GitRepository::GitRepository(const std::filesystem::path& file_path)
+{
+    construct(file_path);
+}
+
+void GitRepository::construct(const std::filesystem::path& file_path)
 {
     //init libgit library
     git_libgit2_init();
 
-    //init member variables
+    // init repo path
     repo_path_ = file_path;
 
     // init or reload repository
@@ -68,6 +83,7 @@ void GitRepository::reset_repo()
     // initialize repo and signature again
     init(repo_path_);
 }
+
 
 std::string GitRepository::get_last_commit_message()
 {
@@ -104,10 +120,11 @@ void GitRepository::init(const std::filesystem::path& file_path)
     // if repository does not exist
     if (repo_.get() == nullptr)
     {
+
         // create repository
         //2nd argument: false so that .git folder is created in given path
         repo_ = repository_init(file_path, false);
-        if (repo_.get()==nullptr) throw git::Error("Git init failed.");
+        if (repo_.get()==nullptr) throw git::Error("Git init failed");
 
         // create signature
         make_signature();
@@ -153,7 +170,10 @@ void GitRepository::commit_initial()
         );
 
     if (error)
+    {
+        std::cout << git_error_last()->message;
         throw git::Error("initial commit failed");
+    }
 }
 
 void GitRepository::commit(const std::string& commit_message)
@@ -184,7 +204,11 @@ void GitRepository::commit(const std::string& commit_message)
         &raw_commit
     );
 
-    if (error) throw git::Error("Cannot commit.");
+    if (error)
+    {
+        std::cout << git_error_last()->message;
+        throw git::Error(gul14::cat("commit: ", git_error_last()->message));
+    }
 }
 
 void GitRepository::add()
@@ -224,7 +248,7 @@ void GitRepository::remove_directory(const std::filesystem::path& seq_directory)
 
 LibGitPointer<git_commit> GitRepository::get_commit(int count)
 {
-    std::string ref = "HEAD^" + std::to_string(count);
+    std::string ref = "HEAD~" + std::to_string(count);
     return get_commit(ref);
 }
 
@@ -439,5 +463,102 @@ std::vector<int> GitRepository::add_files(const std::vector<std::filesystem::pat
 
     return error_list;
 }
+
+void GitRepository::reset(int nr_of_commits)
+{
+    const LibGitPointer<git_commit> parent_commit = get_commit(nr_of_commits);
+
+    int error = git_reset(repo_.get(), (git_object*) parent_commit.get(), GIT_RESET_HARD, nullptr);
+    if (error) throw git::Error(gul14::cat("reset: ", git_error_last()->message));
+}
+
+void GitRepository::push()
+{
+    // set options
+    git_push_options gpush;
+    int error = git_push_init_options(&gpush, GIT_PUSH_OPTIONS_VERSION);
+    if (error) throw git::Error(gul14::cat("init push: ", git_error_last()->message));
+
+    // set remote
+    /*
+    LibGitPointer<git_remote> remote {remote_lookup(repo_.get(), "origin")};
+    if (remote.get() == nullptr) throw git::Error("Cannot find remote object.");
+    */
+
+    // push to upstream
+    error = git_remote_push(remote_.get(), nullptr, &gpush);
+    if (error) throw git::Error(gul14::cat("push remote: ", git_error_last()->message));
+}
+
+
+void GitRepository::pull()
+{
+    // define fetch options
+    git_fetch_options options = GIT_FETCH_OPTIONS_INIT;
+
+    // set remote
+    /*
+    LibGitPointer<git_remote> remote {remote_lookup(repo_.get(), "origin")};
+    if (remote.get() == nullptr) throw git::Error(gul14::cat("Cannot find remote object."));
+    */
+    
+    // fetch commits from remote connection
+    int error = git_remote_fetch( remote_.get(), NULL, &options, NULL );
+    if (error) throw git::Error(gul14::cat("pull: ", git_error_last()->message));
+
+    // git_apply, if failed git_merge
+    // TODO
+
+    //cleanup repository from remote connection and merge/fetch pointers
+    git_repository_state_cleanup(repo_.get());
+
+
+}
+
+void GitRepository::clone_repo(const std::string& url, const std::filesystem::path& repo_path )
+{
+    LibGitPointer<git_repository> repo = clone(url, repo_path);
+    if (repo.get() == nullptr) throw git::Error(gul14::cat("Cannot clone repository."));
+    else
+    {
+        url_ = url;
+        remote_ = remote_lookup(repo.get(), "origin"); // TODO: origin korrekt?
+        repo_path_ = repo_path;
+        repo_=repo.get(); // move ownership: repo -> repo_ && nullptr -> repo
+
+    }
+}
+
+
+bool GitRepository::branch_up_to_date(const std::string& branch_name)
+{
+    // Lookup the local branch reference
+    LibGitPointer<git_reference> local_ref = branch_lookup(repo_.get(), "master", GIT_BRANCH_LOCAL);
+    if (local_ref.get() == nullptr) throw git::Error(gul14::cat("branch lookup: ", git_error_last()->message));
+
+    // Get the name of the remote associated with the local branch
+    //TODO: wrapper for buffer?
+    std::string remote_name = branch_remote_name(repo_.get(), branch_name.c_str());
+    if (remote_name == "") throw git::Error(gul14::cat("Failed to get remote name for the local branch."));
+
+    // Open the remote
+    LibGitPointer<git_remote> remote {remote_lookup(repo_.get(), remote_name)};
+    if (remote.get() == nullptr) throw git::Error(gul14::cat("Cannot find remote object."));
+
+    // Get the upstream branch
+    git_reference* upstream_ref = nullptr;
+    if (git_branch_upstream(&upstream_ref, local_ref.get()) != 0) {
+        std::cerr << "Failed to get upstream branch." << std::endl;
+        return 1;
+    }
+
+    // Get the OIDs of the local and remote branches
+    const git_oid* local_oid = git_reference_target(local_ref.get());
+    const git_oid* remote_oid = git_reference_target(upstream_ref);
+
+    // Compare OIDs to check if the branches are up to date
+    return git_oid_equal(local_oid, remote_oid);
+}
+
 
 } //namespace task
