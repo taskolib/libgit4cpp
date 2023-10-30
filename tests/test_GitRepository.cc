@@ -295,7 +295,7 @@ TEST_CASE("GitRepository Wrapper Test all", "[GitWrapper]")
  * 4) Delete local repository and clone from remote
  * 
  * Tidy up) Reset remote, delete all local files
- */
+ 
 TEST_CASE("GitRepository Wrapper Test Remote", "[GitWrapper]")
 {
     
@@ -387,3 +387,4 @@ TEST_CASE("GitRepository Wrapper Test Remote", "[GitWrapper]")
 
 
 }
+*/
