@@ -1,3 +1,9 @@
+libgit4cpp-0-1-0 (0.1.1) unstable; urgency=low
+
+  * new version 
+
+ -- Jannik Woehnert <jannik.woehnert@desy.de>  Mon, 30 Oct 2023 12:20:46 +0100
+
 libgit4cpp-0-1-0 (0.1.0) unstable; urgency=low
 
   * initial debian version.
