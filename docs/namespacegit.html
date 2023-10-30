@@ -20,7 +20,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libgit4cpp
-   &#160;<span id="projectnumber">0.1.0</span>
+   &#160;<span id="projectnumber">0.1.1</span>
    </div>
   </td>
  </tr>
@@ -97,11 +97,26 @@ Functions</h2></td></tr>
 <tr class="memitem:ga896cd12acde20dadf181f4e65cfd24e1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgit_1_1LibGitPointer.html">LibGitPointer</a>&lt; git_reference &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#ga896cd12acde20dadf181f4e65cfd24e1">repository_head</a> (git_repository *repo)</td></tr>
 <tr class="memdesc:ga896cd12acde20dadf181f4e65cfd24e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collect the reference to the repository head.  <a href="group__lgptrfunc.html#ga896cd12acde20dadf181f4e65cfd24e1">More...</a><br /></td></tr>
 <tr class="separator:ga896cd12acde20dadf181f4e65cfd24e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga285e126c3534afa30ab765ea1fcc59d7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgit_1_1LibGitPointer.html">LibGitPointer</a>&lt; git_remote &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#ga285e126c3534afa30ab765ea1fcc59d7">remote_create</a> (git_repository *repo, const std::string &amp;remote_name, const std::string &amp;url)</td></tr>
+<tr class="memdesc:ga285e126c3534afa30ab765ea1fcc59d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new remote connection in the repository and returns it.  <a href="group__lgptrfunc.html#ga285e126c3534afa30ab765ea1fcc59d7">More...</a><br /></td></tr>
+<tr class="separator:ga285e126c3534afa30ab765ea1fcc59d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1a079f60f116d6aa4346a2a1cbe4a697"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgit_1_1LibGitPointer.html">LibGitPointer</a>&lt; git_remote &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#ga1a079f60f116d6aa4346a2a1cbe4a697">remote_lookup</a> (git_repository *repo, const std::string &amp;remote_name)</td></tr>
+<tr class="memdesc:ga1a079f60f116d6aa4346a2a1cbe4a697"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collects the remove connection by name and returns it.  <a href="group__lgptrfunc.html#ga1a079f60f116d6aa4346a2a1cbe4a697">More...</a><br /></td></tr>
+<tr class="separator:ga1a079f60f116d6aa4346a2a1cbe4a697"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaae9ad70ada3df44398a6f89a2e9631ed"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgit_1_1LibGitPointer.html">LibGitPointer</a>&lt; git_repository &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#gaae9ad70ada3df44398a6f89a2e9631ed">clone</a> (const std::string &amp;url, const std::string &amp;repo_path)</td></tr>
+<tr class="memdesc:gaae9ad70ada3df44398a6f89a2e9631ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clone existing git repository into local filesystem.  <a href="group__lgptrfunc.html#gaae9ad70ada3df44398a6f89a2e9631ed">More...</a><br /></td></tr>
+<tr class="separator:gaae9ad70ada3df44398a6f89a2e9631ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga99b533e0434c1b98a34e424b348c4595"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgit_1_1LibGitPointer.html">LibGitPointer</a>&lt; git_reference &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#ga99b533e0434c1b98a34e424b348c4595">branch_lookup</a> (git_repository *repo, const std::string &amp;branch_name, git_branch_t branch_type)</td></tr>
+<tr class="memdesc:ga99b533e0434c1b98a34e424b348c4595"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the reference to a branch where the name is known.  <a href="group__lgptrfunc.html#ga99b533e0434c1b98a34e424b348c4595">More...</a><br /></td></tr>
+<tr class="separator:ga99b533e0434c1b98a34e424b348c4595"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga940c39825defe26e9b9849d1f6bd99b4"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#ga940c39825defe26e9b9849d1f6bd99b4">branch_remote_name</a> (git_repository *repo, const std::string &amp;branch_name)</td></tr>
+<tr class="memdesc:ga940c39825defe26e9b9849d1f6bd99b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the name of a remote name.  <a href="group__lgptrfunc.html#ga940c39825defe26e9b9849d1f6bd99b4">More...</a><br /></td></tr>
+<tr class="separator:ga940c39825defe26e9b9849d1f6bd99b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jul 14 2023 11:55:10 for libgit4cpp by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Mon Oct 30 2023 11:21:27 for libgit4cpp by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

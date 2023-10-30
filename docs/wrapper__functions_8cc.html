@@ -20,7 +20,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libgit4cpp
-   &#160;<span id="projectnumber">0.1.0</span>
+   &#160;<span id="projectnumber">0.1.1</span>
    </div>
   </td>
  </tr>
@@ -60,19 +60,26 @@ $(function() {
 <p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.</p>
 <p>You should have received a copy of the GNU Lesser General Public License along with this program. If not, see <a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>. </p>
 </div><div class="textblock"><code>#include &lt;git2.h&gt;</code><br />
+<code>#include &lt;gul14/cat.h&gt;</code><br />
+<code>#include &lt;iostream&gt;</code><br />
 <code>#include &quot;<a class="el" href="wrapper__functions_8h_source.html">libgit4cpp/wrapper_functions.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Error_8h_source.html">libgit4cpp/Error.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for wrapper_functions.cc:</div>
 <div class="dyncontent">
 <div class="center"><img src="wrapper__functions_8cc__incl.png" border="0" usemap="#awrapper__functions_8cc" alt=""/></div>
 <map name="awrapper__functions_8cc" id="awrapper__functions_8cc">
-<area shape="rect" title="Implementation of wrappers for libgit2 functions." alt="" coords="5,5,165,32"/>
-<area shape="rect" title=" " alt="" coords="52,244,111,271"/>
-<area shape="rect" href="wrapper__functions_8h.html" title="Declaration of wrappers for libgit2 functions." alt="" coords="130,80,273,121"/>
-<area shape="rect" title=" " alt="" coords="161,244,220,271"/>
-<area shape="rect" title=" " alt="" coords="247,244,323,271"/>
-<area shape="rect" title=" " alt="" coords="391,244,451,271"/>
-<area shape="rect" href="LibGitPointer_8h.html" title="Definition of the LibGitPointer class template and declarations of associated functions." alt="" coords="170,169,355,196"/>
+<area shape="rect" title="Implementation of wrappers for libgit2 functions." alt="" coords="217,5,377,32"/>
+<area shape="rect" title=" " alt="" coords="5,244,64,271"/>
+<area shape="rect" title=" " alt="" coords="250,87,345,114"/>
+<area shape="rect" title=" " alt="" coords="369,87,449,114"/>
+<area shape="rect" href="wrapper__functions_8h.html" title="Declaration of wrappers for libgit2 functions." alt="" coords="83,80,226,121"/>
+<area shape="rect" href="Error_8h.html" title="Definition of the Error exception class." alt="" coords="474,87,606,114"/>
+<area shape="rect" title=" " alt="" coords="115,244,173,271"/>
+<area shape="rect" title=" " alt="" coords="201,244,277,271"/>
+<area shape="rect" title=" " alt="" coords="345,244,405,271"/>
+<area shape="rect" href="LibGitPointer_8h.html" title="Definition of the LibGitPointer class template and declarations of associated functions." alt="" coords="123,169,309,196"/>
+<area shape="rect" title=" " alt="" coords="497,169,583,196"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -102,17 +109,32 @@ Functions</h2></td></tr>
 <tr class="memitem:gaeb3c91566960ac8d83a35904bd8b5cae"><td class="memItemLeft" align="right" valign="top">LibGitPointer&lt; git_tree &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#gaeb3c91566960ac8d83a35904bd8b5cae">git::tree_lookup</a> (git_repository *repo, git_oid tree_id)</td></tr>
 <tr class="memdesc:gaeb3c91566960ac8d83a35904bd8b5cae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collect the current tree of the git repository.  <a href="group__lgptrfunc.html#gaeb3c91566960ac8d83a35904bd8b5cae">More...</a><br /></td></tr>
 <tr class="separator:gaeb3c91566960ac8d83a35904bd8b5cae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga285e126c3534afa30ab765ea1fcc59d7"><td class="memItemLeft" align="right" valign="top">LibGitPointer&lt; git_remote &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#ga285e126c3534afa30ab765ea1fcc59d7">git::remote_create</a> (git_repository *repo, const std::string &amp;remote_name, const std::string &amp;url)</td></tr>
+<tr class="memdesc:ga285e126c3534afa30ab765ea1fcc59d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new remote connection in the repository and returns it.  <a href="group__lgptrfunc.html#ga285e126c3534afa30ab765ea1fcc59d7">More...</a><br /></td></tr>
+<tr class="separator:ga285e126c3534afa30ab765ea1fcc59d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1a079f60f116d6aa4346a2a1cbe4a697"><td class="memItemLeft" align="right" valign="top">LibGitPointer&lt; git_remote &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#ga1a079f60f116d6aa4346a2a1cbe4a697">git::remote_lookup</a> (git_repository *repo, const std::string &amp;remote_name)</td></tr>
+<tr class="memdesc:ga1a079f60f116d6aa4346a2a1cbe4a697"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collects the remove connection by name and returns it.  <a href="group__lgptrfunc.html#ga1a079f60f116d6aa4346a2a1cbe4a697">More...</a><br /></td></tr>
+<tr class="separator:ga1a079f60f116d6aa4346a2a1cbe4a697"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac7c6fc6ba17e10d6040183604527ed60"><td class="memItemLeft" align="right" valign="top">LibGitPointer&lt; git_status_list &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#gac7c6fc6ba17e10d6040183604527ed60">git::status_list_new</a> (git_repository *repo, const git_status_options &amp;status_opt)</td></tr>
 <tr class="memdesc:gac7c6fc6ba17e10d6040183604527ed60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new status list which contains status_list_entry* elements.  <a href="group__lgptrfunc.html#gac7c6fc6ba17e10d6040183604527ed60">More...</a><br /></td></tr>
 <tr class="separator:gac7c6fc6ba17e10d6040183604527ed60"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga896cd12acde20dadf181f4e65cfd24e1"><td class="memItemLeft" align="right" valign="top">LibGitPointer&lt; git_reference &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#ga896cd12acde20dadf181f4e65cfd24e1">git::repository_head</a> (git_repository *repo)</td></tr>
 <tr class="memdesc:ga896cd12acde20dadf181f4e65cfd24e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collect the reference to the repository head.  <a href="group__lgptrfunc.html#ga896cd12acde20dadf181f4e65cfd24e1">More...</a><br /></td></tr>
 <tr class="separator:ga896cd12acde20dadf181f4e65cfd24e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaae9ad70ada3df44398a6f89a2e9631ed"><td class="memItemLeft" align="right" valign="top">LibGitPointer&lt; git_repository &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#gaae9ad70ada3df44398a6f89a2e9631ed">git::clone</a> (const std::string &amp;url, const std::string &amp;repo_path)</td></tr>
+<tr class="memdesc:gaae9ad70ada3df44398a6f89a2e9631ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clone existing git repository into local filesystem.  <a href="group__lgptrfunc.html#gaae9ad70ada3df44398a6f89a2e9631ed">More...</a><br /></td></tr>
+<tr class="separator:gaae9ad70ada3df44398a6f89a2e9631ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga99b533e0434c1b98a34e424b348c4595"><td class="memItemLeft" align="right" valign="top">LibGitPointer&lt; git_reference &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#ga99b533e0434c1b98a34e424b348c4595">git::branch_lookup</a> (git_repository *repo, const std::string &amp;branch_name, git_branch_t branch_type)</td></tr>
+<tr class="memdesc:ga99b533e0434c1b98a34e424b348c4595"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the reference to a branch where the name is known.  <a href="group__lgptrfunc.html#ga99b533e0434c1b98a34e424b348c4595">More...</a><br /></td></tr>
+<tr class="separator:ga99b533e0434c1b98a34e424b348c4595"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga940c39825defe26e9b9849d1f6bd99b4"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#ga940c39825defe26e9b9849d1f6bd99b4">git::branch_remote_name</a> (git_repository *repo, const std::string &amp;branch_name)</td></tr>
+<tr class="memdesc:ga940c39825defe26e9b9849d1f6bd99b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the name of a remote name.  <a href="group__lgptrfunc.html#ga940c39825defe26e9b9849d1f6bd99b4">More...</a><br /></td></tr>
+<tr class="separator:ga940c39825defe26e9b9849d1f6bd99b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jul 14 2023 11:55:10 for libgit4cpp by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Mon Oct 30 2023 11:21:27 for libgit4cpp by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

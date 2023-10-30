@@ -1,9 +1,13 @@
 <map id="wrapper_functions.cc" name="wrapper_functions.cc">
-<area shape="rect" id="node1" title="Implementation of wrappers for libgit2 functions." alt="" coords="5,5,165,32"/>
-<area shape="rect" id="node2" title=" " alt="" coords="52,244,111,271"/>
-<area shape="rect" id="node3" href="$wrapper__functions_8h.html" title="Declaration of wrappers for libgit2 functions." alt="" coords="130,80,273,121"/>
-<area shape="rect" id="node4" title=" " alt="" coords="161,244,220,271"/>
-<area shape="rect" id="node5" title=" " alt="" coords="247,244,323,271"/>
-<area shape="rect" id="node6" title=" " alt="" coords="391,244,451,271"/>
-<area shape="rect" id="node7" href="$LibGitPointer_8h.html" title="Definition of the LibGitPointer class template and declarations of associated functions." alt="" coords="170,169,355,196"/>
+<area shape="rect" id="node1" title="Implementation of wrappers for libgit2 functions." alt="" coords="217,5,377,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,244,64,271"/>
+<area shape="rect" id="node3" title=" " alt="" coords="250,87,345,114"/>
+<area shape="rect" id="node4" title=" " alt="" coords="369,87,449,114"/>
+<area shape="rect" id="node5" href="$wrapper__functions_8h.html" title="Declaration of wrappers for libgit2 functions." alt="" coords="83,80,226,121"/>
+<area shape="rect" id="node10" href="$Error_8h.html" title="Definition of the Error exception class." alt="" coords="474,87,606,114"/>
+<area shape="rect" id="node6" title=" " alt="" coords="115,244,173,271"/>
+<area shape="rect" id="node7" title=" " alt="" coords="201,244,277,271"/>
+<area shape="rect" id="node8" title=" " alt="" coords="345,244,405,271"/>
+<area shape="rect" id="node9" href="$LibGitPointer_8h.html" title="Definition of the LibGitPointer class template and declarations of associated functions." alt="" coords="123,169,309,196"/>
+<area shape="rect" id="node11" title=" " alt="" coords="497,169,583,196"/>
 </map>
