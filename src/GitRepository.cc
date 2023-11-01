@@ -170,10 +170,7 @@ void GitRepository::commit_initial()
         );
 
     if (error)
-    {
-        std::cout << git_error_last()->message;
-        throw git::Error("initial commit failed");
-    }
+        throw git::Error(gul14::cat("initial commit failed: ", git_error_last()->message));
 }
 
 void GitRepository::commit(const std::string& commit_message)
@@ -205,10 +202,7 @@ void GitRepository::commit(const std::string& commit_message)
     );
 
     if (error)
-    {
-        std::cout << git_error_last()->message;
         throw git::Error(gul14::cat("commit: ", git_error_last()->message));
-    }
 }
 
 void GitRepository::add()
@@ -221,7 +215,7 @@ void GitRepository::add()
 
     //add all
     int error = git_index_add_all(gindex.get(), &array, GIT_INDEX_ADD_DEFAULT, nullptr, nullptr);
-    if (error) throw git::Error("Cannot stage files.");
+    if (error) throw git::Error(gul14::cat("Cannot stage files.", git_error_last()->message));
 
     // save addition
     git_index_write(gindex.get());
@@ -234,11 +228,11 @@ void GitRepository::remove_directory(const std::filesystem::path& seq_directory)
 
     //remove files from directory
     int error = git_index_remove_directory(gindex.get(), seq_directory.c_str(), 0);
-    if (error) throw git::Error("Cannot remove sequence files.");
+    if (error) throw git::Error(gul14::cat("Cannot remove sequence directory.", git_error_last()->message));
 
     // remove sequence directory from git
     error = git_index_remove_bypath(gindex.get(), (std::string(seq_directory)+"/").c_str());
-    if (error) throw git::Error("Cannot remove sequence directory.");
+    if (error) throw git::Error(gul14::cat("Cannot remove sequence files", git_error_last()->message));
 
     git_index_write(gindex.get());
 
@@ -259,7 +253,7 @@ LibGitPointer<git_commit> GitRepository::get_commit(const std::string& ref)
 
     // resolve HEAD into a SHA1
     int error = git_reference_name_to_id( &oid_parent_commit, repo_.get(), ref.c_str());
-    if (error) throw git::Error("Cannot find HEAD of branch.");
+    if (error) throw git::Error(gul14::cat("Cannot find ID from reference name: ", git_error_last()->message));
 
     // find commit object by commit ID
     error = git_commit_lookup( &commit, repo_.get(), &oid_parent_commit );
