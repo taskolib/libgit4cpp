@@ -77,6 +77,7 @@ TEST_CASE("GitRepository Wrapper Test all", "[GitWrapper]")
     */
     SECTION("Construct GitRepository object")
     {
+        // tidy up
         std::filesystem::remove_all("sequences");
 
         create_testfiles("unit_test_1", 2, "Construct");
@@ -236,7 +237,47 @@ TEST_CASE("GitRepository Wrapper Test all", "[GitWrapper]")
                 REQUIRE(elm.changes == "unchanged");
             }
         }
+
+        gl.commit("Add by path");
     }
+
+    SECTION("Delete file")
+    {
+        // Create Git Library
+        GitRepository gl{"sequences"};
+
+        std::filesystem::path myfile = "unit_test_2/file1.txt";
+
+        gl.remove_files({myfile});
+
+        std::vector<FileStatus> stats = gl.status();
+
+        // every file in unit_test_2 should have the tag deleted
+        REQUIRE(stats.size() != 0);
+        for(const auto& elm: stats)
+        {
+            if (gul14::starts_with(elm.path_name, "unit_test_2/file1.txt"))
+            {
+                REQUIRE(elm.handling == "staged");
+                REQUIRE(elm.changes == "deleted");
+            }
+        }
+
+        gl.commit("remove file");
+
+
+        std::filesystem::remove("sequences/unit_test_2/file1.txt");
+    }
+
+    /**
+     * TODO: Fuktionalitaet von git reset implementieren
+    SECTION("Get previous commit")
+    {
+        GitRepository gl{"sequences"};
+
+        gl.
+    }
+    */
 
     /**
      * remove a directory and check if the repository status notices
@@ -276,13 +317,9 @@ TEST_CASE("GitRepository Wrapper Test all", "[GitWrapper]")
         REQUIRE(stats.size() != 0);
         for(const auto& elm: stats)
         {
-            REQUIRE (! gul14::starts_with(elm.path_name, "unit_test_2/file"));
+            if (gul14::starts_with(elm.path_name, "unit_test_2/file"))
+                REQUIRE (elm.changes == "untracked");
         }
-
-        // check if path got removed
-        REQUIRE(not std::filesystem::exists("sequences" / mypath));
-
-        //std::filesystem::remove_all("sequences");
     }
 }
 

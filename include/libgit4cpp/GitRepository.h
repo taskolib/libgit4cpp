@@ -110,35 +110,42 @@ public:
     void reset(int nr_of_commits);
 
     /**
-     * push commits to a sequernce repository
+     * push commits to a sequernce repository.
      * \param addr: address of the git repository host
     */
     void push();
 
     /**
-     * pull changes from a sequence repository
+     * pull changes from a sequence repository.
      * \param addr: address of the git repository host
     */
     void pull();
 
     /**
-     * clone a sequence repository
+     * clone a sequence repository.
      * \param addr: address of the git repository host
     */
     void clone_repo(const std::string& url, const std::filesystem::path& repo_path );
 
     /**
-     * Check if remote and local branch are in same state
+     * Check if remote and local branch are in same state.
      * \param branch_name 
     */
     bool branch_up_to_date(const std::string& branch_name);
 
     /**
-     * Deletes seq_repository and all files within.
+     * Deletes seq_repository and all files within from git index.
      * \param directory: directory holding sequence
      * \attention directory is a relative path within repo_path_
      */
     void remove_directory(const std::filesystem::path& directory);
+
+    /**
+     * Delete specific files from git index.
+     * \param filepaths list of files
+     * \attention files in filepaths are relative to repo_path_
+    */
+    void remove_files(const std::vector<std::filesystem::path>& filepaths);
 
     /**
      * Returns current git status.
