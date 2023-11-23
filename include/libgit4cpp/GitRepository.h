@@ -29,6 +29,7 @@
 #include <string>
 #include <vector>
 
+#include <gul14/optional.h>
 #include <git2.h>
 
 #include "libgit4cpp/LibGitPointer.h"
@@ -36,13 +37,30 @@
 namespace git {
 
 /**
- * Struct to express the git status for one file
+ * Struct to express the git status for one file.
  */
 struct FileStatus
 {
     std::string path_name; ///relative path to file. If the path changed this value will have the shape "OLD_NAME -> NEW_NAME".
     std::string handling;  ///Handling status of file [unchanged, unstaged, staged, untracked, ignored]
     std::string changes;   ///Change status of file [new file, deleted, renamed, typechanged, modified, unchanged, ignored, untracked]
+};
+
+/// enum class to list the handling status of file
+enum class gitFileHandling {unchanged, unstaged, staged, untracked, ignored};
+
+/// enum class to list the change status of file
+enum class gitFileChanges {newFile, deleted, renamed, typechanged, modified, unchanged, ignored, untracked};
+
+/**
+ * Struct to express the git status for one file by using enumerators
+*/
+struct FileStatusEnum
+{
+    gul14::optional<std::string> old_path; ///old path of file, used in case of renamed or deleted file
+    gul14::optional<std::string> new_path; ///new/current path of file
+    gitFileHandling handling;              ///handling status as enum
+    gitFileChanges changes;                ///change status as enum
 };
 
 /**
@@ -223,6 +241,13 @@ private:
      * \return A vector of dynamic length which contains a status struct
      */
     std::vector<FileStatus> collect_status(LibGitPointer<git_status_list>& status) const;
+
+    /**
+     * Translate all status information for each submodule in git path into an enum.
+     * \param status: C-type status of all submodules from libgit
+     * \return A vector of dynamic length which contains a status struct
+    */
+    std::vector<FileStatusEnum> collect_status_as_enum(LibGitPointer<git_status_list>& status) const;
 
     /**
      * Update the tracked files in the repository.

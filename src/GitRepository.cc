@@ -341,6 +341,144 @@ bool GitRepository::is_staged(FileStatus& filestats, const git_status_entry* s)
     return false;
 }
 
+std::vector<FileStatusEnum> GitRepository::collect_status_as_enum(LibGitPointer<git_status_list>& status) const
+{
+    // get number of submodules
+    const size_t nr_entries = git_status_list_entrycount(status.get());
+
+    // declare status holding vector for each submodule
+    std::vector<FileStatusEnum> return_array;
+    FileStatusEnum filestats;
+
+    for (size_t i = 0; i < nr_entries; ++i)
+    {
+        // init status from C library
+        const git_status_entry *s = nullptr;
+        s = git_status_byindex(status.get(), i);
+
+        // set path
+        filestats.old_path = s->head_to_index->old_file.path ? std::string{s->head_to_index->old_file.path} : nullptr;
+        filestats.new_path = s->head_to_index->new_file.path ? std::string{s->head_to_index->new_file.path} : nullptr;
+
+        
+
+        // list files which exists but are untouched since last commit
+        //############################################################
+        if (s->status == GIT_STATUS_CURRENT)
+        {
+            filestats.handling = gitFileHandling::unchanged;
+            filestats.changes = gitFileChanges::unchanged;
+
+            return_array.push_back(filestats);
+            continue;
+        }
+
+        // list files which were touched but stil are unchanged
+        //#####################################################
+
+        if (s->status & GIT_STATUS_WT_MODIFIED)
+        {
+            filestats.handling = gitFileHandling::unstaged;
+            filestats.changes = gitFileChanges::modified;
+
+            return_array.push_back(filestats);
+            continue;
+        }
+        if (s->status & GIT_STATUS_WT_DELETED)
+        {
+            filestats.handling = gitFileHandling::unstaged;
+            filestats.changes = gitFileChanges::deleted;
+
+            return_array.push_back(filestats);
+            continue;
+        }
+        if (s->status & GIT_STATUS_WT_RENAMED)
+        {
+            filestats.handling = gitFileHandling::unstaged;
+            filestats.changes = gitFileChanges::renamed;
+
+            return_array.push_back(filestats);
+            continue;
+        }
+        if (s->status & GIT_STATUS_WT_TYPECHANGE)
+        {
+            filestats.handling = gitFileHandling::unstaged;
+            filestats.changes = gitFileChanges::renamed;
+
+            return_array.push_back(filestats);
+            continue;
+        }
+
+        // list files which are staged for next commit
+        //############################################
+
+        if (s->status & GIT_STATUS_INDEX_NEW)
+        {
+            filestats.handling = gitFileHandling::staged;
+            filestats.changes = gitFileChanges::newFile;
+
+            return_array.push_back(filestats);
+            continue;
+        }
+        if (s->status & GIT_STATUS_INDEX_MODIFIED)
+        {
+            filestats.handling = gitFileHandling::staged;
+            filestats.changes = gitFileChanges::modified;
+
+            return_array.push_back(filestats);
+            continue;
+        }
+        if (s->status & GIT_STATUS_INDEX_DELETED)
+        {
+            filestats.handling = gitFileHandling::staged;
+            filestats.changes = gitFileChanges::deleted;
+
+            return_array.push_back(filestats);
+            continue;
+        }
+        if (s->status & GIT_STATUS_INDEX_RENAMED)
+        {
+            filestats.handling = gitFileHandling::staged;
+            filestats.changes = gitFileChanges::renamed;
+
+            return_array.push_back(filestats);
+            continue;
+        }
+        if (s->status & GIT_STATUS_INDEX_TYPECHANGE)
+        {
+            filestats.handling = gitFileHandling::staged;
+            filestats.changes = gitFileChanges::typechanged;
+
+            return_array.push_back(filestats);
+            continue;
+        }
+
+        // list untracked files
+        //######################
+        if (s->status == GIT_STATUS_WT_NEW)
+        {
+
+            filestats.handling = gitFileHandling::untracked;
+            filestats.changes = gitFileChanges::untracked;
+
+            return_array.push_back(filestats);
+            continue;
+        }
+
+        // list ignored files
+        //####################
+        if (s->status == GIT_STATUS_IGNORED) {
+
+            filestats.handling = gitFileHandling::ignored;
+            filestats.changes = gitFileChanges::ignored;
+
+            return_array.push_back(filestats);
+            continue;
+        }
+    }
+    return return_array;
+}
+
 std::vector<FileStatus> GitRepository::collect_status(LibGitPointer<git_status_list>& status) const
 {
     // get number of submodules
