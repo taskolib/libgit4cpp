@@ -170,7 +170,7 @@ void GitRepository::commit_initial()
         );
 
     if (error)
-        throw git::Error(gul14::cat("initial commit failed: ", git_error_last()->message, "\n"));
+        throw git::Error(gul14::cat("Initial commit failed: ", git_error_last()->message, "\n"));
 }
 
 void GitRepository::commit(const std::string& commit_message)
@@ -202,7 +202,7 @@ void GitRepository::commit(const std::string& commit_message)
     );
 
     if (error)
-        throw git::Error(gul14::cat("commit: ", git_error_last()->message, "\n"));
+        throw git::Error(gul14::cat("Commit: ", git_error_last()->message, "\n"));
 }
 
 void GitRepository::add()
@@ -215,7 +215,7 @@ void GitRepository::add()
 
     //add all
     int error = git_index_add_all(gindex.get(), &array, GIT_INDEX_ADD_DEFAULT, nullptr, nullptr);
-    if (error) throw git::Error(gul14::cat("Cannot stage files.", git_error_last()->message, "\n"));
+    if (error) throw git::Error(gul14::cat("Cannot stage files: ", git_error_last()->message, "\n"));
 
     // save addition
     git_index_write(gindex.get());
@@ -228,7 +228,7 @@ void GitRepository::remove_directory(const std::filesystem::path& seq_directory)
 
     // remove sequence directory from git
     int error = git_index_remove_directory(gindex.get(), seq_directory.c_str(), 0);
-    if (error) throw git::Error(gul14::cat("Cannot remove sequence directory.", git_error_last()->message, "\n"));
+    if (error) throw git::Error(gul14::cat("Cannot remove sequence directory: ", git_error_last()->message, "\n"));
 
     git_index_write(gindex.get());
 }
@@ -472,7 +472,7 @@ void GitRepository::reset(int nr_of_commits)
     const LibGitPointer<git_commit> parent_commit = get_commit(nr_of_commits);
 
     int error = git_reset(repo_.get(), (git_object*) parent_commit.get(), GIT_RESET_HARD, nullptr);
-    if (error) throw git::Error(gul14::cat("reset: ", git_error_last()->message, "\n"));
+    if (error) throw git::Error(gul14::cat("Reset: ", git_error_last()->message, "\n"));
 }
 
 void GitRepository::push()
@@ -480,7 +480,7 @@ void GitRepository::push()
     // set options
     git_push_options gpush;
     int error = git_push_init_options(&gpush, GIT_PUSH_OPTIONS_VERSION);
-    if (error) throw git::Error(gul14::cat("init push: ", git_error_last()->message, "\n"));
+    if (error) throw git::Error(gul14::cat("Init push: ", git_error_last()->message, "\n"));
 
     // set remote
     /*
@@ -490,7 +490,7 @@ void GitRepository::push()
 
     // push to upstream
     error = git_remote_push(remote_.get(), nullptr, &gpush);
-    if (error) throw git::Error(gul14::cat("push remote: ", git_error_last()->message, "\n"));
+    if (error) throw git::Error(gul14::cat("Push remote: ", git_error_last()->message, "\n"));
 }
 
 
@@ -507,7 +507,7 @@ void GitRepository::pull()
     
     // fetch commits from remote connection
     int error = git_remote_fetch( remote_.get(), NULL, &options, NULL );
-    if (error) throw git::Error(gul14::cat("pull: ", git_error_last()->message, "\n"));
+    if (error) throw git::Error(gul14::cat("Pull: ", git_error_last()->message, "\n"));
 
     // git_apply, if failed git_merge
     // TODO
@@ -537,7 +537,7 @@ bool GitRepository::branch_up_to_date(const std::string& branch_name)
 {
     // Lookup the local branch reference
     LibGitPointer<git_reference> local_ref = branch_lookup(repo_.get(), "master", GIT_BRANCH_LOCAL);
-    if (local_ref.get() == nullptr) throw git::Error(gul14::cat("branch lookup: ", git_error_last()->message, "\n"));
+    if (local_ref.get() == nullptr) throw git::Error(gul14::cat("Branch lookup: ", git_error_last()->message, "\n"));
 
     // Get the name of the remote associated with the local branch
     //TODO: wrapper for buffer?
