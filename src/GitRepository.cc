@@ -176,11 +176,11 @@ void GitRepository::commit(const std::string& commit_message)
         throw git::Error{ gul14::cat("Commit: ", git_error_last()->message, "\n") };
 }
 
-void GitRepository::add()
+void GitRepository::add(const std::string& glob)
 {
     auto gindex = repository_index(repo_.get());
 
-    char* paths[1] = { const_cast<char*>("*") };
+    char *paths[] = { const_cast<char*>(glob.c_str()) };
     git_strarray array = { paths, 1 };
 
     int error = git_index_add_all(gindex.get(), &array, GIT_INDEX_ADD_DEFAULT, nullptr, nullptr);
