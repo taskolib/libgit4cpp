@@ -81,6 +81,12 @@ public:
     void add(const std::string& glob = "*");
 
     /**
+     * Update the tracked files in the repository.
+     * This member function stages all changes of already tracked files in the repository.
+     */
+    void update(const std::string& glob = "*");
+
+    /**
      * Stage specific files listed in filepaths.
      * \param filepaths List of files. Either relative to repository root or absolute.
      * \return list of indices. An index from the filepaths vector is returned if
@@ -240,12 +246,6 @@ private:
      * \return A vector of dynamic length which contains a status struct
      */
     std::vector<FileStatus> collect_status(LibGitPointer<git_status_list>& status) const;
-
-    /**
-     * Update the tracked files in the repository.
-     * This member function stages all changes of already tracked files in the repository.
-     */
-    void update();
 
     /**
      * Basic construction code, extracted because of constructor overload

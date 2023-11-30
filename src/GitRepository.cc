@@ -87,11 +87,11 @@ git_repository* GitRepository::get_repo()
     return repo_.get();
 }
 
-void GitRepository::update()
+void GitRepository::update(const std::string& glob)
 {
     auto index = repository_index(repo_.get());
 
-    char* paths[1] = { const_cast<char*>("*") };
+    char *paths[1] = {const_cast<char*>(glob.c_str())};
     git_strarray array = { paths, 1 };
 
     // update index to check for files
