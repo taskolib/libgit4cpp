@@ -78,7 +78,7 @@ public:
     git_repository* get_repo();
 
     /// Stage all new and changed files and folders in the repository directory.
-    void add();
+    void add(const std::string& glob = "*");
 
     /**
      * Stage specific files listed in filepaths.
