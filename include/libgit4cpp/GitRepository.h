@@ -112,7 +112,7 @@ public:
      * Hard reset of repository.
      * \param nr_of_commits number of commits to jump back
     */
-    void reset(int nr_of_commits);
+    void reset(unsigned int nr_of_commits);
 
     /**
      * Push commits to the repository.
