@@ -41,7 +41,8 @@ GitRepository::GitRepository(const std::filesystem::path& file_path, const std::
 
     //check if remote already exists, else create new remote
     LibGitPointer<git_remote> remote_ = remote_lookup(repo_.get(), "origin");
-    if (remote_.get() == nullptr) remote_ = remote_create(repo_.get(), "origin", url.c_str());
+    if (remote_.get() == nullptr)
+        remote_ = remote_create(repo_.get(), "origin", url.c_str());
 }
 
 GitRepository::GitRepository(const std::filesystem::path& file_path)
@@ -64,7 +65,7 @@ void GitRepository::construct(const std::filesystem::path& file_path)
 void GitRepository::make_signature()
 {
     my_signature_ = signature_default(repo_.get());
-    if (my_signature_.get()==nullptr)
+    if (my_signature_.get() == nullptr)
         my_signature_ = signature_new("Taskomat", "(none)", std::time(0), 0);
 }
 
@@ -84,11 +85,10 @@ void GitRepository::reset_repo()
     init(repo_path_);
 }
 
-
 std::string GitRepository::get_last_commit_message()
 {
     const LibGitPointer<git_commit> commit = get_commit();
-    return std::string(git_commit_message(commit.get()));
+    return git_commit_message(commit.get());
 }
 
 std::filesystem::path GitRepository::get_path() const
@@ -105,8 +105,8 @@ void GitRepository::update()
 {
     LibGitPointer<git_index> index{repository_index(repo_.get())};
 
-    char *paths[] = {const_cast<char*>("*")};
-    git_strarray array = {paths, 1};
+    char* paths[1] = { const_cast<char*>("*") };
+    git_strarray array = { paths, 1 };
 
     // update index to check for files
     git_index_update_all(index.get(), &array, nullptr, nullptr);
@@ -117,28 +117,21 @@ void GitRepository::init(const std::filesystem::path& file_path)
 {
     repo_ = repository_open(repo_path_);
 
-    // if repository does not exist
     if (repo_.get() == nullptr)
     {
-
         // create repository
-        //2nd argument: false so that .git folder is created in given path
+        // 2nd argument: false so that .git folder is created in given path
         repo_ = repository_init(file_path, false);
-        if (repo_.get()==nullptr) throw git::Error("Git init failed");
+        if (repo_.get() == nullptr)
+            throw git::Error{ "Git init failed" };
 
-        // create signature
         make_signature();
-
-        // update files in directory
         update();
 
-        // make initial commit
         commit_initial();
     }
-    // if repository already exists
     else
     {
-        // initialize the signature
         make_signature();
     }
 }
@@ -146,16 +139,12 @@ void GitRepository::init(const std::filesystem::path& file_path)
 void GitRepository::commit_initial()
 {
     // prepare gitlib data types
-    LibGitPointer<git_index> index{repository_index(repo_.get())};
+    LibGitPointer<git_index> index{ repository_index(repo_.get()) };
     git_oid tree_id, commit_id;
 
-    // write tree
     git_index_write_tree(&tree_id, index.get());
+    LibGitPointer<git_tree> tree{ tree_lookup(repo_.get(), tree_id) };
 
-    // get tree structure for commit
-    LibGitPointer<git_tree> tree{tree_lookup(repo_.get(), tree_id)};
-
-    // commit
     int error = git_commit_create(
         &commit_id,
         repo_.get(),
@@ -167,15 +156,14 @@ void GitRepository::commit_initial()
         tree.get(),
         0,
         nullptr
-        );
+    );
 
     if (error)
-        throw git::Error(gul14::cat("Initial commit failed: ", git_error_last()->message, "\n"));
+        throw git::Error{ gul14::cat("Initial commit failed: ", git_error_last()->message, "\n") };
 }
 
 void GitRepository::commit(const std::string& commit_message)
 {
-    //get HEAD commit
     LibGitPointer<git_commit> parent_commit = get_commit();
     const git_commit* raw_commit = parent_commit.get();
 
@@ -183,11 +171,9 @@ void GitRepository::commit(const std::string& commit_message)
     LibGitPointer<git_index> index{repository_index(repo_.get())};
     git_oid tree_id, commit_id;
 
-    // get tree
     git_index_write_tree(&tree_id, index.get());
     LibGitPointer<git_tree> tree{tree_lookup(repo_.get(), tree_id)};
 
-    // create commit
     int error = git_commit_create(
         &commit_id,
         repo_.get(),
@@ -202,48 +188,45 @@ void GitRepository::commit(const std::string& commit_message)
     );
 
     if (error)
-        throw git::Error(gul14::cat("Commit: ", git_error_last()->message, "\n"));
+        throw git::Error{ gul14::cat("Commit: ", git_error_last()->message, "\n") };
 }
 
 void GitRepository::add()
 {
-    //load index of last commit
-    LibGitPointer<git_index> gindex{repository_index(repo_.get())};
+    LibGitPointer<git_index> gindex{ repository_index(repo_.get()) };
 
-    char *paths[] = {const_cast<char*>("*")};
-    git_strarray array = {paths, 1};
+    char* paths[1] = { const_cast<char*>("*") };
+    git_strarray array = { paths, 1 };
 
-    //add all
     int error = git_index_add_all(gindex.get(), &array, GIT_INDEX_ADD_DEFAULT, nullptr, nullptr);
-    if (error) throw git::Error(gul14::cat("Cannot stage files: ", git_error_last()->message, "\n"));
+    if (error)
+        throw git::Error{ gul14::cat("Cannot stage files: ", git_error_last()->message, "\n") };
 
-    // save addition
     git_index_write(gindex.get());
 }
 
-void GitRepository::remove_directory(const std::filesystem::path& seq_directory)
+void GitRepository::remove_directory(const std::filesystem::path& directory)
 {
-    //load index of last commit
-    LibGitPointer<git_index> gindex{repository_index(repo_.get())};
+    LibGitPointer<git_index> gindex{ repository_index(repo_.get()) };
 
-    // remove sequence directory from git
-    int error = git_index_remove_directory(gindex.get(), seq_directory.c_str(), 0);
-    if (error) throw git::Error(gul14::cat("Cannot remove sequence directory: ", git_error_last()->message, "\n"));
+    int error = git_index_remove_directory(gindex.get(), directory.c_str(), 0);
+    if (error)
+        throw git::Error{ gul14::cat("Cannot remove directory: ", git_error_last()->message, "\n") };
 
     git_index_write(gindex.get());
 }
 
 void GitRepository::remove_files(const std::vector<std::filesystem::path>& filepaths)
 {
-    //load index of last commit
-    LibGitPointer<git_index> gindex{repository_index(repo_.get())};
+    LibGitPointer<git_index> gindex{ repository_index(repo_.get()) };
 
     //remove files from directory
     //TODO: Teste, ob oberer Teil ausreicht
     for (auto gfile: filepaths)
     {
         int error = git_index_remove_bypath(gindex.get(), gfile.c_str());
-        if (error) throw git::Error(gul14::cat("Cannot remove sequence file: ", git_error_last()->message, "\n"));
+        if (error)
+            throw git::Error{ gul14::cat("Cannot remove file: ", git_error_last()->message, "\n") };
     }
 
     git_index_write(gindex.get());
@@ -257,23 +240,25 @@ LibGitPointer<git_commit> GitRepository::get_commit(int count)
 
 LibGitPointer<git_commit> GitRepository::get_commit(const std::string& ref)
 {
-    git_commit * commit;
+    git_commit* commit;
     git_oid oid_parent_commit;
 
     // resolve HEAD into a SHA1
     int error = git_reference_name_to_id( &oid_parent_commit, repo_.get(), ref.c_str());
-    if (error) throw git::Error(gul14::cat("Cannot find ID from reference name: ", git_error_last()->message, "\n"));
+    if (error)
+        throw git::Error{ gul14::cat("Cannot find ID from reference name: ", git_error_last()->message, "\n") };
 
     // find commit object by commit ID
-    error = git_commit_lookup( &commit, repo_.get(), &oid_parent_commit );
-    if (error) throw git::Error("Cannot find HEAD of branch.");
+    error = git_commit_lookup( &commit, repo_.get(), &oid_parent_commit);
+    if (error)
+        throw git::Error{ "Cannot find HEAD of branch." };
 
     return commit;
 }
 
 LibGitPointer<git_commit> GitRepository::get_commit()
 {
-    return get_commit(std::string{"HEAD"});
+    return get_commit(std::string{ "HEAD" });
 }
 
 bool GitRepository::is_unstaged(FileStatus& filestats, const git_status_entry* s)
@@ -289,22 +274,21 @@ bool GitRepository::is_unstaged(FileStatus& filestats, const git_status_entry* s
     if (s->status & GIT_STATUS_WT_TYPECHANGE)
         wstatus = "typechange";
 
-    if (wstatus != "")
-    {
-        filestats.handling = "unstaged";
-        filestats.changes = std::string{wstatus};
+    if (wstatus.empty())
+        return false;
 
-        const char *old_path = s->index_to_workdir->old_file.path;
-        const char *new_path = s->index_to_workdir->new_file.path;
+    filestats.handling = "unstaged";
+    filestats.changes = wstatus;
 
-        if (old_path && new_path && strcmp(old_path, new_path))
-            filestats.path_name = gul14::cat(old_path, " -> ", new_path);
-        else
-            filestats.path_name = old_path ? std::string{old_path} : std::string{new_path};
+    const char* old_path = s->index_to_workdir->old_file.path;
+    const char* new_path = s->index_to_workdir->new_file.path;
 
-        return true;
-    }
-    return false;
+    if (old_path && new_path && strcmp(old_path, new_path))
+        filestats.path_name = gul14::cat(old_path, " -> ", new_path);
+    else
+        filestats.path_name = old_path ? old_path : new_path;
+
+    return true;
 }
 
 bool GitRepository::is_staged(FileStatus& filestats, const git_status_entry* s)
@@ -322,23 +306,21 @@ bool GitRepository::is_staged(FileStatus& filestats, const git_status_entry* s)
     if (s->status & GIT_STATUS_INDEX_TYPECHANGE)
         istatus = "typechange";
 
-    if (istatus != "")
-    {
+    if (istatus.empty())
+        return false;
 
-        filestats.handling = "staged";
-        filestats.changes = std::string{istatus};
+    filestats.handling = "staged";
+    filestats.changes = std::string{istatus};
 
-        const char *old_path = s->head_to_index->old_file.path;
-        const char *new_path = s->head_to_index->new_file.path;
+    const char* old_path = s->head_to_index->old_file.path;
+    const char* new_path = s->head_to_index->new_file.path;
 
-        if (old_path && new_path && strcmp(old_path, new_path))
-            filestats.path_name = gul14::cat(old_path, " -> ", new_path);
-        else
-            filestats.path_name = old_path ? std::string{old_path} : std::string{new_path};
+    if (old_path && new_path && strcmp(old_path, new_path))
+        filestats.path_name = gul14::cat(old_path, " -> ", new_path);
+    else
+        filestats.path_name = old_path ? old_path : new_path;
 
-        return true;
-    }
-    return false;
+    return true;
 }
 
 std::vector<FileStatus> GitRepository::collect_status(LibGitPointer<git_status_list>& status) const
@@ -352,14 +334,12 @@ std::vector<FileStatus> GitRepository::collect_status(LibGitPointer<git_status_l
 
     for (size_t i = 0; i < nr_entries; ++i)
     {
-        const git_status_entry *s = nullptr;
-        const char *old_path = nullptr;
-        const char *new_path = nullptr;
+        const git_status_entry* s = git_status_byindex(status.get(), i);
+        const char* old_path = nullptr;
+        const char* new_path = nullptr;
 
         std::string istatus = "";
         std::string wstatus = "";
-
-        s = git_status_byindex(status.get(), i);
 
         // list files which exists but are untouched since last commit
         //############################################################
@@ -371,7 +351,7 @@ std::vector<FileStatus> GitRepository::collect_status(LibGitPointer<git_status_l
             old_path = s->head_to_index->old_file.path;
             new_path = s->head_to_index->new_file.path;
 
-            filestats.path_name = old_path ? std::string{old_path} : std::string{new_path};
+            filestats.path_name = old_path ? old_path : new_path;
 
             return_array.push_back(filestats);
 
@@ -404,7 +384,7 @@ std::vector<FileStatus> GitRepository::collect_status(LibGitPointer<git_status_l
 
             filestats.handling = "untracked";
             filestats.changes = "untracked";
-            filestats.path_name = std::string(s->index_to_workdir->old_file.path);
+            filestats.path_name = s->index_to_workdir->old_file.path;
 
             return_array.push_back(filestats);
 
@@ -417,7 +397,7 @@ std::vector<FileStatus> GitRepository::collect_status(LibGitPointer<git_status_l
 
             filestats.handling = "ignored";
             filestats.changes = "ignored";
-            filestats.path_name = std::string(s->index_to_workdir->old_file.path);
+            filestats.path_name = s->index_to_workdir->old_file.path;
 
             return_array.push_back(filestats);
 
@@ -429,16 +409,15 @@ std::vector<FileStatus> GitRepository::collect_status(LibGitPointer<git_status_l
 
 std::vector<FileStatus> GitRepository::status()
 {
-    // declare status options
     git_status_options status_opt = GIT_STATUS_OPTIONS_INIT;
     status_opt.flags =  GIT_STATUS_OPT_INCLUDE_UNTRACKED |          // untracked files
                         GIT_STATUS_OPT_RECURSE_UNTRACKED_DIRS |     // untracked directories
                         GIT_STATUS_OPT_INCLUDE_UNMODIFIED |         // unmodified files
                         GIT_STATUS_OPT_INCLUDE_IGNORED;             // ignored files
 
-    // fill C-type status pointer
     LibGitPointer<git_status_list> my_status{status_list_new(repo_.get(), status_opt)};
-    if (my_status.get() == nullptr) throw git::Error("Cannot init status.");
+    if (my_status.get() == nullptr)
+        throw git::Error{ "Cannot initialize status." };
 
     // translate status pointer to redable status information
     std::vector<FileStatus> status_arr = collect_status(my_status);
@@ -448,12 +427,10 @@ std::vector<FileStatus> GitRepository::status()
 
 std::vector<int> GitRepository::add_files(const std::vector<std::filesystem::path>& filepaths)
 {
-    //load index of last commit
-    LibGitPointer<git_index> gindex{repository_index(repo_.get())};
+    LibGitPointer<git_index> gindex{ repository_index(repo_.get()) };
 
     size_t v_len = filepaths.size();
 
-    //iterate and add every file bypath
     std::vector <int> error_list;
     for (size_t i = 0; i < v_len; i++)
     {
@@ -461,7 +438,6 @@ std::vector<int> GitRepository::add_files(const std::vector<std::filesystem::pat
         if (error) error_list.push_back(i);
     }
 
-    // save addition
     git_index_write(gindex.get());
 
     return error_list;
@@ -472,7 +448,8 @@ void GitRepository::reset(int nr_of_commits)
     const LibGitPointer<git_commit> parent_commit = get_commit(nr_of_commits);
 
     int error = git_reset(repo_.get(), (git_object*) parent_commit.get(), GIT_RESET_HARD, nullptr);
-    if (error) throw git::Error(gul14::cat("Reset: ", git_error_last()->message, "\n"));
+    if (error)
+        throw git::Error{ gul14::cat("Reset: ", git_error_last()->message, "\n") };
 }
 
 void GitRepository::push()
@@ -480,7 +457,8 @@ void GitRepository::push()
     // set options
     git_push_options gpush;
     int error = git_push_init_options(&gpush, GIT_PUSH_OPTIONS_VERSION);
-    if (error) throw git::Error(gul14::cat("Init push: ", git_error_last()->message, "\n"));
+    if (error)
+        throw git::Error{ gul14::cat("Init push: ", git_error_last()->message, "\n") };
 
     // set remote
     /*
@@ -490,7 +468,8 @@ void GitRepository::push()
 
     // push to upstream
     error = git_remote_push(remote_.get(), nullptr, &gpush);
-    if (error) throw git::Error(gul14::cat("Push remote: ", git_error_last()->message, "\n"));
+    if (error)
+        throw git::Error{ gul14::cat("Push remote: ", git_error_last()->message, "\n") };
 }
 
 
@@ -504,10 +483,11 @@ void GitRepository::pull()
     LibGitPointer<git_remote> remote {remote_lookup(repo_.get(), "origin")};
     if (remote.get() == nullptr) throw git::Error(gul14::cat("Cannot find remote object."));
     */
-    
+
     // fetch commits from remote connection
     int error = git_remote_fetch( remote_.get(), NULL, &options, NULL );
-    if (error) throw git::Error(gul14::cat("Pull: ", git_error_last()->message, "\n"));
+    if (error)
+        throw git::Error{ gul14::cat("Pull: ", git_error_last()->message, "\n") };
 
     // git_apply, if failed git_merge
     // TODO
@@ -521,7 +501,10 @@ void GitRepository::pull()
 void GitRepository::clone_repo(const std::string& url, const std::filesystem::path& repo_path )
 {
     LibGitPointer<git_repository> repo = clone(url, repo_path);
-    if (repo.get() == nullptr) throw git::Error(gul14::cat("Cannot clone repository."));
+    if (repo.get() == nullptr)
+    {
+        throw git::Error{ gul14::cat("Cannot clone repository.") };
+    }
     else
     {
         url_ = url;
@@ -535,18 +518,20 @@ void GitRepository::clone_repo(const std::string& url, const std::filesystem::pa
 
 bool GitRepository::branch_up_to_date(const std::string& branch_name)
 {
-    // Lookup the local branch reference
     LibGitPointer<git_reference> local_ref = branch_lookup(repo_.get(), "master", GIT_BRANCH_LOCAL);
-    if (local_ref.get() == nullptr) throw git::Error(gul14::cat("Branch lookup: ", git_error_last()->message, "\n"));
+    if (local_ref.get() == nullptr)
+        throw git::Error{ gul14::cat("Branch lookup: ", git_error_last()->message, "\n") };
 
     // Get the name of the remote associated with the local branch
     //TODO: wrapper for buffer?
     std::string remote_name = branch_remote_name(repo_.get(), branch_name.c_str());
-    if (remote_name == "") throw git::Error(gul14::cat("Failed to get remote name for the local branch."));
+    if (remote_name == "")
+        throw git::Error{ gul14::cat("Failed to get remote name for the local branch.") };
 
     // Open the remote
-    LibGitPointer<git_remote> remote {remote_lookup(repo_.get(), remote_name)};
-    if (remote.get() == nullptr) throw git::Error(gul14::cat("Cannot find remote object."));
+    LibGitPointer<git_remote> remote{ remote_lookup(repo_.get(), remote_name) };
+    if (remote.get() == nullptr)
+        throw git::Error{ gul14::cat("Cannot find remote object.") };
 
     // Get the upstream branch
     git_reference* upstream_ref = nullptr;

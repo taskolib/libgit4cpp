@@ -40,9 +40,9 @@ namespace git {
  */
 struct FileStatus
 {
-    std::string path_name; ///relative path to file. If the path changed this value will have the shape "OLD_NAME -> NEW_NAME".
-    std::string handling;  ///Handling status of file [unchanged, unstaged, staged, untracked, ignored]
-    std::string changes;   ///Change status of file [new file, deleted, renamed, typechanged, modified, unchanged, ignored, untracked]
+    std::string path_name; /// Relative path to file. If the path changed this value will have the shape "OLD_NAME -> NEW_NAME".
+    std::string handling;  /// Handling status of file [unchanged, unstaged, staged, untracked, ignored]
+    std::string changes;   /// Change status of file [new file, deleted, renamed, typechanged, modified, unchanged, ignored, untracked]
 };
 
 /**
@@ -61,7 +61,8 @@ public:
 
     /**
      * Constructor which specifies the root dir of the git repository.
-     * \param file_path: path to git directory
+     * \param file_path  Path to git directory
+     * \param url        Optional remote repository url
      */
     explicit GitRepository(const std::filesystem::path& file_path, const std::string& url);
 
@@ -83,7 +84,7 @@ public:
 
     /**
      * Stage specific files listed in filepaths.
-     * \param filepaths: list of files. Either relative to repository root or absolute.
+     * \param filepaths List of files. Either relative to repository root or absolute.
      * \return list of indices. An index from the filepaths vector is returned if
      *          the staging of the file failed. Returns an empty vector if all
      *          files were staged successfully.
@@ -98,7 +99,7 @@ public:
 
     /**
      * Commit staged changes to the master branch of the git repository.
-     * \param commit_message: customized message for the commit
+     * \param commit_message Customized message for the commit
      */
     void commit(const std::string& commit_message);
 
@@ -110,32 +111,32 @@ public:
     void reset(int nr_of_commits);
 
     /**
-     * push commits to a sequernce repository.
-     * \param addr: address of the git repository host
+     * Push commits to the repository.
+     * \param addr Address of the remote git repository host
     */
     void push();
 
     /**
-     * pull changes from a sequence repository.
-     * \param addr: address of the git repository host
+     * Pull changes from the remote repository.
+     * \param addr Address of the git repository host
     */
     void pull();
 
     /**
-     * clone a sequence repository.
-     * \param addr: address of the git repository host
+     * Clone a repository.
+     * \param addr Address of the git repository host
     */
-    void clone_repo(const std::string& url, const std::filesystem::path& repo_path );
+    void clone_repo(const std::string& url, const std::filesystem::path& repo_path);
 
     /**
      * Check if remote and local branch are in same state.
-     * \param branch_name 
+     * \param branch_name
     */
     bool branch_up_to_date(const std::string& branch_name);
 
     /**
-     * Deletes seq_repository and all files within from git index.
-     * \param directory: directory holding sequence
+     * Deletes  the repository and all files within from the git index.
+     * \param directory Directory to remove
      * \attention directory is a relative path within repo_path_
      */
     void remove_directory(const std::filesystem::path& directory);
@@ -163,17 +164,17 @@ public:
 
 private:
 
-    /// url of remote repository
-    std::string url_{""};
-
-    /// git remote object
-    LibGitPointer<git_remote> remote_{LibGitPointer<git_remote>(nullptr)};
-
-    /// Pointer which holds all infos of the active repository.
-    LibGitPointer<git_repository> repo_;
-
     /// Path to the repository.
     std::filesystem::path repo_path_;
+
+    /// URL of the remote repository.
+    std::string url_;
+
+    /// git remote object
+    LibGitPointer<git_remote> remote_{ };
+
+    /// Pointer which holds all infos of the active repository.
+    LibGitPointer<git_repository> repo_{ };
 
     /// Signature used in commits.
     LibGitPointer<git_signature> my_signature_;
@@ -194,14 +195,14 @@ private:
 
     /**
      * Get a specific commit.
-     * \param count: Jump back NUMBER of commits behind HEAD
+     * \param count Jump back count number of commits behind HEAD
      * \return C-type commit object
      */
     LibGitPointer<git_commit> get_commit(int count);
 
     /**
      * Get a specific commit.
-     * \param ref: Use Hex string identifier to find a commit
+     * \param ref Use hex string identifier to find a commit
      * \return C-type commit object
      */
     LibGitPointer<git_commit> get_commit(const std::string& ref);
@@ -219,7 +220,7 @@ private:
 
     /**
      * Translate all status information for each submodule into String.
-     * \param status: C-type status of all submodules from libgit
+     * \param status C-type status of all submodules from libgit
      * \return A vector of dynamic length which contains a status struct
      */
     std::vector<FileStatus> collect_status(LibGitPointer<git_status_list>& status) const;
