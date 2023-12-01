@@ -426,11 +426,15 @@ std::vector<int> GitRepository::add_files(const std::vector<std::filesystem::pat
     return error_list;
 }
 
-void GitRepository::reset(int nr_of_commits)
+void GitRepository::reset(unsigned int nr_of_commits)
 {
-    const auto parent_commit = get_commit(nr_of_commits);
+    auto parent_commit = [this, nr_of_commits]() {
+            if (nr_of_commits == 0)
+                return get_commit("HEAD");
+            return get_commit(nr_of_commits);
+        }().get();
 
-    int error = git_reset(repo_.get(), (git_object*) parent_commit.get(), GIT_RESET_HARD, nullptr);
+    int error = git_reset(repo_.get(), reinterpret_cast<git_object*>(parent_commit), GIT_RESET_HARD, nullptr);
     if (error)
         throw git::Error{ gul14::cat("Reset: ", git_error_last()->message, "\n") };
 }
