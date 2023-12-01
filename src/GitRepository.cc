@@ -42,7 +42,7 @@ GitRepository::GitRepository(const std::filesystem::path& file_path, const std::
     init(file_path);
 
     //check if remote already exists, else create new remote
-    LibGitPointer<git_remote> remote_ = remote_lookup(repo_.get(), "origin");
+    auto remote_ = remote_lookup(repo_.get(), "origin");
     if (remote_.get() == nullptr)
         remote_ = remote_create(repo_.get(), "origin", url.c_str());
 }
@@ -73,7 +73,7 @@ void GitRepository::reset_repo()
 
 std::string GitRepository::get_last_commit_message()
 {
-    const LibGitPointer<git_commit> commit = get_commit();
+    const auto commit = get_commit();
     return git_commit_message(commit.get());
 }
 
@@ -89,7 +89,7 @@ git_repository* GitRepository::get_repo()
 
 void GitRepository::update()
 {
-    LibGitPointer<git_index> index{repository_index(repo_.get())};
+    auto index = repository_index(repo_.get());
 
     char* paths[1] = { const_cast<char*>("*") };
     git_strarray array = { paths, 1 };
@@ -113,7 +113,6 @@ void GitRepository::init(const std::filesystem::path& file_path)
 
         make_signature();
         update();
-
         commit_initial();
     }
     else
@@ -125,11 +124,11 @@ void GitRepository::init(const std::filesystem::path& file_path)
 void GitRepository::commit_initial()
 {
     // prepare gitlib data types
-    LibGitPointer<git_index> index{ repository_index(repo_.get()) };
+    auto index = repository_index(repo_.get());
     git_oid tree_id, commit_id;
 
     git_index_write_tree(&tree_id, index.get());
-    LibGitPointer<git_tree> tree{ tree_lookup(repo_.get(), tree_id) };
+    auto tree = tree_lookup(repo_.get(), tree_id);
 
     int error = git_commit_create(
         &commit_id,
@@ -150,15 +149,15 @@ void GitRepository::commit_initial()
 
 void GitRepository::commit(const std::string& commit_message)
 {
-    LibGitPointer<git_commit> parent_commit = get_commit();
+    auto parent_commit = get_commit();
     const git_commit* raw_commit = parent_commit.get();
 
     //define types for commit call and get index
-    LibGitPointer<git_index> index{repository_index(repo_.get())};
+    auto index = repository_index(repo_.get());
     git_oid tree_id, commit_id;
 
     git_index_write_tree(&tree_id, index.get());
-    LibGitPointer<git_tree> tree{tree_lookup(repo_.get(), tree_id)};
+    auto tree = tree_lookup(repo_.get(), tree_id);
 
     int error = git_commit_create(
         &commit_id,
@@ -179,7 +178,7 @@ void GitRepository::commit(const std::string& commit_message)
 
 void GitRepository::add()
 {
-    LibGitPointer<git_index> gindex{ repository_index(repo_.get()) };
+    auto gindex = repository_index(repo_.get());
 
     char* paths[1] = { const_cast<char*>("*") };
     git_strarray array = { paths, 1 };
@@ -193,7 +192,7 @@ void GitRepository::add()
 
 void GitRepository::remove_directory(const std::filesystem::path& directory)
 {
-    LibGitPointer<git_index> gindex{ repository_index(repo_.get()) };
+    auto gindex = repository_index(repo_.get());
 
     int error = git_index_remove_directory(gindex.get(), directory.c_str(), 0);
     if (error)
@@ -204,7 +203,7 @@ void GitRepository::remove_directory(const std::filesystem::path& directory)
 
 void GitRepository::remove_files(const std::vector<std::filesystem::path>& filepaths)
 {
-    LibGitPointer<git_index> gindex{ repository_index(repo_.get()) };
+    auto gindex = repository_index(repo_.get());
 
     //remove files from directory
     //TODO: Teste, ob oberer Teil ausreicht
@@ -220,7 +219,7 @@ void GitRepository::remove_files(const std::vector<std::filesystem::path>& filep
 
 LibGitPointer<git_commit> GitRepository::get_commit(int count)
 {
-    std::string ref = "HEAD~" + std::to_string(count);
+    auto ref = "HEAD~" + std::to_string(count);
     return get_commit(ref);
 }
 
@@ -401,27 +400,25 @@ std::vector<FileStatus> GitRepository::status()
                         GIT_STATUS_OPT_INCLUDE_UNMODIFIED |         // unmodified files
                         GIT_STATUS_OPT_INCLUDE_IGNORED;             // ignored files
 
-    LibGitPointer<git_status_list> my_status{status_list_new(repo_.get(), status_opt)};
+    auto my_status = status_list_new(repo_.get(), status_opt);
     if (my_status.get() == nullptr)
         throw git::Error{ "Cannot initialize status." };
 
-    // translate status pointer to redable status information
-    std::vector<FileStatus> status_arr = collect_status(my_status);
-
-    return status_arr;
+    return collect_status(my_status);
 }
 
 std::vector<int> GitRepository::add_files(const std::vector<std::filesystem::path>& filepaths)
 {
-    LibGitPointer<git_index> gindex{ repository_index(repo_.get()) };
+    auto gindex = repository_index(repo_.get());
 
     size_t v_len = filepaths.size();
 
-    std::vector <int> error_list;
+    std::vector<int> error_list;
     for (size_t i = 0; i < v_len; i++)
     {
         int error = git_index_add_bypath(gindex.get(), filepaths[i].c_str());
-        if (error) error_list.push_back(i);
+        if (error)
+            error_list.push_back(i);
     }
 
     git_index_write(gindex.get());
@@ -431,7 +428,7 @@ std::vector<int> GitRepository::add_files(const std::vector<std::filesystem::pat
 
 void GitRepository::reset(int nr_of_commits)
 {
-    const LibGitPointer<git_commit> parent_commit = get_commit(nr_of_commits);
+    const auto parent_commit = get_commit(nr_of_commits);
 
     int error = git_reset(repo_.get(), (git_object*) parent_commit.get(), GIT_RESET_HARD, nullptr);
     if (error)
@@ -448,8 +445,9 @@ void GitRepository::push()
 
     // set remote
     /*
-    LibGitPointer<git_remote> remote {remote_lookup(repo_.get(), "origin")};
-    if (remote.get() == nullptr) throw git::Error("Cannot find remote object.");
+    auto remote = remote_lookup(repo_.get(), "origin");
+    if (remote.get() == nullptr)
+        throw git::Error{ "Cannot find remote object." };
     */
 
     // push to upstream
@@ -466,8 +464,9 @@ void GitRepository::pull()
 
     // set remote
     /*
-    LibGitPointer<git_remote> remote {remote_lookup(repo_.get(), "origin")};
-    if (remote.get() == nullptr) throw git::Error(gul14::cat("Cannot find remote object."));
+    auto remote = remote_lookup(repo_.get(), "origin");
+    if (remote.get() == nullptr)
+        throw git::Error{ gul14::cat("Cannot find remote object.") };
     */
 
     // fetch commits from remote connection
@@ -486,7 +485,7 @@ void GitRepository::pull()
 
 void GitRepository::clone_repo(const std::string& url, const std::filesystem::path& repo_path )
 {
-    LibGitPointer<git_repository> repo = clone(url, repo_path);
+    auto repo = clone(url, repo_path);
     if (repo.get() == nullptr)
     {
         throw git::Error{ gul14::cat("Cannot clone repository.") };
@@ -504,18 +503,18 @@ void GitRepository::clone_repo(const std::string& url, const std::filesystem::pa
 
 bool GitRepository::branch_up_to_date(const std::string& branch_name)
 {
-    LibGitPointer<git_reference> local_ref = branch_lookup(repo_.get(), "master", GIT_BRANCH_LOCAL);
+    auto local_ref = branch_lookup(repo_.get(), "master", GIT_BRANCH_LOCAL);
     if (local_ref.get() == nullptr)
         throw git::Error{ gul14::cat("Branch lookup: ", git_error_last()->message, "\n") };
 
     // Get the name of the remote associated with the local branch
     //TODO: wrapper for buffer?
-    std::string remote_name = branch_remote_name(repo_.get(), branch_name.c_str());
+    auto remote_name = branch_remote_name(repo_.get(), branch_name.c_str());
     if (remote_name == "")
         throw git::Error{ gul14::cat("Failed to get remote name for the local branch.") };
 
     // Open the remote
-    LibGitPointer<git_remote> remote{ remote_lookup(repo_.get(), remote_name) };
+    auto remote = remote_lookup(repo_.get(), remote_name);
     if (remote.get() == nullptr)
         throw git::Error{ gul14::cat("Cannot find remote object.") };
 
@@ -536,3 +535,5 @@ bool GitRepository::branch_up_to_date(const std::string& branch_name)
 
 
 } //namespace task
+
+// vi:ts=4:sw=4:sts=4:et
