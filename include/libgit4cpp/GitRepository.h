@@ -64,9 +64,7 @@ public:
      * \param file_path  Path to git directory
      * \param url        Optional remote repository url
      */
-    explicit GitRepository(const std::filesystem::path& file_path, const std::string& url);
-
-    explicit GitRepository(const std::filesystem::path& file_path);
+    explicit GitRepository(const std::filesystem::path& file_path, const std::string& url = { });
 
     /**
      * Reset all knowledge this object knows about the repository and load the knowledge again.
