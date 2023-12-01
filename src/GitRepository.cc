@@ -35,9 +35,11 @@
 namespace git {
 
 GitRepository::GitRepository(const std::filesystem::path& file_path, const std::string& url)
+    : repo_path_{ file_path }
+    , url_{ url }
 {
-    construct(file_path);
-    url_= url;
+    git_libgit2_init();
+    init(file_path);
 
     //check if remote already exists, else create new remote
     LibGitPointer<git_remote> remote_ = remote_lookup(repo_.get(), "origin");
@@ -45,35 +47,19 @@ GitRepository::GitRepository(const std::filesystem::path& file_path, const std::
         remote_ = remote_create(repo_.get(), "origin", url.c_str());
 }
 
-GitRepository::GitRepository(const std::filesystem::path& file_path)
+GitRepository::~GitRepository()
 {
-    construct(file_path);
+    repo_.reset();
+    my_signature_.reset();
+    git_libgit2_shutdown();
 }
 
-void GitRepository::construct(const std::filesystem::path& file_path)
-{
-    //init libgit library
-    git_libgit2_init();
-
-    // init repo path
-    repo_path_ = file_path;
-
-    // init or reload repository
-    init(file_path);
-}
 
 void GitRepository::make_signature()
 {
     my_signature_ = signature_default(repo_.get());
     if (my_signature_.get() == nullptr)
         my_signature_ = signature_new("Taskomat", "(none)", std::time(0), 0);
-}
-
-GitRepository::~GitRepository()
-{
-    repo_.reset();
-    my_signature_.reset();
-    git_libgit2_shutdown();
 }
 
 void GitRepository::reset_repo()
