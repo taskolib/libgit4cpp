@@ -1,3 +1,5 @@
 build*/
+subprojects/*/
+docs/html/
 .vscode/settings.json
 .vscode/cspell.json
