@@ -277,15 +277,41 @@ TEST_CASE("GitRepository Wrapper Test all", "[GitWrapper]")
         REQUIRE(std::filesystem::exists(gl.get_path() / myfile) == false);
     }
 
-    /**
-     * TODO: Fuktionalitaet von git reset implementieren
-    SECTION("Get previous commit")
+    SECTION("Get previous commit (git reset)")
     {
         GitRepository gl{ reporoot };
 
-        gl.
+        std::stringstream ss{ };
+        ss << gl.status();
+        REQUIRE(gul14::trim(ss.str()) == "RepoState {\n" \
+            "FileStatus{ \"unit_test_1/file0.txt\": unstaged; modified }\n" \
+            "FileStatus{ \"unit_test_1/file1.txt\": unchanged; unchanged }\n" \
+            "FileStatus{ \"unit_test_2/file0.txt\": unchanged; unchanged }\n" \
+            "}");
+
+        gl.reset(0); // `git reset --hard`: undo changes
+
+        ss.str("");
+        ss << gl.status();
+        REQUIRE(gul14::trim(ss.str()) == "RepoState {\n" \
+            "FileStatus{ \"unit_test_1/file0.txt\": unchanged; unchanged }\n" \
+            "FileStatus{ \"unit_test_1/file1.txt\": unchanged; unchanged }\n" \
+            "FileStatus{ \"unit_test_2/file0.txt\": unchanged; unchanged }\n" \
+            "}");
+
+        gl.reset(1); // `git reset --hard HEAD~1`: undo last commit
+
+        ss.str("");
+        ss << gl.status();
+        REQUIRE(gul14::trim(ss.str()) == "RepoState {\n" \
+            "FileStatus{ \"unit_test_1/file0.txt\": unchanged; unchanged }\n" \
+            "FileStatus{ \"unit_test_1/file1.txt\": unchanged; unchanged }\n" \
+            "FileStatus{ \"unit_test_2/file0.txt\": unchanged; unchanged }\n" \
+            "FileStatus{ \"unit_test_2/file1.txt\": unchanged; unchanged }\n" \
+            "}");
+
+        REQUIRE_THROWS(gl.reset(3)); // We do not have so many ancestors
     }
-    */
 
     /**
      * remove a directory and check if the repository status notices
@@ -436,3 +462,5 @@ TEST_CASE("GitRepository Wrapper Test Remote", "[GitWrapper]")
 
 }
 */
+
+// vi:ts=4:sw=4:sts=4:et
