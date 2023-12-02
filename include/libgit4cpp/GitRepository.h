@@ -238,7 +238,7 @@ private:
      * \param count Jump back count number of commits behind HEAD
      * \return C-type commit object
      */
-    LibGitPointer<git_commit> get_commit(int count);
+    LibGitPointer<git_commit> get_commit(unsigned int count = 0);
 
     /**
      * Get a specific commit.
@@ -246,12 +246,6 @@ private:
      * \return C-type commit object
      */
     LibGitPointer<git_commit> get_commit(const std::string& ref);
-
-    /**
-     * Get the HEAD commit.
-     * \return C-type commit object
-     */
-    LibGitPointer<git_commit> get_commit();
 
     /**
      * Load a git signature or create a default signature.
