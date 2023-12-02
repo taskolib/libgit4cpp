@@ -308,14 +308,14 @@ bool GitRepository::is_staged(FileStatus& filestats, const git_status_entry* s)
     return true;
 }
 
-std::vector<FileStatus> GitRepository::collect_status(LibGitPointer<git_status_list>& status) const
+RepoState GitRepository::collect_status(LibGitPointer<git_status_list>& status) const
 {
     // get number of submodules
     const size_t nr_entries = git_status_list_entrycount(status.get());
 
     // declare status holding vector for each submodule
-    std::vector<FileStatus> return_array;
-    FileStatus filestats;
+    RepoState return_array{ };
+    FileStatus filestats{ };
 
     for (size_t i = 0; i < nr_entries; ++i)
     {
@@ -392,7 +392,7 @@ std::vector<FileStatus> GitRepository::collect_status(LibGitPointer<git_status_l
     return return_array;
 }
 
-std::vector<FileStatus> GitRepository::status()
+RepoState GitRepository::status()
 {
     git_status_options status_opt = GIT_STATUS_OPTIONS_INIT;
     status_opt.flags =  GIT_STATUS_OPT_INCLUDE_UNTRACKED |          // untracked files
@@ -536,7 +536,6 @@ bool GitRepository::branch_up_to_date(const std::string& branch_name)
     // Compare OIDs to check if the branches are up to date
     return git_oid_equal(local_oid, remote_oid);
 }
-
 
 } //namespace task
 
