@@ -28,8 +28,7 @@
 
 #include <git2.h>
 #include <gul14/catch.h>
-#include <gul14/cat.h>
-#include <gul14/substring_checks.h>
+#include <gul14/gul.h>
 
 #include "libgit4cpp/GitRepository.h"
 #include "libgit4cpp/wrapper_functions.h"
@@ -208,6 +207,16 @@ TEST_CASE("GitRepository Wrapper Test all", "[GitWrapper]")
                 REQUIRE(elm.changes == "unchanged");
             }
         }
+
+        // Try the dump to stream operator with some 'interesting' state:
+        std::stringstream ss{ };
+        ss << stats;
+        REQUIRE(gul14::trim(ss.str()) == "RepoState {\n" \
+            "FileStatus{ \"unit_test_1/file0.txt\": unstaged; modified }\n" \
+            "FileStatus{ \"unit_test_1/file1.txt\": unstaged; modified }\n" \
+            "FileStatus{ \"unit_test_2/file0.txt\": unchanged; unchanged }\n" \
+            "FileStatus{ \"unit_test_2/file1.txt\": unchanged; unchanged }\n" \
+            "}");
 
         auto ret = gl.add_files({"unit_test_1/file1.txt"});
 

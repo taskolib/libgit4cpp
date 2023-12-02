@@ -30,6 +30,7 @@
 #include <vector>
 
 #include <git2.h>
+#include <gul14/escape.h>
 
 #include "libgit4cpp/LibGitPointer.h"
 
@@ -43,7 +44,24 @@ struct FileStatus
     std::string path_name; /// Relative path to file. If the path changed this value will have the shape "OLD_NAME -> NEW_NAME".
     std::string handling;  /// Handling status of file [unchanged, unstaged, staged, untracked, ignored]
     std::string changes;   /// Change status of file [new file, deleted, renamed, typechanged, modified, unchanged, ignored, untracked]
+
+    friend std::ostream& operator<<(std::ostream& stream, FileStatus const& state) {
+        stream << "FileStatus{ \"" << gul14::escape(state.path_name) << "\": " << state.handling << "; " << state.changes << " }";
+        return stream;
+    }
 };
+
+using RepoState = std::vector<FileStatus>; /// State of all files in the repo
+
+inline std::ostream& operator<<(std::ostream& stream, const RepoState& repostate)
+{
+    stream << "RepoState {\n";
+    for (auto& e : repostate)
+        stream << e << '\n';
+    stream << "}";
+    return stream;
+}
+
 
 /**
  * A class to wrap used methods from C-Library libgit2.
@@ -179,7 +197,7 @@ public:
      * -- handling status (what git will do with it)
      * \return vector of file status for each file.
      */
-    std::vector<FileStatus> status();
+    RepoState status();
 
     /// Destructor
     ~GitRepository();
@@ -245,7 +263,7 @@ private:
      * \param status C-type status of all submodules from libgit
      * \return A vector of dynamic length which contains a status struct
      */
-    std::vector<FileStatus> collect_status(LibGitPointer<git_status_list>& status) const;
+    RepoState collect_status(LibGitPointer<git_status_list>& status) const;
 
     /**
      * Basic construction code, extracted because of constructor overload
