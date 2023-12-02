@@ -1,6 +1,6 @@
 project(
     'libgit4cpp',
-    ['cpp'],
+    [ 'cpp' ],
     version : run_command([
             find_program('cat'),
             meson.current_source_dir() / 'LIBNO'
@@ -47,16 +47,15 @@ libno_full = '.'.join(libno_parts)
 ## still building on C++17 standard - amazing)
 ## See StackOverflow:
 ## https://stackoverflow.com/questions/52516165/cannot-use-the-c-stdfilesystem-library-with-meson-build
-add_project_link_arguments(['-lstdc++fs'], language : 'cpp')
+add_project_link_arguments([ '-lstdc++fs' ], language : 'cpp')
 
+inc = [ ]
 
 ## Build library
 subdir('include')
 subdir('src')
 
-inc = [ include_directories('include', 'src') ]
-
-gul_dep = dependency('libgul14', version : '> 2.6', fallback : ['libgul14', 'libgul_dep'])
+gul_dep = dependency('libgul14', version : '> 2.6', fallback : [ 'libgul14', 'libgul_dep' ])
 
 deps = [
     gul_dep.partial_dependency(compile_args : true, includes : true),
