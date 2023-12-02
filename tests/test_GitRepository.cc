@@ -37,29 +37,31 @@
 using namespace git;
 using gul14::cat;
 
+auto const reporoot = std::filesystem::path{ "reporoot" };
+
 /**
  * Create a directory and store files in it.
  *
- * Filestructure: \n
- * sequences/     \n
- *      $name$/   \n
- *          file0.txt   << $msg$ /n file0  \n
- *          file1.txt   << $msg$ /n file1  \n
+ * Filestructure:
+ * reporoot/
+ *      $name$/
+ *          file0.txt   << $msg$ /n file0
+ *          file1.txt   << $msg$ /n file1
  *          ...
- * \param name name of the directory
- * \param nr_files number of files to be created
+ * \param name Name of the subdirectory
+ * \param nr_files Number of files to be created
  * \param msg What to write to the file
  */
 void create_testfiles(const std::filesystem::path& name, size_t nr_files,
     const std::string& msg)
 {
-    std::filesystem::path p = "sequences" / name;
+    auto p = reporoot / name;
     std::filesystem::create_directories(p);
-    for (size_t i = 0; i < nr_files; i++)
+    for (size_t i = 0; i < nr_files; ++i)
     {
         // msg
         // file i
-        std::ofstream f(p/cat("file", i, ".txt"));
+        std::ofstream f(p / cat("file", i, ".txt"));
         f << msg << cat("\nfile", i);
     }
 }
@@ -77,19 +79,15 @@ TEST_CASE("GitRepository Wrapper Test all", "[GitWrapper]")
     */
     SECTION("Construct GitRepository object")
     {
-        // tidy up
-        std::filesystem::remove_all("sequences");
-
+        std::filesystem::remove_all(reporoot);
         create_testfiles("unit_test_1", 2, "Construct");
 
-        // Create Git Library
-        GitRepository gl{"sequences"};
+        GitRepository gl{ reporoot };
 
         REQUIRE(not gl.get_path().empty());
-        REQUIRE(gl.get_path() == "sequences");
-        LibGitPointer<git_reference> ref{repository_head(gl.get_repo())};
+        REQUIRE(gl.get_path() == reporoot);
+        auto ref{ repository_head(gl.get_repo()) };
         REQUIRE(ref.get() != nullptr);
-
 
         // Test if repo_ got initialized
         REQUIRE(gl.get_last_commit_message() == "Initial commit");
@@ -105,14 +103,13 @@ TEST_CASE("GitRepository Wrapper Test all", "[GitWrapper]")
      */
     SECTION("Stage files")
     {
-        // Create Git Library
-        GitRepository gl{"sequences"};
-
         create_testfiles("unit_test_2", 2, "Stage");
 
-        std::vector<FileStatus> stats = gl.status();
+        GitRepository gl{ reporoot };
+
+        auto stats = gl.status();
         REQUIRE(stats.size() != 0);
-        for(const auto& elm: stats)
+        for (const auto& elm: stats)
         {
             if (gul14::starts_with(elm.path_name, "unit_test_1") || gul14::starts_with(elm.path_name, "unit_test_2"))
             {
@@ -125,9 +122,9 @@ TEST_CASE("GitRepository Wrapper Test all", "[GitWrapper]")
 
         stats = gl.status();
 
-        // new submodules from unit_test_2 should be in stage mode
+        // new files from unit_test_2 should be in stage mode
         REQUIRE(stats.size() != 0);
-        for(const auto& elm: stats)
+        for (const auto& elm: stats)
         {
             if (gul14::starts_with(elm.path_name, "unit_test_1") || gul14::starts_with(elm.path_name, "unit_test_2"))
             {
@@ -148,13 +145,13 @@ TEST_CASE("GitRepository Wrapper Test all", "[GitWrapper]")
     {
 
         // Create Git Library
-        GitRepository gl{"sequences"};
+        GitRepository gl{ reporoot };
 
         auto stats = gl.status();
 
-        // new submodules from unit_test_2 should be still in stage mode
+        // new files from unit_test_2 should be still in stage mode
         REQUIRE(stats.size() != 0);
-        for(const auto& elm: stats)
+        for (const auto& elm: stats)
         {
             if (gul14::starts_with(elm.path_name, "unit_test_1") || gul14::starts_with(elm.path_name, "unit_test_2"))
             {
@@ -166,11 +163,11 @@ TEST_CASE("GitRepository Wrapper Test all", "[GitWrapper]")
         // Check if repo_ can be found again
         REQUIRE(gl.get_last_commit_message() == "Initial commit");
 
-        gl.commit("Add second sequence");
+        gl.commit("Add files");
 
         stats = gl.status();
         REQUIRE(stats.size() != 0);
-        for(const auto& elm: stats)
+        for (const auto& elm: stats)
         {
             if (gul14::starts_with(elm.path_name, "unit_test_1") || gul14::starts_with(elm.path_name, "unit_test_2"))
             {
@@ -179,7 +176,7 @@ TEST_CASE("GitRepository Wrapper Test all", "[GitWrapper]")
             }
         }
 
-        REQUIRE(gl.get_last_commit_message() == "Add second sequence");
+        REQUIRE(gl.get_last_commit_message() == "Add files");
     }
 
 
@@ -192,13 +189,13 @@ TEST_CASE("GitRepository Wrapper Test all", "[GitWrapper]")
     */
     SECTION("Add by path")
     {
-        GitRepository gl{"sequences"};
+        GitRepository gl{ reporoot };
 
         create_testfiles("unit_test_1", 2, "Add by path");
 
-        std::vector<FileStatus> stats = gl.status();
+        auto stats = gl.status();
         REQUIRE(stats.size() != 0);
-        for(const auto& elm: stats)
+        for (const auto& elm: stats)
         {
             if (gul14::starts_with(elm.path_name, "unit_test_1/file"))
             {
@@ -244,14 +241,14 @@ TEST_CASE("GitRepository Wrapper Test all", "[GitWrapper]")
     SECTION("Delete file")
     {
         // Create Git Library
-        GitRepository gl{"sequences"};
+        GitRepository gl{ reporoot };
 
         std::filesystem::path myfile = "unit_test_2/file1.txt";
         REQUIRE(std::filesystem::exists(gl.get_path() / myfile) == true);
 
         gl.remove_files({myfile});
 
-        std::vector<FileStatus> stats = gl.status();
+        auto stats = gl.status();
 
         // every file in unit_test_2 should have the tag deleted
         REQUIRE(stats.size() != 0);
@@ -267,7 +264,7 @@ TEST_CASE("GitRepository Wrapper Test all", "[GitWrapper]")
         gl.commit("remove file");
 
         REQUIRE(std::filesystem::exists(gl.get_path() / myfile) == true);
-        std::filesystem::remove("sequences/unit_test_2/file1.txt");
+        std::filesystem::remove( reporoot / "unit_test_2/file1.txt");
         REQUIRE(std::filesystem::exists(gl.get_path() / myfile) == false);
     }
 
@@ -275,7 +272,7 @@ TEST_CASE("GitRepository Wrapper Test all", "[GitWrapper]")
      * TODO: Fuktionalitaet von git reset implementieren
     SECTION("Get previous commit")
     {
-        GitRepository gl{"sequences"};
+        GitRepository gl{ reporoot };
 
         gl.
     }
@@ -292,14 +289,14 @@ TEST_CASE("GitRepository Wrapper Test all", "[GitWrapper]")
     SECTION("Delete Directory")
     {
         // Create Git Library
-        GitRepository gl{"sequences"};
+        GitRepository gl{ reporoot };
 
         std::filesystem::path mypath = "unit_test_2";
         REQUIRE(std::filesystem::exists(gl.get_path() / mypath) == true);
 
         gl.remove_directory(mypath);
 
-        std::vector<FileStatus> stats = gl.status();
+        auto stats = gl.status();
 
         // every file in unit_test_2 should have the tag deleted
         REQUIRE(stats.size() != 0);
@@ -312,7 +309,7 @@ TEST_CASE("GitRepository Wrapper Test all", "[GitWrapper]")
             }
         }
 
-        gl.commit("remove sequence");
+        gl.commit("remove files");
 
         stats = gl.status();
 
@@ -344,12 +341,12 @@ TEST_CASE("GitRepository Wrapper Test Remote", "[GitWrapper]")
 
     SECTION("Init empty GitRepository with remote connection")
     {
-        std::filesystem::remove_all("sequences");
+        std::filesystem::remove_all(reporoot);
 
-        GitRepository gl{"sequences", "https://gitlab.desy.de/jannik.woehnert/taskolib_remote_test.git"};
+        GitRepository gl{ reporoot, "https://gitlab.desy.de/jannik.woehnert/taskolib_remote_test.git" };
 
         REQUIRE(not gl.get_path().empty());
-        REQUIRE(gl.get_path() == "sequences");
+        REQUIRE(gl.get_path() == reporoot);
         LibGitPointer<git_reference> ref{repository_head(gl.get_repo())};
         REQUIRE(ref.get() != nullptr);
 
@@ -361,7 +358,7 @@ TEST_CASE("GitRepository Wrapper Test Remote", "[GitWrapper]")
 
     SECTION("make commit and push to remote repository")
     {
-        GitRepository gl{"sequences", "https://gitlab.desy.de/jannik.woehnert/taskolib_remote_test.git"};
+        GitRepository gl{ reporoot, "https://gitlab.desy.de/jannik.woehnert/taskolib_remote_test.git" };
 
         create_testfiles("unit_test_1", 2, "commit and push");
 
@@ -369,7 +366,7 @@ TEST_CASE("GitRepository Wrapper Test Remote", "[GitWrapper]")
         gl.commit("Test push");
 
 
-        std::vector<FileStatus> stats = gl.status();
+        auto stats = gl.status();
         // every file in unit_test_2 should have the tag deleted
         REQUIRE(stats.size() != 0);
         for(const auto& elm: stats)
@@ -393,7 +390,7 @@ TEST_CASE("GitRepository Wrapper Test Remote", "[GitWrapper]")
 
     SECTION("Reset repository to former commit and pull current commit from remote repository")
     {
-        GitRepository gl{"sequences", "https://gitlab.desy.de/jannik.woehnert/taskolib_remote_test.git"};
+        GitRepository gl{ reporoot, "https://gitlab.desy.de/jannik.woehnert/taskolib_remote_test.git" };
 
         //second commit
         create_testfiles("unit_test_2", 1, "commit and push 2");
@@ -417,12 +414,12 @@ TEST_CASE("GitRepository Wrapper Test Remote", "[GitWrapper]")
     SECTION("Clone from remote connection")
     {
         // Delete local repository
-        std::filesystem::remove_all("sequences");
+        std::filesystem::remove_all(reporoot);
 
 
         //clone reposiotry from remote
-        GitRepository gl{"sequences"};
-        gl.clone_repo("https://gitlab.desy.de/jannik.woehnert/taskolib_remote_test.git", "sequences");
+        GitRepository gl{ reporoot };
+        gl.clone_repo("https://gitlab.desy.de/jannik.woehnert/taskolib_remote_test.git", reporoot);
 
         REQUIRE(gl.get_last_commit_message() == "Second commit");
     }
