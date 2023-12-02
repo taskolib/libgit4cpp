@@ -100,7 +100,7 @@ TEST_CASE("GitRepository Wrapper Test all", "[GitWrapper]")
      * 3) Check if files appear as untracked
      * 4) Stage all files. Now the status should show 4 staged new files
      */
-    SECTION("Stage files")
+    SECTION("Stage files (git add)")
     {
         create_testfiles("unit_test_2", 2, "Stage");
 
@@ -357,6 +357,30 @@ TEST_CASE("GitRepository Wrapper Test all", "[GitWrapper]")
         }
 
         REQUIRE(std::filesystem::exists(gl.get_path() / mypath) == true);
+    }
+
+    SECTION("Adding with glob (git add)")
+    {
+        GitRepository gl{ reporoot };
+        auto ss = std::stringstream{ };
+        ss << gl.status();
+        REQUIRE(gul14::trim(ss.str()) == "RepoState {\n" \
+            "FileStatus{ \"unit_test_1/file0.txt\": unchanged; unchanged }\n" \
+            "FileStatus{ \"unit_test_1/file1.txt\": unchanged; unchanged }\n" \
+            "FileStatus{ \"unit_test_2/file0.txt\": untracked; untracked }\n" \
+            "FileStatus{ \"unit_test_2/file1.txt\": untracked; untracked }\n" \
+            "}");
+
+        gl.add("*le1*");
+
+        ss.str("");
+        ss << gl.status();
+        REQUIRE(gul14::trim(ss.str()) == "RepoState {\n" \
+            "FileStatus{ \"unit_test_1/file0.txt\": unchanged; unchanged }\n" \
+            "FileStatus{ \"unit_test_1/file1.txt\": unchanged; unchanged }\n" \
+            "FileStatus{ \"unit_test_2/file0.txt\": untracked; untracked }\n" \
+            "FileStatus{ \"unit_test_2/file1.txt\": staged; new file }\n" \
+            "}");
     }
 }
 
