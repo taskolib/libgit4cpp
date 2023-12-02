@@ -144,7 +144,7 @@ void GitRepository::commit_initial()
     );
 
     if (error)
-        throw git::Error{ gul14::cat("Initial commit failed: ", git_error_last()->message, "\n") };
+        throw git::Error{ gul14::cat("Initial commit failed: ", git_error_last()->message) };
 }
 
 void GitRepository::commit(const std::string& commit_message)
@@ -173,7 +173,7 @@ void GitRepository::commit(const std::string& commit_message)
     );
 
     if (error)
-        throw git::Error{ gul14::cat("Commit: ", git_error_last()->message, "\n") };
+        throw git::Error{ gul14::cat("Commit: ", git_error_last()->message) };
 }
 
 void GitRepository::add(const std::string& glob)
@@ -185,7 +185,7 @@ void GitRepository::add(const std::string& glob)
 
     int error = git_index_add_all(gindex.get(), &array, GIT_INDEX_ADD_DEFAULT, nullptr, nullptr);
     if (error)
-        throw git::Error{ gul14::cat("Cannot stage files: ", git_error_last()->message, "\n") };
+        throw git::Error{ gul14::cat("Cannot stage files: ", git_error_last()->message) };
 
     git_index_write(gindex.get());
 }
@@ -196,7 +196,7 @@ void GitRepository::remove_directory(const std::filesystem::path& directory)
 
     int error = git_index_remove_directory(gindex.get(), directory.c_str(), 0);
     if (error)
-        throw git::Error{ gul14::cat("Cannot remove directory: ", git_error_last()->message, "\n") };
+        throw git::Error{ gul14::cat("Cannot remove directory: ", git_error_last()->message) };
 
     git_index_write(gindex.get());
 }
@@ -211,7 +211,7 @@ void GitRepository::remove_files(const std::vector<std::filesystem::path>& filep
     {
         int error = git_index_remove_bypath(gindex.get(), gfile.c_str());
         if (error)
-            throw git::Error{ gul14::cat("Cannot remove file: ", git_error_last()->message, "\n") };
+            throw git::Error{ gul14::cat("Cannot remove file: ", git_error_last()->message) };
     }
 
     git_index_write(gindex.get());
@@ -232,14 +232,14 @@ LibGitPointer<git_commit> GitRepository::get_commit(const std::string& ref)
     git_oid oid_parent_commit;
 
     // resolve HEAD into a SHA1
-    int error = git_reference_name_to_id( &oid_parent_commit, repo_.get(), ref.c_str());
+    int error = git_reference_name_to_id(&oid_parent_commit, repo_.get(), ref.c_str());
     if (error)
-        throw git::Error{ gul14::cat("Cannot find ID from reference name: ", git_error_last()->message, "\n") };
+        throw git::Error{ gul14::cat("Cannot find ID from reference name: ", git_error_last()->message) };
 
     // find commit object by commit ID
-    error = git_commit_lookup( &commit, repo_.get(), &oid_parent_commit);
+    error = git_commit_lookup(&commit, repo_.get(), &oid_parent_commit);
     if (error)
-        throw git::Error{ "Cannot find HEAD of branch." };
+        throw git::Error{ "Cannot find HEAD of branch" };
 
     return commit;
 }
@@ -400,7 +400,7 @@ RepoState GitRepository::status()
 
     auto my_status = status_list_new(repo_.get(), status_opt);
     if (my_status.get() == nullptr)
-        throw git::Error{ "Cannot initialize status." };
+        throw git::Error{ "Cannot initialize status" };
 
     return collect_status(my_status);
 }
@@ -429,7 +429,7 @@ void GitRepository::reset(unsigned int nr_of_commits)
     auto parent_commit = get_commit(nr_of_commits);
     auto error = git_reset(repo_.get(), reinterpret_cast<git_object*>(parent_commit.get()), GIT_RESET_HARD, nullptr);
     if (error)
-        throw git::Error{ gul14::cat("Reset: ", git_error_last()->message, "\n") };
+        throw git::Error{ gul14::cat("Reset: ", git_error_last()->message) };
 }
 
 void GitRepository::push()
@@ -438,7 +438,7 @@ void GitRepository::push()
     git_push_options gpush;
     int error = git_push_init_options(&gpush, GIT_PUSH_OPTIONS_VERSION);
     if (error)
-        throw git::Error{ gul14::cat("Init push: ", git_error_last()->message, "\n") };
+        throw git::Error{ gul14::cat("Init push: ", git_error_last()->message) };
 
     // set remote
     /*
@@ -450,7 +450,7 @@ void GitRepository::push()
     // push to upstream
     error = git_remote_push(remote_.get(), nullptr, &gpush);
     if (error)
-        throw git::Error{ gul14::cat("Push remote: ", git_error_last()->message, "\n") };
+        throw git::Error{ gul14::cat("Push remote: ", git_error_last()->message) };
 }
 
 
@@ -463,13 +463,13 @@ void GitRepository::pull()
     /*
     auto remote = remote_lookup(repo_.get(), "origin");
     if (remote.get() == nullptr)
-        throw git::Error{ gul14::cat("Cannot find remote object.") };
+        throw git::Error{ "Cannot find remote object" };
     */
 
     // fetch commits from remote connection
     int error = git_remote_fetch( remote_.get(), NULL, &options, NULL );
     if (error)
-        throw git::Error{ gul14::cat("Pull: ", git_error_last()->message, "\n") };
+        throw git::Error{ gul14::cat("Pull: ", git_error_last()->message) };
 
     // git_apply, if failed git_merge
     // TODO
@@ -483,9 +483,8 @@ void GitRepository::pull()
 void GitRepository::clone_repo(const std::string& url, const std::filesystem::path& repo_path )
 {
     auto repo = clone(url, repo_path);
-    if (repo.get() == nullptr)
-    {
-        throw git::Error{ gul14::cat("Cannot clone repository.") };
+    if (repo.get() == nullptr) {
+        throw git::Error{ "Cannot clone repository" };
     }
     else
     {
@@ -502,18 +501,18 @@ bool GitRepository::branch_up_to_date(const std::string& branch_name)
 {
     auto local_ref = branch_lookup(repo_.get(), "master", GIT_BRANCH_LOCAL);
     if (local_ref.get() == nullptr)
-        throw git::Error{ gul14::cat("Branch lookup: ", git_error_last()->message, "\n") };
+        throw git::Error{ gul14::cat("Branch lookup: ", git_error_last()->message) };
 
     // Get the name of the remote associated with the local branch
     //TODO: wrapper for buffer?
     auto remote_name = branch_remote_name(repo_.get(), branch_name.c_str());
     if (remote_name == "")
-        throw git::Error{ gul14::cat("Failed to get remote name for the local branch.") };
+        throw git::Error{ "Failed to get remote name for the local branch" };
 
     // Open the remote
     auto remote = remote_lookup(repo_.get(), remote_name);
     if (remote.get() == nullptr)
-        throw git::Error{ gul14::cat("Cannot find remote object.") };
+        throw git::Error{ "Cannot find remote object" };
 
     // Get the upstream branch
     git_reference* upstream_ref = nullptr;
