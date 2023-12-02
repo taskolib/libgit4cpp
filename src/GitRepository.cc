@@ -217,10 +217,13 @@ void GitRepository::remove_files(const std::vector<std::filesystem::path>& filep
     git_index_write(gindex.get());
 }
 
-LibGitPointer<git_commit> GitRepository::get_commit(int count)
+LibGitPointer<git_commit> GitRepository::get_commit(unsigned int count)
 {
-    auto ref = "HEAD~" + std::to_string(count);
-    return get_commit(ref);
+    git_commit* parent;
+    auto err = git_commit_nth_gen_ancestor(&parent, get_commit("HEAD").get(), count);
+    if (err)
+        throw git::Error{ gul14::cat("Cannot find ", count, "th ancestor: ", git_error_last()->message) };
+    return parent;
 }
 
 LibGitPointer<git_commit> GitRepository::get_commit(const std::string& ref)
@@ -239,11 +242,6 @@ LibGitPointer<git_commit> GitRepository::get_commit(const std::string& ref)
         throw git::Error{ "Cannot find HEAD of branch." };
 
     return commit;
-}
-
-LibGitPointer<git_commit> GitRepository::get_commit()
-{
-    return get_commit(std::string{ "HEAD" });
 }
 
 bool GitRepository::is_unstaged(FileStatus& filestats, const git_status_entry* s)
@@ -428,13 +426,8 @@ std::vector<int> GitRepository::add_files(const std::vector<std::filesystem::pat
 
 void GitRepository::reset(unsigned int nr_of_commits)
 {
-    auto parent_commit = [this, nr_of_commits]() {
-            if (nr_of_commits == 0)
-                return get_commit("HEAD");
-            return get_commit(nr_of_commits);
-        }().get();
-
-    int error = git_reset(repo_.get(), reinterpret_cast<git_object*>(parent_commit), GIT_RESET_HARD, nullptr);
+    auto parent_commit = get_commit(nr_of_commits);
+    auto error = git_reset(repo_.get(), reinterpret_cast<git_object*>(parent_commit.get()), GIT_RESET_HARD, nullptr);
     if (error)
         throw git::Error{ gul14::cat("Reset: ", git_error_last()->message, "\n") };
 }
@@ -537,6 +530,6 @@ bool GitRepository::branch_up_to_date(const std::string& branch_name)
     return git_oid_equal(local_oid, remote_oid);
 }
 
-} //namespace task
+} // namespace git
 
 // vi:ts=4:sw=4:sts=4:et
