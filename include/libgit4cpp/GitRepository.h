@@ -95,12 +95,49 @@ public:
     /// Returns a non-owning raw pointer to the current repository.
     git_repository* get_repo();
 
-    /// Stage all new and changed files and folders in the repository directory.
+    /**
+     * Stage multiple new, changed, or removed files and folders in the repository directory.
+     *
+     * Instead of giving concrete paths to the files / objects to be added the function
+     * takes a shell like glob/wildcard:
+     * - \c * matches any number of any characters including none
+     * - \c ? matches any single character
+     * - \c [abc] matches one character given in the bracket (\c abc is example)
+     * - \c [a-z] matches one character in the range of characters (\c a-z is example)
+     * - \c \\* matches a star
+     * - \c \\? matches a question mark
+     * - \c \\\\ matches a backslash
+     * - \c \\[ matches an opening square bracket
+     *
+     * The matching happens - unlike usual shells - on the whole pathname (inside the repository).
+     * So `*` matches all files (including all subdirectories).
+     *
+     * Note: In fact you can never add a folder, you add files in a folder; i.e. it is
+     * impossible to add an empty folder. Git just knows files, not folders as items.
+     * If a file is in a folder the folder exists; if there is nothing in the folder the
+     * folder is ignored. (File means also links etc.)
+     *
+     * Note: To write \c \? into a C++ string you probably need \c "\\?" etc.
+     *
+     * Note: Globs do not match hidden files in the form of Unix dotfiles; to match them the pattern
+     * must explicitly start with \c . For example, \c * matches all visible files
+     * while \c .* matches all hidden files.
+     *
+     * \param glob  The pattern with which files are selected to be added to the index
+     *
+     * \see add_files()
+     */
     void add(const std::string& glob = "*");
 
     /**
      * Update the tracked files in the repository.
-     * This member function stages all changes of already tracked files in the repository.
+     *
+     * The same as add() but only considers files that are already in the repository, never
+     * adding just updating.
+     *
+     * \param glob  The pattern with which files are selected to be added to the index
+     *
+     * \see add() for an explanantion on the glob.
      */
     void update(const std::string& glob = "*");
 
@@ -110,6 +147,7 @@ public:
      * \return list of indices. An index from the filepaths vector is returned if
      *          the staging of the file failed. Returns an empty vector if all
      *          files were staged successfully.
+     * \see add()
      */
    std::vector <int> add_files(const std::vector<std::filesystem::path>& filepaths);
 
