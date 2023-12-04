@@ -65,7 +65,6 @@ void create_testfiles(const std::filesystem::path& name, size_t nr_files,
     }
 }
 
-
 TEST_CASE("GitRepository Wrapper Test all", "[GitWrapper]")
 {
     /**
@@ -381,6 +380,192 @@ TEST_CASE("GitRepository Wrapper Test all", "[GitWrapper]")
             "FileStatus{ \"unit_test_2/file0.txt\": untracked; untracked }\n" \
             "FileStatus{ \"unit_test_2/file1.txt\": staged; new file }\n" \
             "}");
+    }
+}
+
+TEST_CASE("GitRepository add() with glob", "[GitWrapper]")
+{
+    std::filesystem::remove_all(reporoot);
+    create_testfiles(".Atlantis", 1, "Atlantis");
+    create_testfiles("Burundi", 3, "Gitega");
+    create_testfiles("Honduras", 1, "Tegucigalpa");
+    create_testfiles("Japan", 2, "Tokyo");
+    create_testfiles("Japan/Hokkaido", 1, "Sapporo");
+    create_testfiles("Japan/Hyogo", 2, "Kobe");
+    create_testfiles("Malaysia", 1, "Kuala Lumpur");
+    create_testfiles("Paraguay", 2, "Asuncion");
+    create_testfiles("Peru", 2, "Lima");
+    GitRepository gl{ reporoot };
+    gl.reset(0);
+
+    /**
+     * Now we have:
+     *
+     * └── reporoot
+     *     ├── .Atlantis
+     *     │   └── file0.txt
+     *     ├── Burundi
+     *     │   ├── file0.txt
+     *     │   ├── file1.txt
+     *     │   └── file2.txt
+     *     ├── Honduras
+     *     │   └── file0.txt
+     *     ├── Japan
+     *     │   ├── file0.txt
+     *     │   ├── file1.txt
+     *     │   ├── Hokkaido
+     *     │   │   └── file0.txt
+     *     │   └── Hyogo
+     *     │       ├── file0.txt
+     *     │       └── file1.txt
+     *     ├── Malaysia
+     *     │   └── file0.txt
+     *     ├── Paraguay
+     *     │   ├── file0.txt
+     *     │   └── file1.txt
+     *     └── Peru
+     *         ├── file0.txt
+     *         └── file1.txt
+     */
+
+    SECTION("Star glob on files 1")
+    {
+        gl.add("file1*");
+        // We expect to add no file at all, because the glob matches the full pathname
+        // and no file starts with a pathname "file1..."
+        auto stats = gl.status();
+        auto new_end = std::remove_if(stats.begin(), stats.end(), [](FileStatus const& v) {
+            return v.handling != "staged";
+        });
+        stats.erase(new_end, stats.end());
+        std::stringstream ss{ };
+        ss << stats;
+        INFO(gul14::trim(ss.str()));
+        REQUIRE(stats.size() == 0);
+    }
+    SECTION("Star glob on files 2")
+    {
+        gl.add("*/file1*");
+        // Burundi/file1.txt
+        // Japan/file1.txt
+        // Japan/Hyogo/file1.txt
+        // Paraguay/file1.txt
+        // Peru/file1.txt
+        auto stats = gl.status();
+        auto new_end = std::remove_if(stats.begin(), stats.end(), [](FileStatus const& v) {
+            return v.handling != "staged";
+        });
+        stats.erase(new_end, stats.end());
+        std::stringstream ss{ };
+        ss << stats;
+        INFO(gul14::trim(ss.str()));
+        REQUIRE(stats.size() == 5);
+    }
+    SECTION("Star glob on directories 1")
+    {
+        gl.add("*/H*");
+        // Note: Not "Honduras/..."
+        // This is the same: gl.add("*/H*/*");
+        //
+        // Japan/Hokkaido/file0.txt
+        // Japan/Hyogo/file0.txt
+        // Japan/Hyogo/file1.txt
+        auto stats = gl.status();
+        auto new_end = std::remove_if(stats.begin(), stats.end(), [](FileStatus const& v) {
+            return v.handling != "staged";
+        });
+        stats.erase(new_end, stats.end());
+        std::stringstream ss{ };
+        ss << stats;
+        INFO(gul14::trim(ss.str()));
+        REQUIRE(stats.size() == 3);
+    }
+    SECTION("Star glob on directories 2")
+    {
+        gl.add("H*");
+        // Note: Not Japan's prefectures
+        // This is the same: gl.add("H*/*");
+        //
+        // Honduras/file0.txt
+        auto stats = gl.status();
+        auto new_end = std::remove_if(stats.begin(), stats.end(), [](FileStatus const& v) {
+            return v.handling != "staged";
+        });
+        stats.erase(new_end, stats.end());
+        std::stringstream ss{ };
+        ss << stats;
+        INFO(gul14::trim(ss.str()));
+        REQUIRE(stats.size() == 1);
+    }
+    SECTION("Questionmark glob")
+    {
+        gl.add("*P??u*");
+        // Peru/file0.txt
+        // Peru/file1.txt
+        auto stats = gl.status();
+        auto new_end = std::remove_if(stats.begin(), stats.end(), [](FileStatus const& v) {
+            return v.handling != "staged";
+        });
+        stats.erase(new_end, stats.end());
+        std::stringstream ss{ };
+        ss << stats;
+        INFO(gul14::trim(ss.str()));
+        REQUIRE(stats.size() == 2);
+    }
+    SECTION("Selection glob simple")
+    {
+        gl.add("*[aio]/*");
+        // Note: This also matches subdirs
+        //
+        // Burundi/file0.txt
+        // Burundi/file1.txt
+        // Burundi/file2.txt
+        // Japan/Hokkaido/file0.txt
+        // Japan/Hyogo/file0.txt
+        // Japan/Hyogo/file1.txt
+        // Malaysia/file0.txt
+        auto stats = gl.status();
+        auto new_end = std::remove_if(stats.begin(), stats.end(), [](FileStatus const& v) {
+            return v.handling != "staged";
+        });
+        stats.erase(new_end, stats.end());
+        std::stringstream ss{ };
+        ss << stats;
+        INFO(gul14::trim(ss.str()));
+        REQUIRE(stats.size() == 7);
+    }
+    SECTION("Selection glob range")
+    {
+        gl.add("*[1-3]*");
+        // Burundi/file1.txt
+        // Burundi/file2.txt
+        // Japan/Hyogo/file1.txt
+        // Japan/file1.txt
+        // Paraguay/file1.txt
+        // Peru/file1.txt
+        auto stats = gl.status();
+        auto new_end = std::remove_if(stats.begin(), stats.end(), [](FileStatus const& v) {
+            return v.handling != "staged";
+        });
+        stats.erase(new_end, stats.end());
+        std::stringstream ss{ };
+        ss << stats;
+        INFO(gul14::trim(ss.str()));
+        REQUIRE(stats.size() == 6);
+    }
+    SECTION("Hidden files need extra globs")
+    {
+        gl.add(".*");
+        // .Atlantis/file0.txt
+        auto stats = gl.status();
+        auto new_end = std::remove_if(stats.begin(), stats.end(), [](FileStatus const& v) {
+            return v.handling != "staged";
+        });
+        stats.erase(new_end, stats.end());
+        std::stringstream ss{ };
+        ss << stats;
+        INFO(gul14::trim(ss.str()));
+        REQUIRE(stats.size() == 1);
     }
 }
 
