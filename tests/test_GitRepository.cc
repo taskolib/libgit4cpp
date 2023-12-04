@@ -247,6 +247,7 @@ TEST_CASE("GitRepository Wrapper Test all", "[GitWrapper]")
         GitRepository gl{"sequences"};
 
         std::filesystem::path myfile = "unit_test_2/file1.txt";
+        REQUIRE(std::filesystem::exists(gl.get_path() / myfile) == true);
 
         gl.remove_files({myfile});
 
@@ -265,8 +266,9 @@ TEST_CASE("GitRepository Wrapper Test all", "[GitWrapper]")
 
         gl.commit("remove file");
 
-
+        REQUIRE(std::filesystem::exists(gl.get_path() / myfile) == true);
         std::filesystem::remove("sequences/unit_test_2/file1.txt");
+        REQUIRE(std::filesystem::exists(gl.get_path() / myfile) == false);
     }
 
     /**
@@ -284,8 +286,8 @@ TEST_CASE("GitRepository Wrapper Test all", "[GitWrapper]")
      * 1) Delete unit_test_2
      * 2) Files should be automatically staged for deletion
      * 3) Commit removal
-     * 4) check if files are gone from status
-     * 5) check if files are gone from filesystem
+     * 4) check if files are gone from status (should)
+     * 5) check if files are gone from filesystem (should not)
      */
     SECTION("Delete Directory")
     {
@@ -293,6 +295,7 @@ TEST_CASE("GitRepository Wrapper Test all", "[GitWrapper]")
         GitRepository gl{"sequences"};
 
         std::filesystem::path mypath = "unit_test_2";
+        REQUIRE(std::filesystem::exists(gl.get_path() / mypath) == true);
 
         gl.remove_directory(mypath);
 
@@ -320,6 +323,8 @@ TEST_CASE("GitRepository Wrapper Test all", "[GitWrapper]")
             if (gul14::starts_with(elm.path_name, "unit_test_2/file"))
                 REQUIRE (elm.changes == "untracked");
         }
+
+        REQUIRE(std::filesystem::exists(gl.get_path() / mypath) == true);
     }
 }
 

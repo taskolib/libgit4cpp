@@ -134,15 +134,33 @@ public:
 
     /**
      * Remove all entries from the index under a given directory.
+     *
+     * No files are removed from the filesystem.
+     *
      * \param directory Directory to remove
      * \attention Directory is a relative path within repo_path_
+     * \See remove_files() for hints about file removal
      */
     void remove_directory(const std::filesystem::path& directory);
 
     /**
      * Delete specific files from git index.
+     *
+     * No files are removed from the filesystem.
+     *
+     * They also do not need to exist on the filesystem to be removable from the index.
+     *
+     * To delete files from the repository you can eiter:
+     *
+     * - remove the files from the repository With remove_files()
+     * - and remove the files from the filesystem with \c std::filesystem::remove()
+     *
+     * - remove the files from the filesystem with \c std::filesystem::remove()
+     * - add the removal of the files with add_files() or with remove_files()
+     *
      * \param filepaths list of files
      * \attention files in filepaths are relative to repo_path_
+     * \see remove_directory()
     */
     void remove_files(const std::vector<std::filesystem::path>& filepaths);
 
