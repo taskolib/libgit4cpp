@@ -133,9 +133,9 @@ public:
     bool branch_up_to_date(const std::string& branch_name);
 
     /**
-     * Deletes  the repository and all files within from the git index.
+     * Remove all entries from the index under a given directory.
      * \param directory Directory to remove
-     * \attention directory is a relative path within repo_path_
+     * \attention Directory is a relative path within repo_path_
      */
     void remove_directory(const std::filesystem::path& directory);
 
