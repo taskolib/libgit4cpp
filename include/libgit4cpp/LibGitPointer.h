@@ -32,6 +32,8 @@
 
 #include <git2.h>
 
+#include "libgit4cpp/Error.h"
+
 namespace git {
 
 namespace detail {
@@ -63,30 +65,33 @@ class LibGitPointer
 public:
     /**
      * Default-construct a LibGitPointer.
-     * The managed pointer is null.
+     * Contains a default error message.
      */
     LibGitPointer() = default;
 
-    /// Construct a LibGitPointer from an "owning" C pointer from libgit2.
+    /// Construct a LibGitPointer from an owning raw pointer from libgit2.
     LibGitPointer(T* val)
-        : val_{val}
+        : val_{ val }
+        , err_msg_{ "" }
     {}
 
-    /// Move a C-pointer from an existing LibGitPointer to a new one.
+    /// Construct a LibGitPointer from an error message.
+    LibGitPointer(std::string err)
+        : val_{ nullptr }
+        , err_msg_{ std::move(err) }
+    {}
+
+    /// Move constructor
     LibGitPointer(LibGitPointer&& lg)
-        : val_{std::exchange(lg.val_, nullptr)}
+        : val_{ std::exchange(lg.val_, nullptr) }
+        , err_msg_{ std::exchange(lg.err_msg_, default_err_) }
     {}
 
-    /// Destruct the Object by freeing the C-type pointer with a libgit function.
-    ~LibGitPointer()
-    {
-        detail::free_libgit_ptr(val_);
-    }
-
-    /// Move ownership of a pointer from another object to this object.
+    /// Move assignment
     LibGitPointer& operator=(LibGitPointer&& lg) noexcept
     {
         val_ = std::exchange(lg.val_, nullptr);
+        err_msg_ = std::exchange(lg.err_msg_, default_err_);
         return *this;
     }
 
@@ -96,33 +101,70 @@ public:
     /// Copying is disabled to prevent double ownership of the managed pointer.
     LibGitPointer& operator=(const LibGitPointer&) = delete;
 
-    /// Free the managed pointer and reset it to null.
+    /// Destruct and free the owned libgit object.
+    ~LibGitPointer()
+    {
+        detail::free_libgit_ptr(val_);
+    }
+
+    /// Free the managed object and reset to the empty state.
     void reset()
     {
         detail::free_libgit_ptr(val_);
         val_ = nullptr;
+        err_msg_ = default_err_;
     }
 
     /**
-     * Return a non-owning pointer to the managed object (or nullptr if no object is
-     * managed).
+     * Get a pointer to the contained managed object.
+     *
+     * \return A non-owning raw pointer to the managed object
+     * \exception Throws a git::Error when no managed object exists
      */
     T* get()
     {
+        if (not err_msg_.empty())
+            throw Error{ err_msg_ };
         return val_;
     }
 
     /**
-     * Return a constant non-owning pointer to the managed object (or nullptr if no object
-     * is managed).
+     * Get a (const) pointer to the contained managed object.
+     *
+     * \return A constant non-owning raw pointer to the managed object
+     * \exception Throws a git::Error when no managed object exists
      */
     const T* get() const
     {
+        if (not err_msg_.empty())
+            throw Error{ err_msg_ };
         return val_;
     }
 
+    /**
+     * Return the explanation why no managed object is contained.
+     *
+     * \return Explanation string; or empty string if there is a managed object
+     */
+    std::string error() const
+    {
+        return err_msg_;
+    }
+
+    /**
+     * Check if a managed object is contained.
+     *
+     * \return True if an object is contained
+     */
+    explicit operator bool() const
+    {
+        return err_msg_.empty();
+    }
+
 private:
-    T *val_ = nullptr;
+    static constexpr const char* default_err_ = "LibGitPointer uninit'ed";
+    T* val_ = nullptr;
+    std::string err_msg_{ default_err_ };
 };
 
 } // namespace git
