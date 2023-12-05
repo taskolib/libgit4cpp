@@ -46,7 +46,9 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">GitRepository.h File Reference</div>  </div>
 </div><!--header-->
@@ -63,17 +65,19 @@ $(function() {
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;git2.h&gt;</code><br />
+<code>#include &lt;gul14/escape.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="LibGitPointer_8h_source.html">libgit4cpp/LibGitPointer.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for GitRepository.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="GitRepository_8h__incl.png" border="0" usemap="#aGitRepository_8h" alt=""/></div>
 <map name="aGitRepository_8h" id="aGitRepository_8h">
-<area shape="rect" title="Wrapper for C&#45;Package libgit2." alt="" coords="123,5,245,32"/>
+<area shape="rect" title="Wrapper for C&#45;Package libgit2." alt="" coords="189,5,310,32"/>
 <area shape="rect" title=" " alt="" coords="5,80,96,107"/>
 <area shape="rect" title=" " alt="" coords="107,155,165,181"/>
 <area shape="rect" title=" " alt="" coords="431,80,494,107"/>
 <area shape="rect" title=" " alt="" coords="191,155,249,181"/>
+<area shape="rect" title=" " alt="" coords="519,80,639,107"/>
 <area shape="rect" href="LibGitPointer_8h.html" title="Definition of the LibGitPointer class template and declarations of associated functions." alt="" coords="222,80,407,107"/>
 <area shape="rect" title=" " alt="" coords="275,155,351,181"/>
 <area shape="rect" title=" " alt="" coords="375,155,435,181"/>
@@ -106,11 +110,22 @@ Namespaces</h2></td></tr>
 <tr class="memitem:namespacegit"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegit.html">git</a></td></tr>
 <tr class="memdesc:namespacegit"><td class="mdescLeft">&#160;</td><td class="mdescRight">Namespace git contains all functions, classes, and other declarations of libgit4cpp. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a86311d432349e1cf80f79685da4754f8"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegit.html#a86311d432349e1cf80f79685da4754f8">git::RepoState</a> = std::vector&lt; FileStatus &gt;</td></tr>
+<tr class="separator:a86311d432349e1cf80f79685da4754f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:adffa0aeb5885ef910579785c7485b150"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegit.html#adffa0aeb5885ef910579785c7485b150">git::operator&lt;&lt;</a> (std::ostream &amp;stream, const RepoState &amp;repostate)</td></tr>
+<tr class="memdesc:adffa0aeb5885ef910579785c7485b150"><td class="mdescLeft">&#160;</td><td class="mdescRight">State of all files in the repo.  <a href="namespacegit.html#adffa0aeb5885ef910579785c7485b150">More...</a><br /></td></tr>
+<tr class="separator:adffa0aeb5885ef910579785c7485b150"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Dec 5 2023 12:39:30 for libgit4cpp by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Tue Dec 5 2023 13:31:08 for libgit4cpp by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

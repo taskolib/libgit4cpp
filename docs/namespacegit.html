@@ -43,6 +43,7 @@ $(function() {
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#nested-classes">Classes</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">git Namespace Reference</div>  </div>
@@ -71,8 +72,16 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">RAII wrapper for all libgit2 pointers that require a cleanup call of some free_* function.  <a href="classgit_1_1LibGitPointer.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a86311d432349e1cf80f79685da4754f8"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegit.html#a86311d432349e1cf80f79685da4754f8">RepoState</a> = std::vector&lt; <a class="el" href="structgit_1_1FileStatus.html">FileStatus</a> &gt;</td></tr>
+<tr class="separator:a86311d432349e1cf80f79685da4754f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:adffa0aeb5885ef910579785c7485b150"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegit.html#adffa0aeb5885ef910579785c7485b150">operator&lt;&lt;</a> (std::ostream &amp;stream, const <a class="el" href="namespacegit.html#a86311d432349e1cf80f79685da4754f8">RepoState</a> &amp;repostate)</td></tr>
+<tr class="memdesc:adffa0aeb5885ef910579785c7485b150"><td class="mdescLeft">&#160;</td><td class="mdescRight">State of all files in the repo.  <a href="namespacegit.html#adffa0aeb5885ef910579785c7485b150">More...</a><br /></td></tr>
+<tr class="separator:adffa0aeb5885ef910579785c7485b150"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gacfa5eddb13533a97c68855759629efa5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgit_1_1LibGitPointer.html">LibGitPointer</a>&lt; git_repository &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#gacfa5eddb13533a97c68855759629efa5">repository_open</a> (const std::string &amp;repo_path)</td></tr>
 <tr class="memdesc:gacfa5eddb13533a97c68855759629efa5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return an existing repository.  <a href="group__lgptrfunc.html#gacfa5eddb13533a97c68855759629efa5">More...</a><br /></td></tr>
 <tr class="separator:gacfa5eddb13533a97c68855759629efa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -113,10 +122,64 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga940c39825defe26e9b9849d1f6bd99b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the name of a remote name.  <a href="group__lgptrfunc.html#ga940c39825defe26e9b9849d1f6bd99b4">More...</a><br /></td></tr>
 <tr class="separator:ga940c39825defe26e9b9849d1f6bd99b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="a86311d432349e1cf80f79685da4754f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86311d432349e1cf80f79685da4754f8">&#9670;&nbsp;</a></span>RepoState</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespacegit.html#a86311d432349e1cf80f79685da4754f8">git::RepoState</a> = typedef std::vector&lt;<a class="el" href="structgit_1_1FileStatus.html">FileStatus</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="adffa0aeb5885ef910579785c7485b150"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adffa0aeb5885ef910579785c7485b150">&#9670;&nbsp;</a></span>operator&lt;&lt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::ostream&amp; git::operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespacegit.html#a86311d432349e1cf80f79685da4754f8">RepoState</a> &amp;&#160;</td>
+          <td class="paramname"><em>repostate</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>State of all files in the repo. </p>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Dec 5 2023 12:39:30 for libgit4cpp by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Tue Dec 5 2023 13:31:08 for libgit4cpp by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
