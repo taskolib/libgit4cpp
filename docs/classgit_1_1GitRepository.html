@@ -898,13 +898,14 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Remove all entries from the index under a given directory. </p>
+<p>No files are removed from the filesystem.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">directory</td><td>Directory to remove </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section attention"><dt>Attention</dt><dd>Directory is a relative path within repo_path_ </dd></dl>
+<dl class="section attention"><dt>Attention</dt><dd>Directory is a relative path within repo_path_ \See <a class="el" href="classgit_1_1GitRepository.html#a7168cb78c542bad81e3165b9f702fd9f" title="Delete specific files from git index.">remove_files()</a> for hints about file removal </dd></dl>
 
 <p class="reference">References <a class="el" href="classgit_1_1LibGitPointer.html#a8078a24390509aa3d2b14871baee1e54">git::LibGitPointer&lt; T &gt;::get()</a>, <a class="el" href="classgit_1_1GitRepository.html#abcd5ca72c8bdff491331f19604a94d09">repo_</a>, and <a class="el" href="group__lgptrfunc.html#ga1652d26d1761f79a5fc9bed55d0c1417">git::repository_index()</a>.</p>
 
@@ -927,6 +928,15 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Delete specific files from git index. </p>
+<p>No files are removed from the filesystem.</p>
+<p>They also do not need to exist on the filesystem to be removable from the index.</p>
+<p>To delete files from the repository you can eiter:</p>
+<ul>
+<li>remove the files from the repository With <a class="el" href="classgit_1_1GitRepository.html#a7168cb78c542bad81e3165b9f702fd9f" title="Delete specific files from git index.">remove_files()</a></li>
+<li>and remove the files from the filesystem with <code>std::filesystem::remove()</code> </li>
+<li>remove the files from the filesystem with <code>std::filesystem::remove()</code> </li>
+<li>add the removal of the files with <a class="el" href="classgit_1_1GitRepository.html#af46265cab9cc299c8d899b43a8f0d281" title="Stage specific files listed in filepaths.">add_files()</a> or with <a class="el" href="classgit_1_1GitRepository.html#a7168cb78c542bad81e3165b9f702fd9f" title="Delete specific files from git index.">remove_files()</a></li>
+</ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">filepaths</td><td>list of files </td></tr>
@@ -934,6 +944,7 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 <dl class="section attention"><dt>Attention</dt><dd>files in filepaths are relative to repo_path_ </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classgit_1_1GitRepository.html#a18a739afb893b7ed5a040d792cf1d67b" title="Remove all entries from the index under a given directory.">remove_directory()</a> </dd></dl>
 
 <p class="reference">References <a class="el" href="classgit_1_1LibGitPointer.html#a8078a24390509aa3d2b14871baee1e54">git::LibGitPointer&lt; T &gt;::get()</a>, <a class="el" href="classgit_1_1GitRepository.html#abcd5ca72c8bdff491331f19604a94d09">repo_</a>, and <a class="el" href="group__lgptrfunc.html#ga1652d26d1761f79a5fc9bed55d0c1417">git::repository_index()</a>.</p>
 
@@ -1182,7 +1193,7 @@ Private Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Dec 4 2023 11:04:00 for libgit4cpp by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Tue Dec 5 2023 12:39:30 for libgit4cpp by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
