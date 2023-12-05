@@ -37,42 +37,43 @@ namespace git {
 
 /**
  * Function wrappers for libgit2 functions which manipulate pointers.
- * (Which take double pointers as parameters)
- * \note for documentation see the associated libgit2 function
+ * (Which take a pointer to a pointer as output parameter)
+ * \note For documentation see the associated libgit2 function
  *       name: "git_FUNCTIONNAME"
  * \defgroup lgptrfunc Group of wrapped libgit2 functions
  * \{
  */
 
- /**
-  * Return an existing repository.
-  * \param repo_path absolute or relative path from executable
-  * \return Wrapper of a git_repository*
- */
+/**
+ * Open an existing repository.
+ * \param repo_path Absolute or relative path to the repository root
+ * \return new git_repository object for the opened repository
+*/
 LibGitPointer<git_repository>
 repository_open(const std::string& repo_path);
 
 /**
- * Return a fresh initialized repository.
- * \param repo_path absolute or relative path from executable
- * \param is_bare if true, a git repo is created at repo_path. Else, .git is created in repo_path.
- * \return Wrapper of a git_repository*
+ * Initialize a fresh repository.
+ * \param repo_path Absolute or relative path to the repository root
+ * \param is_bare If true, a git repo is created at repo_path. Else, .git is created in repo_path.
+ * \return new git_repository object for the created repository
 */
 LibGitPointer<git_repository>
 repository_init(const std::string& repo_path, bool is_bare);
 
 /**
  * Return the current index of a repository.
- * \param repo C-type repository
- * \return Wrapper of a git_index*
+ * \param repo Pointer to the repository object
+ * \return new git_index object
 */
 LibGitPointer<git_index>
 repository_index(git_repository* repo);
 
 /**
- * Generate a signature from system values (already collected by the C-type repository).
- * \param repo_path absolute or relative path from executable
- * \return Wrapper of a git_signature*
+ * Generate a signature from system values.
+ * Defaults deduced from existing repository object.
+ * \param repo Pointer to repository object to use for defaults
+ * \return new git_signature object
 */
 LibGitPointer<git_signature>
 signature_default(git_repository* repo);
@@ -81,46 +82,47 @@ signature_default(git_repository* repo);
  * Generate a signature from given parameters.
  * \param name User name who creates the commit
  * \param email E-mail of the user
- * \param time timestamp
- * \param offset timezone adjustment for the timezone
- * \return Wrapper of a git_signature*
+ * \param time Unix time of the creation date
+ * \param offset Timezone adjustment for the timestamp
+ * \return new git_signature object
 */
 LibGitPointer<git_signature>
 signature_new(const std::string& name, const std::string& email, time_t time, int offset);
 
 
 /**
- * Collect the current tree of the git repository.
- * \param repo C-type repository
- * \param tree_id identity number of the active tree
- * \return Wrapper of a git_signature*
+ * Collect the current tree of a git repository.
+ * \param repo Pointer to repository object to examine
+ * \param tree_id Identity number of the active tree
+ * \return new git_tree object
 */
 LibGitPointer<git_tree>
 tree_lookup(git_repository* repo, git_oid tree_id);
 
 /**
- * Create a new status list which contains status_list_entry* elements
- * \param repo C-type repository
- * \param status_opt struct of status options
- * \return Wrapper of git_status_list*
+ * Create a new status list of the index.
+ * The returned status object contains status_list_entry* elements.
+ * \param repo Pointer to repository object
+ * \param status_opt Struct of status options
+ * \return new git_status_list object
 */
 LibGitPointer<git_status_list>
 status_list_new(git_repository* repo, const git_status_options& status_opt);
 
 /**
  * Collect the reference to the repository head.
- * \param repo C-type repository
- * \return Wrapper of git_reference*
+ * \param repo Pointer to repository object
+ * \return new git_reference object
  */
 LibGitPointer<git_reference>
 repository_head(git_repository* repo);
 
 /**
- * Create a new remote connection in the repository and returns it
- * \param repo C-type repository
- * \param remote_name typically 'origin'
- * \param url adress of remote connection, e.g https://github.com/...
- * \return Wrapper of a remote connection
+ * Create a new remote connection in the repository.
+ * \param repo Pointer to repository object
+ * \param remote_name Name of the remote, e.g. "origin"
+ * \param url Adress of remote connection, e.g https://github.com/...
+ * \return new git_remote object
  */
 LibGitPointer<git_remote>
 remote_create (git_repository* repo, const std::string& remote_name,
@@ -128,10 +130,10 @@ remote_create (git_repository* repo, const std::string& remote_name,
 
 
 /**
- * Collects the remove connection by name and returns it
- * \param repo C-type repository
- * \param remote_name typically 'origin'
- * \return Wrapper of a remote connection
+ * Collects the remove connection by name.
+ * \param repo Pointer to repository object
+ * \param remote_name Name of the remote, e.g. "origin"
+ * \return new git_remote object
  */
 LibGitPointer<git_remote>
 remote_lookup (git_repository* repo, const std::string& remote_name);
@@ -139,37 +141,36 @@ remote_lookup (git_repository* repo, const std::string& remote_name);
 
 
 /**
- * Clone existing git repository into local filesystem
- * \param url adress of remote connection, e.g https://github.com/...
- * \param repo_path absolute or relative path from executable
- * \return Wrapper of a repository
+ * Clone existing git repository into local filesystem.
+ * \param url Address of remote connection, e.g https://github.com/...
+ * \param repo_path Absolute or relative path to the repository root
+ * \return new git_repository object
 */
 LibGitPointer<git_repository>
 clone (const std::string& url, const std::string& repo_path);
 
 
 /**
- * Find the reference to a branch where the name is known
- * \param repo C-type repository
- * \param branch_name e.g. 'master', '3_fix bugs', etc...
- * \param branch_type enum with 1=GIT_BRANCH_LOCAL, 2=GIT_BRANCH_REMOTE, 3=GIT_BRANCH_ALL
- * \return Wrapper of git reference
+ * Find a named branch.
+ * \param repo Pointer to repository object
+ * \param branch_name The name to search for, e.g. 'main', 'fix-bugs'
+ * \param branch_type Which branch type to find, enum with 1=GIT_BRANCH_LOCAL, 2=GIT_BRANCH_REMOTE, 3=GIT_BRANCH_ALL
+ * \return new git_reference object
 */
 LibGitPointer<git_reference>
 branch_lookup(git_repository* repo, const std::string& branch_name, git_branch_t branch_type);
 
 
 /**
- * Return the name of a remote name
- * \param repo C-type repository
- * \param branch_name e.g. 'master', '3_fix bugs', etc...
- * \return remote name, typically 'origin/master' or 'origin/3_fix_bugs'
- * 
+ * Find the name of a branch on the remote.
+ * \param repo Pointer to repository object
+ * \param branch_name Local branch name, e.g. 'main', 'fix-bugs'
+ * \return name on remote , e.g. 'origin/main' or 'origin/fix-bugs'
 */
 std::string
 branch_remote_name(git_repository* repo, const std::string& branch_name);
 
-/** \}*/
+/** \} */ // end of group lgptrfunc
 
 } // namespace git
 
