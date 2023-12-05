@@ -43,7 +43,7 @@ GitRepository::GitRepository(const std::filesystem::path& file_path, const std::
 
     //check if remote already exists, else create new remote
     auto remote_ = remote_lookup(repo_.get(), "origin");
-    if (remote_.get() == nullptr)
+    if (not remote_)
         remote_ = remote_create(repo_.get(), "origin", url.c_str());
 }
 
@@ -58,7 +58,7 @@ GitRepository::~GitRepository()
 void GitRepository::make_signature()
 {
     my_signature_ = signature_default(repo_.get());
-    if (my_signature_.get() == nullptr)
+    if (not my_signature_)
         my_signature_ = signature_new("Taskomat", "(none)", std::time(0), 0);
 }
 
@@ -103,12 +103,12 @@ void GitRepository::init(const std::filesystem::path& file_path)
 {
     repo_ = repository_open(repo_path_);
 
-    if (repo_.get() == nullptr)
+    if (not repo_)
     {
         // create repository
         // 2nd argument: false so that .git folder is created in given path
         repo_ = repository_init(file_path, false);
-        if (repo_.get() == nullptr)
+        if (not repo_)
             throw git::Error{ "Git init failed" };
 
         make_signature();
@@ -399,7 +399,7 @@ RepoState GitRepository::status()
                         GIT_STATUS_OPT_INCLUDE_IGNORED;             // ignored files
 
     auto my_status = status_list_new(repo_.get(), status_opt);
-    if (my_status.get() == nullptr)
+    if (not my_status)
         throw git::Error{ "Cannot initialize status" };
 
     return collect_status(my_status);
@@ -443,7 +443,7 @@ void GitRepository::push()
     // set remote
     /*
     auto remote = remote_lookup(repo_.get(), "origin");
-    if (remote.get() == nullptr)
+    if (not remote)
         throw git::Error{ "Cannot find remote object." };
     */
 
@@ -462,7 +462,7 @@ void GitRepository::pull()
     // set remote
     /*
     auto remote = remote_lookup(repo_.get(), "origin");
-    if (remote.get() == nullptr)
+    if (not remote)
         throw git::Error{ "Cannot find remote object" };
     */
 
@@ -483,7 +483,7 @@ void GitRepository::pull()
 void GitRepository::clone_repo(const std::string& url, const std::filesystem::path& repo_path )
 {
     auto repo = clone(url, repo_path);
-    if (repo.get() == nullptr) {
+    if (not repo) {
         throw git::Error{ "Cannot clone repository" };
     }
     else
@@ -500,7 +500,7 @@ void GitRepository::clone_repo(const std::string& url, const std::filesystem::pa
 bool GitRepository::branch_up_to_date(const std::string& branch_name)
 {
     auto local_ref = branch_lookup(repo_.get(), "master", GIT_BRANCH_LOCAL);
-    if (local_ref.get() == nullptr)
+    if (not local_ref)
         throw git::Error{ gul14::cat("Branch lookup: ", git_error_last()->message) };
 
     // Get the name of the remote associated with the local branch
@@ -511,7 +511,7 @@ bool GitRepository::branch_up_to_date(const std::string& branch_name)
 
     // Open the remote
     auto remote = remote_lookup(repo_.get(), remote_name);
-    if (remote.get() == nullptr)
+    if (not remote)
         throw git::Error{ "Cannot find remote object" };
 
     // Get the upstream branch
