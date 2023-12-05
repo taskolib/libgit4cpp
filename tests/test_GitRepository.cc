@@ -42,11 +42,13 @@ auto const reporoot = std::filesystem::path{ "reporoot" };
  * Create a directory and store files in it.
  *
  * Filestructure:
+ * \code
  * reporoot/
  *      $name$/
  *          file0.txt   << $msg$ /n file0
  *          file1.txt   << $msg$ /n file1
  *          ...
+ * \endcode
  * \param name Name of the subdirectory
  * \param nr_files Number of files to be created
  * \param msg What to write to the file
@@ -403,26 +405,26 @@ TEST_CASE("GitRepository add() with glob", "[GitWrapper]")
      *
      * └── reporoot
      *     ├── .Atlantis
-     *     │   └── file0.txt
+     *     │   └── file0.txt
      *     ├── Burundi
-     *     │   ├── file0.txt
-     *     │   ├── file1.txt
-     *     │   └── file2.txt
+     *     │   ├── file0.txt
+     *     │   ├── file1.txt
+     *     │   └── file2.txt
      *     ├── Honduras
-     *     │   └── file0.txt
+     *     │   └── file0.txt
      *     ├── Japan
-     *     │   ├── file0.txt
-     *     │   ├── file1.txt
-     *     │   ├── Hokkaido
-     *     │   │   └── file0.txt
-     *     │   └── Hyogo
-     *     │       ├── file0.txt
-     *     │       └── file1.txt
+     *     │   ├── file0.txt
+     *     │   ├── file1.txt
+     *     │   ├── Hokkaido
+     *     │   │   └── file0.txt
+     *     │   └── Hyogo
+     *     │       ├── file0.txt
+     *     │       └── file1.txt
      *     ├── Malaysia
-     *     │   └── file0.txt
+     *     │   └── file0.txt
      *     ├── Paraguay
-     *     │   ├── file0.txt
-     *     │   └── file1.txt
+     *     │   ├── file0.txt
+     *     │   └── file1.txt
      *     └── Peru
      *         ├── file0.txt
      *         └── file1.txt
