@@ -31,7 +31,7 @@
 
 #include <git2.h>
 
-#include "libgit4cpp/LibGitPointer.h"
+#include "libgit4cpp/types.h"
 
 namespace git {
 
@@ -49,8 +49,7 @@ namespace git {
  * \param repo_path Absolute or relative path to the repository root
  * \return new git_repository object for the opened repository
 */
-LibGitPointer<git_repository>
-repository_open(const std::string& repo_path);
+LibGitRepository repository_open(const std::string& repo_path);
 
 /**
  * Initialize a fresh repository.
@@ -58,16 +57,14 @@ repository_open(const std::string& repo_path);
  * \param is_bare If true, a git repo is created at repo_path. Else, .git is created in repo_path.
  * \return new git_repository object for the created repository
 */
-LibGitPointer<git_repository>
-repository_init(const std::string& repo_path, bool is_bare);
+LibGitRepository repository_init(const std::string& repo_path, bool is_bare);
 
 /**
  * Return the current index of a repository.
  * \param repo Pointer to the repository object
  * \return new git_index object
 */
-LibGitPointer<git_index>
-repository_index(git_repository* repo);
+LibGitIndex repository_index(git_repository* repo);
 
 /**
  * Generate a signature from system values.
@@ -75,8 +72,7 @@ repository_index(git_repository* repo);
  * \param repo Pointer to repository object to use for defaults
  * \return new git_signature object
 */
-LibGitPointer<git_signature>
-signature_default(git_repository* repo);
+LibGitSignature signature_default(git_repository* repo);
 
 /**
  * Generate a signature from given parameters.
@@ -86,8 +82,7 @@ signature_default(git_repository* repo);
  * \param offset Timezone adjustment for the timestamp
  * \return new git_signature object
 */
-LibGitPointer<git_signature>
-signature_new(const std::string& name, const std::string& email, time_t time, int offset);
+LibGitSignature signature_new(const std::string& name, const std::string& email, time_t time, int offset);
 
 
 /**
@@ -96,8 +91,7 @@ signature_new(const std::string& name, const std::string& email, time_t time, in
  * \param tree_id Identity number of the active tree
  * \return new git_tree object
 */
-LibGitPointer<git_tree>
-tree_lookup(git_repository* repo, git_oid tree_id);
+LibGitTree tree_lookup(git_repository* repo, git_oid tree_id);
 
 /**
  * Create a new status list of the index.
@@ -106,16 +100,14 @@ tree_lookup(git_repository* repo, git_oid tree_id);
  * \param status_opt Struct of status options
  * \return new git_status_list object
 */
-LibGitPointer<git_status_list>
-status_list_new(git_repository* repo, const git_status_options& status_opt);
+LibGitStatusList status_list_new(git_repository* repo, const git_status_options& status_opt);
 
 /**
  * Collect the reference to the repository head.
  * \param repo Pointer to repository object
  * \return new git_reference object
  */
-LibGitPointer<git_reference>
-repository_head(git_repository* repo);
+LibGitReference repository_head(git_repository* repo);
 
 /**
  * Create a new remote connection in the repository.
@@ -124,10 +116,8 @@ repository_head(git_repository* repo);
  * \param url Adress of remote connection, e.g https://github.com/...
  * \return new git_remote object
  */
-LibGitPointer<git_remote>
-remote_create (git_repository* repo, const std::string& remote_name,
+LibGitRemote remote_create (git_repository* repo, const std::string& remote_name,
                 const std::string& url);
-
 
 /**
  * Collects the remove connection by name.
@@ -135,10 +125,7 @@ remote_create (git_repository* repo, const std::string& remote_name,
  * \param remote_name Name of the remote, e.g. "origin"
  * \return new git_remote object
  */
-LibGitPointer<git_remote>
-remote_lookup (git_repository* repo, const std::string& remote_name);
-
-
+LibGitRemote remote_lookup (git_repository* repo, const std::string& remote_name);
 
 /**
  * Clone existing git repository into local filesystem.
@@ -146,9 +133,7 @@ remote_lookup (git_repository* repo, const std::string& remote_name);
  * \param repo_path Absolute or relative path to the repository root
  * \return new git_repository object
 */
-LibGitPointer<git_repository>
-clone (const std::string& url, const std::string& repo_path);
-
+LibGitRepository clone (const std::string& url, const std::string& repo_path);
 
 /**
  * Find a named branch.
@@ -157,9 +142,7 @@ clone (const std::string& url, const std::string& repo_path);
  * \param branch_type Which branch type to find, enum with 1=GIT_BRANCH_LOCAL, 2=GIT_BRANCH_REMOTE, 3=GIT_BRANCH_ALL
  * \return new git_reference object
 */
-LibGitPointer<git_reference>
-branch_lookup(git_repository* repo, const std::string& branch_name, git_branch_t branch_type);
-
+LibGitReference branch_lookup(git_repository* repo, const std::string& branch_name, git_branch_t branch_type);
 
 /**
  * Find the name of a branch on the remote.
@@ -167,8 +150,7 @@ branch_lookup(git_repository* repo, const std::string& branch_name, git_branch_t
  * \param branch_name Local branch name, e.g. 'main', 'fix-bugs'
  * \return name on remote , e.g. 'origin/main' or 'origin/fix-bugs'
 */
-std::string
-branch_remote_name(git_repository* repo, const std::string& branch_name);
+std::string branch_remote_name(git_repository* repo, const std::string& branch_name);
 
 /** \} */ // end of group lgptrfunc
 

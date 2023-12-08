@@ -31,8 +31,7 @@
 
 namespace git {
 
-LibGitPointer<git_repository>
-repository_open(const std::string& repo_path)
+LibGitRepository repository_open(const std::string& repo_path)
 {
     git_repository *repo;
     if (git_repository_open(&repo, repo_path.c_str()))
@@ -41,11 +40,10 @@ repository_open(const std::string& repo_path)
         repo=nullptr;
     }
 
-    return repo;
+    return { repo, git_repository_free };
 }
 
-LibGitPointer<git_repository>
-repository_init(const std::string& repo_path, bool is_bare)
+LibGitRepository repository_init(const std::string& repo_path, bool is_bare)
 {
     git_repository *repo;
     git_repository_init_options opts;
@@ -59,11 +57,10 @@ repository_init(const std::string& repo_path, bool is_bare)
         std::cout << gul14::cat("repository_init: ", git_error_last()->message, "\n");
         repo = nullptr;
     }
-    return repo;
+    return { repo, git_repository_free };
 }
 
-LibGitPointer<git_index>
-repository_index(git_repository* repo)
+LibGitIndex repository_index(git_repository* repo)
 {
     git_index *index;
     if (git_repository_index(&index, repo))
@@ -71,11 +68,10 @@ repository_index(git_repository* repo)
         std::cout << gul14::cat("repository_index: ", git_error_last()->message, "\n");
         index = nullptr;
     }
-    return index;
+    return { index, git_index_free };
 }
 
-LibGitPointer<git_signature>
-signature_default(git_repository* repo)
+LibGitSignature signature_default(git_repository* repo)
 {
     git_signature *signature;
     if (git_signature_default(&signature, repo))
@@ -83,11 +79,10 @@ signature_default(git_repository* repo)
         std::cout << gul14::cat("signature_default: ", git_error_last()->message, "\n");
         signature = nullptr;
     }
-    return signature;
+    return { signature, git_signature_free };
 }
 
-LibGitPointer<git_signature>
-signature_new(const std::string& name, const std::string& email, time_t time, int offset)
+LibGitSignature signature_new(const std::string& name, const std::string& email, time_t time, int offset)
 {
     git_signature *signature;
     if (git_signature_new(&signature, name.c_str(), email.c_str(), time, offset))
@@ -95,11 +90,10 @@ signature_new(const std::string& name, const std::string& email, time_t time, in
         std::cout << gul14::cat("signature_new: ", git_error_last()->message, "\n");
         signature = nullptr;
     }
-    return signature;
+    return { signature, git_signature_free };
 }
 
-LibGitPointer<git_tree>
-tree_lookup(git_repository* repo, git_oid tree_id)
+LibGitTree tree_lookup(git_repository* repo, git_oid tree_id)
 {
     git_tree *tree;
     if (git_tree_lookup(&tree, repo, &tree_id))
@@ -107,11 +101,10 @@ tree_lookup(git_repository* repo, git_oid tree_id)
         std::cout << gul14::cat("tree_lookup: ", git_error_last()->message, "\n");
         tree = nullptr;
     }
-    return tree;
+    return { tree, git_tree_free };
 }
 
-LibGitPointer<git_remote>
-remote_create(git_repository* repo, const std::string& remote_name,
+LibGitRemote remote_create(git_repository* repo, const std::string& remote_name,
               const std::string& url)
 {
     git_remote *remote;
@@ -120,11 +113,10 @@ remote_create(git_repository* repo, const std::string& remote_name,
         std::cout << gul14::cat("remote_create: ", git_error_last()->message, "\n");
         remote = nullptr;
     }
-    return remote;
+    return { remote, git_remote_free };
 }
 
-LibGitPointer<git_remote>
-remote_lookup(git_repository* repo, const std::string& remote_name)
+LibGitRemote remote_lookup(git_repository* repo, const std::string& remote_name)
 {
     git_remote *remote;
     if (git_remote_lookup(&remote, repo, remote_name.c_str()))
@@ -132,11 +124,10 @@ remote_lookup(git_repository* repo, const std::string& remote_name)
         std::cout << gul14::cat("remote_lookup: ", git_error_last()->message, "\n");
         remote = nullptr;
     }
-    return remote;
+    return { remote, git_remote_free };
 }
 
-LibGitPointer<git_status_list>
-status_list_new(git_repository* repo, const git_status_options& status_opt)
+LibGitStatusList status_list_new(git_repository* repo, const git_status_options& status_opt)
 {
     git_status_list *status;
     if (git_status_list_new(&status, repo, &status_opt))
@@ -144,11 +135,10 @@ status_list_new(git_repository* repo, const git_status_options& status_opt)
         std::cout << gul14::cat("status_list_new: ", git_error_last()->message, "\n");
         status = nullptr;
     }
-    return status;
+    return { status, git_status_list_free };
 }
 
-LibGitPointer<git_reference>
-repository_head(git_repository* repo)
+LibGitReference repository_head(git_repository* repo)
 {
     git_reference *reference;
     if (git_repository_head(&reference, repo))
@@ -156,11 +146,10 @@ repository_head(git_repository* repo)
         std::cout << gul14::cat("reposiotry_head: ", git_error_last()->message, "\n");
         reference = nullptr;
     }
-    return reference;
+    return { reference, git_reference_free };
 }
 
-LibGitPointer<git_repository>
-clone (const std::string& url, const std::string& repo_path)
+LibGitRepository clone(const std::string& url, const std::string& repo_path)
 {
     git_repository* repo;
     if (git_clone(&repo, url.c_str(), repo_path.c_str(), nullptr))
@@ -168,12 +157,11 @@ clone (const std::string& url, const std::string& repo_path)
         std::cout << gul14::cat("branch_remote_name: ", git_error_last()->message, "\n");
         repo = nullptr;
     }
-    return repo;
+    return { repo, git_repository_free };
 
 }
 
-LibGitPointer<git_reference>
-branch_lookup(git_repository* repo, const std::string& branch_name, git_branch_t branch_type)
+LibGitReference branch_lookup(git_repository* repo, const std::string& branch_name, git_branch_t branch_type)
 {
     git_reference* ref;
     if (git_branch_lookup(&ref, repo, branch_name.c_str(), branch_type))
@@ -181,11 +169,10 @@ branch_lookup(git_repository* repo, const std::string& branch_name, git_branch_t
         std::cout << gul14::cat("branch_lookup: ", git_error_last()->message, "\n");
         ref = nullptr;
     }
-    return ref;
+    return { ref, git_reference_free };
 }
 
-std::string
-branch_remote_name(git_repository* repo, const std::string& branch_name)
+std::string branch_remote_name(git_repository* repo, const std::string& branch_name)
 {
     git_buf buf;
     if (git_branch_remote_name(&buf, repo, branch_name.c_str()))

@@ -32,7 +32,7 @@
 #include <git2.h>
 #include <gul14/escape.h>
 
-#include "libgit4cpp/LibGitPointer.h"
+#include "libgit4cpp/types.h"
 
 namespace git {
 
@@ -249,13 +249,13 @@ private:
     std::string url_;
 
     /// git remote object
-    LibGitPointer<git_remote> remote_{ };
+    LibGitRemote remote_{ nullptr, git_remote_free };
 
     /// Pointer which holds all infos of the active repository.
-    LibGitPointer<git_repository> repo_{ };
+    LibGitRepository repo_{ nullptr, git_repository_free };
 
     /// Signature used in commits.
-    LibGitPointer<git_signature> my_signature_;
+    LibGitSignature my_signature_{ nullptr, git_signature_free };
 
     /**
      * Initialize a new git repository and commit all files in its path.
@@ -276,14 +276,14 @@ private:
      * \param count Jump back count number of commits behind HEAD
      * \return C-type commit object
      */
-    LibGitPointer<git_commit> get_commit(unsigned int count = 0);
+    LibGitCommit get_commit(unsigned int count = 0);
 
     /**
      * Get a specific commit.
      * \param ref Use hex string identifier to find a commit
      * \return C-type commit object
      */
-    LibGitPointer<git_commit> get_commit(const std::string& ref);
+    LibGitCommit get_commit(const std::string& ref);
 
     /**
      * Load a git signature or create a default signature.
@@ -295,7 +295,7 @@ private:
      * \param status C-type status of all submodules from libgit
      * \return A vector of dynamic length which contains a status struct
      */
-    RepoState collect_status(LibGitPointer<git_status_list>& status) const;
+    RepoState collect_status(LibGitStatusList& status) const;
 
     /**
      * Basic construction code, extracted because of constructor overload
