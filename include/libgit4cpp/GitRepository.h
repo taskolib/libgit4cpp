@@ -163,7 +163,6 @@ public:
      */
     void commit(const std::string& commit_message);
 
-
     /**
      * Hard reset of repository.
      * \param nr_of_commits number of commits to jump back
@@ -296,12 +295,6 @@ private:
      * \return A vector of dynamic length which contains a status struct
      */
     RepoState collect_status(LibGitStatusList& status) const;
-
-    /**
-     * Basic construction code, extracted because of constructor overload
-     * \param file_path path to the repository
-     */
-    void construct(const std::filesystem::path& file_path);
 
     /**
      * Check if the file from the status entry is not staged and collect the status in filestats.
