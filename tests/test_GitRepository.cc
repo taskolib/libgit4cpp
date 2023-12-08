@@ -597,7 +597,7 @@ TEST_CASE("GitRepository Wrapper Test Remote", "[GitWrapper]")
 
         REQUIRE(not gl.get_path().empty());
         REQUIRE(gl.get_path() == reporoot);
-        LibGitPointer<git_reference> ref{repository_head(gl.get_repo())};
+        LibGitReference ref{ repository_head(gl.get_repo()) };
         REQUIRE(ref.get() != nullptr);
 
 

@@ -27,7 +27,7 @@
 
 #include "libgit4cpp/Error.h"
 #include "libgit4cpp/GitRepository.h"
-#include "libgit4cpp/LibGitPointer.h"
+#include "libgit4cpp/types.h"
 #include "libgit4cpp/wrapper_functions.h"
 
 /// Namespace git contains all functions, classes, and other declarations of libgit4cpp.
