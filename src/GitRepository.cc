@@ -43,7 +43,7 @@ GitRepository::GitRepository(const std::filesystem::path& file_path, const std::
 
     //check if remote already exists, else create new remote
     auto remote_ = remote_lookup(repo_.get(), "origin");
-    if (remote_.get() == nullptr)
+    if (remote_.get() == nullptr and not url.empty())
         remote_ = remote_create(repo_.get(), "origin", url.c_str());
 }
 
