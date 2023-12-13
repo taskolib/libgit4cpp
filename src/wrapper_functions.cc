@@ -48,6 +48,7 @@ LibGitRepository repository_init(const std::string& repo_path, bool is_bare)
     git_repository_init_init_options(&opts, GIT_REPOSITORY_INIT_OPTIONS_VERSION);
     if (is_bare)
         opts.flags |= GIT_REPOSITORY_INIT_BARE;
+    opts.flags |= GIT_REPOSITORY_INIT_MKPATH;
     opts.initial_head = "main";
     git_repository* repo;
     int error = git_repository_init_ext(&repo, repo_path.c_str(), &opts);
