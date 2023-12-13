@@ -1,8 +1,9 @@
 <map id="wrapper_functions.h" name="wrapper_functions.h">
-<area shape="rect" id="node1" title="Declaration of wrappers for libgit2 functions." alt="" coords="95,5,249,32"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,155,64,181"/>
-<area shape="rect" id="node3" title=" " alt="" coords="111,155,187,181"/>
-<area shape="rect" id="node4" title=" " alt="" coords="225,155,285,181"/>
-<area shape="rect" id="node5" title=" " alt="" coords="316,155,375,181"/>
-<area shape="rect" id="node6" href="$LibGitPointer_8h.html" title="Definition of the LibGitPointer class template and declarations of associated functions." alt="" coords="79,80,265,107"/>
+<area shape="rect" id="node1" title="Declaration of wrappers for libgit2 functions." alt="" coords="141,5,296,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,80,64,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="89,80,165,107"/>
+<area shape="rect" id="node4" title=" " alt="" coords="189,80,249,107"/>
+<area shape="rect" id="node5" title=" " alt="" coords="265,155,324,181"/>
+<area shape="rect" id="node6" href="$types_8h.html" title="Definition of owner types for raw pointers." alt="" coords="324,80,463,107"/>
+<area shape="rect" id="node7" title=" " alt="" coords="355,155,432,181"/>
 </map>

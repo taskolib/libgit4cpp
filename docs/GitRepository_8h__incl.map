@@ -1,11 +1,10 @@
 <map id="GitRepository.h" name="GitRepository.h">
-<area shape="rect" id="node1" title="Wrapper for C&#45;Package libgit2." alt="" coords="189,5,310,32"/>
+<area shape="rect" id="node1" title="Wrapper for C&#45;Package libgit2." alt="" coords="209,5,330,32"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,80,96,107"/>
-<area shape="rect" id="node3" title=" " alt="" coords="107,155,165,181"/>
-<area shape="rect" id="node4" title=" " alt="" coords="431,80,494,107"/>
-<area shape="rect" id="node5" title=" " alt="" coords="191,155,249,181"/>
-<area shape="rect" id="node6" title=" " alt="" coords="519,80,639,107"/>
-<area shape="rect" id="node7" href="$LibGitPointer_8h.html" title="Definition of the LibGitPointer class template and declarations of associated functions." alt="" coords="222,80,407,107"/>
-<area shape="rect" id="node8" title=" " alt="" coords="275,155,351,181"/>
-<area shape="rect" id="node9" title=" " alt="" coords="375,155,435,181"/>
+<area shape="rect" id="node3" title=" " alt="" coords="120,80,179,107"/>
+<area shape="rect" id="node4" title=" " alt="" coords="203,80,266,107"/>
+<area shape="rect" id="node5" title=" " alt="" coords="355,155,413,181"/>
+<area shape="rect" id="node6" title=" " alt="" coords="341,80,461,107"/>
+<area shape="rect" id="node7" href="$types_8h.html" title="Definition of owner types for raw pointers." alt="" coords="485,80,624,107"/>
+<area shape="rect" id="node8" title=" " alt="" coords="516,155,593,181"/>
 </map>

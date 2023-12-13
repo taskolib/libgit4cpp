@@ -48,59 +48,59 @@ $(function() {
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Function wrappers for libgit2 functions which manipulate pointers. </p>
-<p>(Which take double pointers as parameters) </p><dl class="section note"><dt>Note</dt><dd>for documentation see the associated libgit2 function name: "git_FUNCTIONNAME" </dd></dl>
+<p>(Which take a pointer to a pointer as output parameter) </p><dl class="section note"><dt>Note</dt><dd>For documentation see the associated libgit2 function name: "git_FUNCTIONNAME" </dd></dl>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:gacfa5eddb13533a97c68855759629efa5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgit_1_1LibGitPointer.html">LibGitPointer</a>&lt; git_repository &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#gacfa5eddb13533a97c68855759629efa5">git::repository_open</a> (const std::string &amp;repo_path)</td></tr>
-<tr class="memdesc:gacfa5eddb13533a97c68855759629efa5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return an existing repository.  <a href="group__lgptrfunc.html#gacfa5eddb13533a97c68855759629efa5">More...</a><br /></td></tr>
-<tr class="separator:gacfa5eddb13533a97c68855759629efa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac1c8d246d716da5a3ad4b276393a9cc0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgit_1_1LibGitPointer.html">LibGitPointer</a>&lt; git_repository &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#gac1c8d246d716da5a3ad4b276393a9cc0">git::repository_init</a> (const std::string &amp;repo_path, bool is_bare)</td></tr>
-<tr class="memdesc:gac1c8d246d716da5a3ad4b276393a9cc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a fresh initialized repository.  <a href="group__lgptrfunc.html#gac1c8d246d716da5a3ad4b276393a9cc0">More...</a><br /></td></tr>
-<tr class="separator:gac1c8d246d716da5a3ad4b276393a9cc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1652d26d1761f79a5fc9bed55d0c1417"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgit_1_1LibGitPointer.html">LibGitPointer</a>&lt; git_index &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#ga1652d26d1761f79a5fc9bed55d0c1417">git::repository_index</a> (git_repository *repo)</td></tr>
-<tr class="memdesc:ga1652d26d1761f79a5fc9bed55d0c1417"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the current index of a repository.  <a href="group__lgptrfunc.html#ga1652d26d1761f79a5fc9bed55d0c1417">More...</a><br /></td></tr>
-<tr class="separator:ga1652d26d1761f79a5fc9bed55d0c1417"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga93c762618f9f6578776041a78237d2f0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgit_1_1LibGitPointer.html">LibGitPointer</a>&lt; git_signature &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#ga93c762618f9f6578776041a78237d2f0">git::signature_default</a> (git_repository *repo)</td></tr>
-<tr class="memdesc:ga93c762618f9f6578776041a78237d2f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a signature from system values (already collected by the C-type repository).  <a href="group__lgptrfunc.html#ga93c762618f9f6578776041a78237d2f0">More...</a><br /></td></tr>
-<tr class="separator:ga93c762618f9f6578776041a78237d2f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gafdd6b3e585e23580564304c6711c2478"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgit_1_1LibGitPointer.html">LibGitPointer</a>&lt; git_signature &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#gafdd6b3e585e23580564304c6711c2478">git::signature_new</a> (const std::string &amp;name, const std::string &amp;email, time_t time, int offset)</td></tr>
-<tr class="memdesc:gafdd6b3e585e23580564304c6711c2478"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a signature from given parameters.  <a href="group__lgptrfunc.html#gafdd6b3e585e23580564304c6711c2478">More...</a><br /></td></tr>
-<tr class="separator:gafdd6b3e585e23580564304c6711c2478"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaeb3c91566960ac8d83a35904bd8b5cae"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgit_1_1LibGitPointer.html">LibGitPointer</a>&lt; git_tree &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#gaeb3c91566960ac8d83a35904bd8b5cae">git::tree_lookup</a> (git_repository *repo, git_oid tree_id)</td></tr>
-<tr class="memdesc:gaeb3c91566960ac8d83a35904bd8b5cae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collect the current tree of the git repository.  <a href="group__lgptrfunc.html#gaeb3c91566960ac8d83a35904bd8b5cae">More...</a><br /></td></tr>
-<tr class="separator:gaeb3c91566960ac8d83a35904bd8b5cae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac7c6fc6ba17e10d6040183604527ed60"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgit_1_1LibGitPointer.html">LibGitPointer</a>&lt; git_status_list &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#gac7c6fc6ba17e10d6040183604527ed60">git::status_list_new</a> (git_repository *repo, const git_status_options &amp;status_opt)</td></tr>
-<tr class="memdesc:gac7c6fc6ba17e10d6040183604527ed60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new status list which contains status_list_entry* elements.  <a href="group__lgptrfunc.html#gac7c6fc6ba17e10d6040183604527ed60">More...</a><br /></td></tr>
-<tr class="separator:gac7c6fc6ba17e10d6040183604527ed60"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga896cd12acde20dadf181f4e65cfd24e1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgit_1_1LibGitPointer.html">LibGitPointer</a>&lt; git_reference &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#ga896cd12acde20dadf181f4e65cfd24e1">git::repository_head</a> (git_repository *repo)</td></tr>
-<tr class="memdesc:ga896cd12acde20dadf181f4e65cfd24e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collect the reference to the repository head.  <a href="group__lgptrfunc.html#ga896cd12acde20dadf181f4e65cfd24e1">More...</a><br /></td></tr>
-<tr class="separator:ga896cd12acde20dadf181f4e65cfd24e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga285e126c3534afa30ab765ea1fcc59d7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgit_1_1LibGitPointer.html">LibGitPointer</a>&lt; git_remote &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#ga285e126c3534afa30ab765ea1fcc59d7">git::remote_create</a> (git_repository *repo, const std::string &amp;remote_name, const std::string &amp;url)</td></tr>
-<tr class="memdesc:ga285e126c3534afa30ab765ea1fcc59d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new remote connection in the repository and returns it.  <a href="group__lgptrfunc.html#ga285e126c3534afa30ab765ea1fcc59d7">More...</a><br /></td></tr>
-<tr class="separator:ga285e126c3534afa30ab765ea1fcc59d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1a079f60f116d6aa4346a2a1cbe4a697"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgit_1_1LibGitPointer.html">LibGitPointer</a>&lt; git_remote &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#ga1a079f60f116d6aa4346a2a1cbe4a697">git::remote_lookup</a> (git_repository *repo, const std::string &amp;remote_name)</td></tr>
-<tr class="memdesc:ga1a079f60f116d6aa4346a2a1cbe4a697"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collects the remove connection by name and returns it.  <a href="group__lgptrfunc.html#ga1a079f60f116d6aa4346a2a1cbe4a697">More...</a><br /></td></tr>
-<tr class="separator:ga1a079f60f116d6aa4346a2a1cbe4a697"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaae9ad70ada3df44398a6f89a2e9631ed"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgit_1_1LibGitPointer.html">LibGitPointer</a>&lt; git_repository &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#gaae9ad70ada3df44398a6f89a2e9631ed">git::clone</a> (const std::string &amp;url, const std::string &amp;repo_path)</td></tr>
-<tr class="memdesc:gaae9ad70ada3df44398a6f89a2e9631ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clone existing git repository into local filesystem.  <a href="group__lgptrfunc.html#gaae9ad70ada3df44398a6f89a2e9631ed">More...</a><br /></td></tr>
-<tr class="separator:gaae9ad70ada3df44398a6f89a2e9631ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga99b533e0434c1b98a34e424b348c4595"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgit_1_1LibGitPointer.html">LibGitPointer</a>&lt; git_reference &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#ga99b533e0434c1b98a34e424b348c4595">git::branch_lookup</a> (git_repository *repo, const std::string &amp;branch_name, git_branch_t branch_type)</td></tr>
-<tr class="memdesc:ga99b533e0434c1b98a34e424b348c4595"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the reference to a branch where the name is known.  <a href="group__lgptrfunc.html#ga99b533e0434c1b98a34e424b348c4595">More...</a><br /></td></tr>
-<tr class="separator:ga99b533e0434c1b98a34e424b348c4595"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga86f9f5c496c45f179485ce026dda67b4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacegit.html#a02ed921ec3573c4c08dea619172fc58f">LibGitRepository</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#ga86f9f5c496c45f179485ce026dda67b4">git::repository_open</a> (const std::string &amp;repo_path)</td></tr>
+<tr class="memdesc:ga86f9f5c496c45f179485ce026dda67b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open an existing repository.  <a href="group__lgptrfunc.html#ga86f9f5c496c45f179485ce026dda67b4">More...</a><br /></td></tr>
+<tr class="separator:ga86f9f5c496c45f179485ce026dda67b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf2f6161d8960c78db86858aca4b09c96"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacegit.html#a02ed921ec3573c4c08dea619172fc58f">LibGitRepository</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#gaf2f6161d8960c78db86858aca4b09c96">git::repository_init</a> (const std::string &amp;repo_path, bool is_bare)</td></tr>
+<tr class="memdesc:gaf2f6161d8960c78db86858aca4b09c96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a fresh repository.  <a href="group__lgptrfunc.html#gaf2f6161d8960c78db86858aca4b09c96">More...</a><br /></td></tr>
+<tr class="separator:gaf2f6161d8960c78db86858aca4b09c96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa0395cc8f57e1208c9a2fcf2f2c012cc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacegit.html#aa84323af4ee0395f621a4749e6e05c57">LibGitIndex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#gaa0395cc8f57e1208c9a2fcf2f2c012cc">git::repository_index</a> (git_repository *repo)</td></tr>
+<tr class="memdesc:gaa0395cc8f57e1208c9a2fcf2f2c012cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the current index of a repository.  <a href="group__lgptrfunc.html#gaa0395cc8f57e1208c9a2fcf2f2c012cc">More...</a><br /></td></tr>
+<tr class="separator:gaa0395cc8f57e1208c9a2fcf2f2c012cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae6af4e2ca671d96b608b8076aa64a561"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacegit.html#acd99397a950ea8282ac265946cba33e3">LibGitSignature</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#gae6af4e2ca671d96b608b8076aa64a561">git::signature_default</a> (git_repository *repo)</td></tr>
+<tr class="memdesc:gae6af4e2ca671d96b608b8076aa64a561"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a signature from system values.  <a href="group__lgptrfunc.html#gae6af4e2ca671d96b608b8076aa64a561">More...</a><br /></td></tr>
+<tr class="separator:gae6af4e2ca671d96b608b8076aa64a561"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadcac6817be7b23b0a9982484408a1e47"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacegit.html#acd99397a950ea8282ac265946cba33e3">LibGitSignature</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#gadcac6817be7b23b0a9982484408a1e47">git::signature_new</a> (const std::string &amp;name, const std::string &amp;email, time_t time, int offset)</td></tr>
+<tr class="memdesc:gadcac6817be7b23b0a9982484408a1e47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a signature from given parameters.  <a href="group__lgptrfunc.html#gadcac6817be7b23b0a9982484408a1e47">More...</a><br /></td></tr>
+<tr class="separator:gadcac6817be7b23b0a9982484408a1e47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadf83ffde31ae4dcf4652866dc3f86b8e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacegit.html#a7aeaa54e1150f1d32255ab49dd9fdbe7">LibGitTree</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#gadf83ffde31ae4dcf4652866dc3f86b8e">git::tree_lookup</a> (git_repository *repo, git_oid tree_id)</td></tr>
+<tr class="memdesc:gadf83ffde31ae4dcf4652866dc3f86b8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collect the current tree of a git repository.  <a href="group__lgptrfunc.html#gadf83ffde31ae4dcf4652866dc3f86b8e">More...</a><br /></td></tr>
+<tr class="separator:gadf83ffde31ae4dcf4652866dc3f86b8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaabfd006f2e207ee182bdaf947f12c24a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacegit.html#a845e54aac8feb870a73b45576a0e4a3f">LibGitStatusList</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#gaabfd006f2e207ee182bdaf947f12c24a">git::status_list_new</a> (git_repository *repo, const git_status_options &amp;status_opt)</td></tr>
+<tr class="memdesc:gaabfd006f2e207ee182bdaf947f12c24a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new status list of the index.  <a href="group__lgptrfunc.html#gaabfd006f2e207ee182bdaf947f12c24a">More...</a><br /></td></tr>
+<tr class="separator:gaabfd006f2e207ee182bdaf947f12c24a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa9d4bc89adf48a0bd06510233f7595da"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacegit.html#aee525396cf5bb68a3dff4d92983dd4c4">LibGitReference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#gaa9d4bc89adf48a0bd06510233f7595da">git::repository_head</a> (git_repository *repo)</td></tr>
+<tr class="memdesc:gaa9d4bc89adf48a0bd06510233f7595da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collect the reference to the repository head.  <a href="group__lgptrfunc.html#gaa9d4bc89adf48a0bd06510233f7595da">More...</a><br /></td></tr>
+<tr class="separator:gaa9d4bc89adf48a0bd06510233f7595da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga16104435825c0175b6093c1b61d1e0d9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacegit.html#af6155f34e925707b166d5e6d30438811">LibGitRemote</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#ga16104435825c0175b6093c1b61d1e0d9">git::remote_create</a> (git_repository *repo, const std::string &amp;remote_name, const std::string &amp;url)</td></tr>
+<tr class="memdesc:ga16104435825c0175b6093c1b61d1e0d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new remote connection in the repository.  <a href="group__lgptrfunc.html#ga16104435825c0175b6093c1b61d1e0d9">More...</a><br /></td></tr>
+<tr class="separator:ga16104435825c0175b6093c1b61d1e0d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga51ca138903cfb1857d5c9cc4f52d58df"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacegit.html#af6155f34e925707b166d5e6d30438811">LibGitRemote</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#ga51ca138903cfb1857d5c9cc4f52d58df">git::remote_lookup</a> (git_repository *repo, const std::string &amp;remote_name)</td></tr>
+<tr class="memdesc:ga51ca138903cfb1857d5c9cc4f52d58df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collects the remove connection by name.  <a href="group__lgptrfunc.html#ga51ca138903cfb1857d5c9cc4f52d58df">More...</a><br /></td></tr>
+<tr class="separator:ga51ca138903cfb1857d5c9cc4f52d58df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9dcf264223c8fd0b1834e64c2ffc10c5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacegit.html#a02ed921ec3573c4c08dea619172fc58f">LibGitRepository</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#ga9dcf264223c8fd0b1834e64c2ffc10c5">git::clone</a> (const std::string &amp;url, const std::string &amp;repo_path)</td></tr>
+<tr class="memdesc:ga9dcf264223c8fd0b1834e64c2ffc10c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clone existing git repository into local filesystem.  <a href="group__lgptrfunc.html#ga9dcf264223c8fd0b1834e64c2ffc10c5">More...</a><br /></td></tr>
+<tr class="separator:ga9dcf264223c8fd0b1834e64c2ffc10c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga286555a049d8e3650ec2bc6ef73c88e1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacegit.html#aee525396cf5bb68a3dff4d92983dd4c4">LibGitReference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#ga286555a049d8e3650ec2bc6ef73c88e1">git::branch_lookup</a> (git_repository *repo, const std::string &amp;branch_name, git_branch_t branch_type)</td></tr>
+<tr class="memdesc:ga286555a049d8e3650ec2bc6ef73c88e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find a named branch.  <a href="group__lgptrfunc.html#ga286555a049d8e3650ec2bc6ef73c88e1">More...</a><br /></td></tr>
+<tr class="separator:ga286555a049d8e3650ec2bc6ef73c88e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga940c39825defe26e9b9849d1f6bd99b4"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#ga940c39825defe26e9b9849d1f6bd99b4">git::branch_remote_name</a> (git_repository *repo, const std::string &amp;branch_name)</td></tr>
-<tr class="memdesc:ga940c39825defe26e9b9849d1f6bd99b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the name of a remote name.  <a href="group__lgptrfunc.html#ga940c39825defe26e9b9849d1f6bd99b4">More...</a><br /></td></tr>
+<tr class="memdesc:ga940c39825defe26e9b9849d1f6bd99b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the name of a branch on the remote.  <a href="group__lgptrfunc.html#ga940c39825defe26e9b9849d1f6bd99b4">More...</a><br /></td></tr>
 <tr class="separator:ga940c39825defe26e9b9849d1f6bd99b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ga99b533e0434c1b98a34e424b348c4595"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga99b533e0434c1b98a34e424b348c4595">&#9670;&nbsp;</a></span>branch_lookup()</h2>
+<a id="ga286555a049d8e3650ec2bc6ef73c88e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga286555a049d8e3650ec2bc6ef73c88e1">&#9670;&nbsp;</a></span>branch_lookup()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgit_1_1LibGitPointer.html">LibGitPointer</a>&lt; git_reference &gt; git::branch_lookup </td>
+          <td class="memname"><a class="el" href="namespacegit.html#aee525396cf5bb68a3dff4d92983dd4c4">LibGitReference</a> git::branch_lookup </td>
           <td>(</td>
           <td class="paramtype">git_repository *&#160;</td>
           <td class="paramname"><em>repo</em>, </td>
@@ -125,16 +125,16 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Find the reference to a branch where the name is known. </p>
+<p>Find a named branch. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">repo</td><td>C-type repository </td></tr>
-    <tr><td class="paramname">branch_name</td><td>e.g. 'master', '3_fix bugs', etc... </td></tr>
-    <tr><td class="paramname">branch_type</td><td>enum with 1=GIT_BRANCH_LOCAL, 2=GIT_BRANCH_REMOTE, 3=GIT_BRANCH_ALL </td></tr>
+    <tr><td class="paramname">repo</td><td>Pointer to repository object </td></tr>
+    <tr><td class="paramname">branch_name</td><td>The name to search for, e.g. 'main', 'fix-bugs' </td></tr>
+    <tr><td class="paramname">branch_type</td><td>Which branch type to find, enum with 1=GIT_BRANCH_LOCAL, 2=GIT_BRANCH_REMOTE, 3=GIT_BRANCH_ALL </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Wrapper of git reference </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new git_reference object </dd></dl>
 
 <p class="reference">Referenced by <a class="el" href="classgit_1_1GitRepository.html#a13b5c999cf7816077fce159a2c00bd46">git::GitRepository::branch_up_to_date()</a>.</p>
 
@@ -166,28 +166,28 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Return the name of a remote name. </p>
+<p>Find the name of a branch on the remote. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">repo</td><td>C-type repository </td></tr>
-    <tr><td class="paramname">branch_name</td><td>e.g. 'master', '3_fix bugs', etc... </td></tr>
+    <tr><td class="paramname">repo</td><td>Pointer to repository object </td></tr>
+    <tr><td class="paramname">branch_name</td><td>Local branch name, e.g. 'main', 'fix-bugs' </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>remote name, typically 'origin/master' or 'origin/3_fix_bugs' </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>name on remote , e.g. 'origin/main' or 'origin/fix-bugs' </dd></dl>
 
 <p class="reference">Referenced by <a class="el" href="classgit_1_1GitRepository.html#a13b5c999cf7816077fce159a2c00bd46">git::GitRepository::branch_up_to_date()</a>.</p>
 
 </div>
 </div>
-<a id="gaae9ad70ada3df44398a6f89a2e9631ed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaae9ad70ada3df44398a6f89a2e9631ed">&#9670;&nbsp;</a></span>clone()</h2>
+<a id="ga9dcf264223c8fd0b1834e64c2ffc10c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9dcf264223c8fd0b1834e64c2ffc10c5">&#9670;&nbsp;</a></span>clone()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgit_1_1LibGitPointer.html">LibGitPointer</a>&lt; git_repository &gt; git::clone </td>
+          <td class="memname"><a class="el" href="namespacegit.html#a02ed921ec3573c4c08dea619172fc58f">LibGitRepository</a> git::clone </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>url</em>, </td>
@@ -209,25 +209,25 @@ Functions</h2></td></tr>
 <p>Clone existing git repository into local filesystem. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">url</td><td>adress of remote connection, e.g <a href="https://github.com/..">https://github.com/..</a>. </td></tr>
-    <tr><td class="paramname">repo_path</td><td>absolute or relative path from executable </td></tr>
+    <tr><td class="paramname">url</td><td>Address of remote connection, e.g <a href="https://github.com/..">https://github.com/..</a>. </td></tr>
+    <tr><td class="paramname">repo_path</td><td>Absolute or relative path to the repository root </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Wrapper of a repository </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new git_repository object </dd></dl>
 
 <p class="reference">Referenced by <a class="el" href="classgit_1_1GitRepository.html#aac9392fcf7460d419f97da48bc1682aa">git::GitRepository::clone_repo()</a>.</p>
 
 </div>
 </div>
-<a id="ga285e126c3534afa30ab765ea1fcc59d7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga285e126c3534afa30ab765ea1fcc59d7">&#9670;&nbsp;</a></span>remote_create()</h2>
+<a id="ga16104435825c0175b6093c1b61d1e0d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga16104435825c0175b6093c1b61d1e0d9">&#9670;&nbsp;</a></span>remote_create()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgit_1_1LibGitPointer.html">LibGitPointer</a>&lt; git_remote &gt; git::remote_create </td>
+          <td class="memname"><a class="el" href="namespacegit.html#af6155f34e925707b166d5e6d30438811">LibGitRemote</a> git::remote_create </td>
           <td>(</td>
           <td class="paramtype">git_repository *&#160;</td>
           <td class="paramname"><em>repo</em>, </td>
@@ -252,29 +252,29 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Create a new remote connection in the repository and returns it. </p>
+<p>Create a new remote connection in the repository. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">repo</td><td>C-type repository </td></tr>
-    <tr><td class="paramname">remote_name</td><td>typically 'origin' </td></tr>
-    <tr><td class="paramname">url</td><td>adress of remote connection, e.g <a href="https://github.com/..">https://github.com/..</a>. </td></tr>
+    <tr><td class="paramname">repo</td><td>Pointer to repository object </td></tr>
+    <tr><td class="paramname">remote_name</td><td>Name of the remote, e.g. "origin" </td></tr>
+    <tr><td class="paramname">url</td><td>Adress of remote connection, e.g <a href="https://github.com/..">https://github.com/..</a>. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Wrapper of a remote connection </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new git_remote object </dd></dl>
 
 <p class="reference">Referenced by <a class="el" href="classgit_1_1GitRepository.html#afa89d50c2c9cd929688fbc064a093963">git::GitRepository::GitRepository()</a>.</p>
 
 </div>
 </div>
-<a id="ga1a079f60f116d6aa4346a2a1cbe4a697"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga1a079f60f116d6aa4346a2a1cbe4a697">&#9670;&nbsp;</a></span>remote_lookup()</h2>
+<a id="ga51ca138903cfb1857d5c9cc4f52d58df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga51ca138903cfb1857d5c9cc4f52d58df">&#9670;&nbsp;</a></span>remote_lookup()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgit_1_1LibGitPointer.html">LibGitPointer</a>&lt; git_remote &gt; git::remote_lookup </td>
+          <td class="memname"><a class="el" href="namespacegit.html#af6155f34e925707b166d5e6d30438811">LibGitRemote</a> git::remote_lookup </td>
           <td>(</td>
           <td class="paramtype">git_repository *&#160;</td>
           <td class="paramname"><em>repo</em>, </td>
@@ -293,28 +293,28 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Collects the remove connection by name and returns it. </p>
+<p>Collects the remove connection by name. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">repo</td><td>C-type repository </td></tr>
-    <tr><td class="paramname">remote_name</td><td>typically 'origin' </td></tr>
+    <tr><td class="paramname">repo</td><td>Pointer to repository object </td></tr>
+    <tr><td class="paramname">remote_name</td><td>Name of the remote, e.g. "origin" </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Wrapper of a remote connection </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new git_remote object </dd></dl>
 
 <p class="reference">Referenced by <a class="el" href="classgit_1_1GitRepository.html#a13b5c999cf7816077fce159a2c00bd46">git::GitRepository::branch_up_to_date()</a>, <a class="el" href="classgit_1_1GitRepository.html#aac9392fcf7460d419f97da48bc1682aa">git::GitRepository::clone_repo()</a>, and <a class="el" href="classgit_1_1GitRepository.html#afa89d50c2c9cd929688fbc064a093963">git::GitRepository::GitRepository()</a>.</p>
 
 </div>
 </div>
-<a id="ga896cd12acde20dadf181f4e65cfd24e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga896cd12acde20dadf181f4e65cfd24e1">&#9670;&nbsp;</a></span>repository_head()</h2>
+<a id="gaa9d4bc89adf48a0bd06510233f7595da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa9d4bc89adf48a0bd06510233f7595da">&#9670;&nbsp;</a></span>repository_head()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgit_1_1LibGitPointer.html">LibGitPointer</a>&lt; git_reference &gt; git::repository_head </td>
+          <td class="memname"><a class="el" href="namespacegit.html#aee525396cf5bb68a3dff4d92983dd4c4">LibGitReference</a> git::repository_head </td>
           <td>(</td>
           <td class="paramtype">git_repository *&#160;</td>
           <td class="paramname"><em>repo</em></td><td>)</td>
@@ -326,22 +326,22 @@ Functions</h2></td></tr>
 <p>Collect the reference to the repository head. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">repo</td><td>C-type repository </td></tr>
+    <tr><td class="paramname">repo</td><td>Pointer to repository object </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Wrapper of git_reference* </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new git_reference object </dd></dl>
 
 </div>
 </div>
-<a id="ga1652d26d1761f79a5fc9bed55d0c1417"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga1652d26d1761f79a5fc9bed55d0c1417">&#9670;&nbsp;</a></span>repository_index()</h2>
+<a id="gaa0395cc8f57e1208c9a2fcf2f2c012cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa0395cc8f57e1208c9a2fcf2f2c012cc">&#9670;&nbsp;</a></span>repository_index()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgit_1_1LibGitPointer.html">LibGitPointer</a>&lt; git_index &gt; git::repository_index </td>
+          <td class="memname"><a class="el" href="namespacegit.html#aa84323af4ee0395f621a4749e6e05c57">LibGitIndex</a> git::repository_index </td>
           <td>(</td>
           <td class="paramtype">git_repository *&#160;</td>
           <td class="paramname"><em>repo</em></td><td>)</td>
@@ -353,24 +353,24 @@ Functions</h2></td></tr>
 <p>Return the current index of a repository. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">repo</td><td>C-type repository </td></tr>
+    <tr><td class="paramname">repo</td><td>Pointer to the repository object </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Wrapper of a git_index* </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new git_index object </dd></dl>
 
 <p class="reference">Referenced by <a class="el" href="classgit_1_1GitRepository.html#ac53214aae8a3f3fc7ce3ddb20d17b908">git::GitRepository::add()</a>, <a class="el" href="classgit_1_1GitRepository.html#af46265cab9cc299c8d899b43a8f0d281">git::GitRepository::add_files()</a>, <a class="el" href="classgit_1_1GitRepository.html#adc7f22f4a17a481e231b5e35c87fb3cf">git::GitRepository::commit()</a>, <a class="el" href="classgit_1_1GitRepository.html#a25aa4b88d476c0d12940ceebee24ffc7">git::GitRepository::commit_initial()</a>, <a class="el" href="classgit_1_1GitRepository.html#a18a739afb893b7ed5a040d792cf1d67b">git::GitRepository::remove_directory()</a>, <a class="el" href="classgit_1_1GitRepository.html#a7168cb78c542bad81e3165b9f702fd9f">git::GitRepository::remove_files()</a>, and <a class="el" href="classgit_1_1GitRepository.html#aa53b4e6a57863bfc05469f0501e18b09">git::GitRepository::update()</a>.</p>
 
 </div>
 </div>
-<a id="gac1c8d246d716da5a3ad4b276393a9cc0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gac1c8d246d716da5a3ad4b276393a9cc0">&#9670;&nbsp;</a></span>repository_init()</h2>
+<a id="gaf2f6161d8960c78db86858aca4b09c96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf2f6161d8960c78db86858aca4b09c96">&#9670;&nbsp;</a></span>repository_init()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgit_1_1LibGitPointer.html">LibGitPointer</a>&lt; git_repository &gt; git::repository_init </td>
+          <td class="memname"><a class="el" href="namespacegit.html#a02ed921ec3573c4c08dea619172fc58f">LibGitRepository</a> git::repository_init </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>repo_path</em>, </td>
@@ -389,28 +389,28 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Return a fresh initialized repository. </p>
+<p>Initialize a fresh repository. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">repo_path</td><td>absolute or relative path from executable </td></tr>
-    <tr><td class="paramname">is_bare</td><td>if true, a git repo is created at repo_path. Else, .git is created in repo_path. </td></tr>
+    <tr><td class="paramname">repo_path</td><td>Absolute or relative path to the repository root </td></tr>
+    <tr><td class="paramname">is_bare</td><td>If true, a git repo is created at repo_path. Else, .git is created in repo_path. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Wrapper of a git_repository* </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new git_repository object for the created repository </dd></dl>
 
 <p class="reference">Referenced by <a class="el" href="classgit_1_1GitRepository.html#a9a4c98257f6cee06cca03c8a14675760">git::GitRepository::init()</a>.</p>
 
 </div>
 </div>
-<a id="gacfa5eddb13533a97c68855759629efa5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gacfa5eddb13533a97c68855759629efa5">&#9670;&nbsp;</a></span>repository_open()</h2>
+<a id="ga86f9f5c496c45f179485ce026dda67b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga86f9f5c496c45f179485ce026dda67b4">&#9670;&nbsp;</a></span>repository_open()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgit_1_1LibGitPointer.html">LibGitPointer</a>&lt; git_repository &gt; git::repository_open </td>
+          <td class="memname"><a class="el" href="namespacegit.html#a02ed921ec3573c4c08dea619172fc58f">LibGitRepository</a> git::repository_open </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>repo_path</em></td><td>)</td>
@@ -419,27 +419,27 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Return an existing repository. </p>
+<p>Open an existing repository. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">repo_path</td><td>absolute or relative path from executable </td></tr>
+    <tr><td class="paramname">repo_path</td><td>Absolute or relative path to the repository root </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Wrapper of a git_repository* </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new git_repository object for the opened repository </dd></dl>
 
 <p class="reference">Referenced by <a class="el" href="classgit_1_1GitRepository.html#a9a4c98257f6cee06cca03c8a14675760">git::GitRepository::init()</a>.</p>
 
 </div>
 </div>
-<a id="ga93c762618f9f6578776041a78237d2f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga93c762618f9f6578776041a78237d2f0">&#9670;&nbsp;</a></span>signature_default()</h2>
+<a id="gae6af4e2ca671d96b608b8076aa64a561"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae6af4e2ca671d96b608b8076aa64a561">&#9670;&nbsp;</a></span>signature_default()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgit_1_1LibGitPointer.html">LibGitPointer</a>&lt; git_signature &gt; git::signature_default </td>
+          <td class="memname"><a class="el" href="namespacegit.html#acd99397a950ea8282ac265946cba33e3">LibGitSignature</a> git::signature_default </td>
           <td>(</td>
           <td class="paramtype">git_repository *&#160;</td>
           <td class="paramname"><em>repo</em></td><td>)</td>
@@ -448,27 +448,27 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Generate a signature from system values (already collected by the C-type repository). </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<p>Generate a signature from system values. </p>
+<p>Defaults deduced from existing repository object. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">repo_path</td><td>absolute or relative path from executable </td></tr>
+    <tr><td class="paramname">repo</td><td>Pointer to repository object to use for defaults </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Wrapper of a git_signature* </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new git_signature object </dd></dl>
 
 <p class="reference">Referenced by <a class="el" href="classgit_1_1GitRepository.html#a5033b46997f0c7f8cb977710b4e0a047">git::GitRepository::make_signature()</a>.</p>
 
 </div>
 </div>
-<a id="gafdd6b3e585e23580564304c6711c2478"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gafdd6b3e585e23580564304c6711c2478">&#9670;&nbsp;</a></span>signature_new()</h2>
+<a id="gadcac6817be7b23b0a9982484408a1e47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadcac6817be7b23b0a9982484408a1e47">&#9670;&nbsp;</a></span>signature_new()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgit_1_1LibGitPointer.html">LibGitPointer</a>&lt; git_signature &gt; git::signature_new </td>
+          <td class="memname"><a class="el" href="namespacegit.html#acd99397a950ea8282ac265946cba33e3">LibGitSignature</a> git::signature_new </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>name</em>, </td>
@@ -504,25 +504,25 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">name</td><td>User name who creates the commit </td></tr>
     <tr><td class="paramname">email</td><td>E-mail of the user </td></tr>
-    <tr><td class="paramname">time</td><td>timestamp </td></tr>
-    <tr><td class="paramname">offset</td><td>timezone adjustment for the timezone </td></tr>
+    <tr><td class="paramname">time</td><td>Unix time of the creation date </td></tr>
+    <tr><td class="paramname">offset</td><td>Timezone adjustment for the timestamp </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Wrapper of a git_signature* </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new git_signature object </dd></dl>
 
 <p class="reference">Referenced by <a class="el" href="classgit_1_1GitRepository.html#a5033b46997f0c7f8cb977710b4e0a047">git::GitRepository::make_signature()</a>.</p>
 
 </div>
 </div>
-<a id="gac7c6fc6ba17e10d6040183604527ed60"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gac7c6fc6ba17e10d6040183604527ed60">&#9670;&nbsp;</a></span>status_list_new()</h2>
+<a id="gaabfd006f2e207ee182bdaf947f12c24a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaabfd006f2e207ee182bdaf947f12c24a">&#9670;&nbsp;</a></span>status_list_new()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgit_1_1LibGitPointer.html">LibGitPointer</a>&lt; git_status_list &gt; git::status_list_new </td>
+          <td class="memname"><a class="el" href="namespacegit.html#a845e54aac8feb870a73b45576a0e4a3f">LibGitStatusList</a> git::status_list_new </td>
           <td>(</td>
           <td class="paramtype">git_repository *&#160;</td>
           <td class="paramname"><em>repo</em>, </td>
@@ -541,28 +541,28 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Create a new status list which contains status_list_entry* elements. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<p>Create a new status list of the index. </p>
+<p>The returned status object contains status_list_entry* elements. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">repo</td><td>C-type repository </td></tr>
-    <tr><td class="paramname">status_opt</td><td>struct of status options </td></tr>
+    <tr><td class="paramname">repo</td><td>Pointer to repository object </td></tr>
+    <tr><td class="paramname">status_opt</td><td>Struct of status options </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Wrapper of git_status_list* </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new git_status_list object </dd></dl>
 
 <p class="reference">Referenced by <a class="el" href="classgit_1_1GitRepository.html#a19901a34ee3fdffc62962df77da90bf7">git::GitRepository::status()</a>.</p>
 
 </div>
 </div>
-<a id="gaeb3c91566960ac8d83a35904bd8b5cae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaeb3c91566960ac8d83a35904bd8b5cae">&#9670;&nbsp;</a></span>tree_lookup()</h2>
+<a id="gadf83ffde31ae4dcf4652866dc3f86b8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadf83ffde31ae4dcf4652866dc3f86b8e">&#9670;&nbsp;</a></span>tree_lookup()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgit_1_1LibGitPointer.html">LibGitPointer</a>&lt; git_tree &gt; git::tree_lookup </td>
+          <td class="memname"><a class="el" href="namespacegit.html#a7aeaa54e1150f1d32255ab49dd9fdbe7">LibGitTree</a> git::tree_lookup </td>
           <td>(</td>
           <td class="paramtype">git_repository *&#160;</td>
           <td class="paramname"><em>repo</em>, </td>
@@ -581,15 +581,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Collect the current tree of the git repository. </p>
+<p>Collect the current tree of a git repository. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">repo</td><td>C-type repository </td></tr>
-    <tr><td class="paramname">tree_id</td><td>identity number of the active tree </td></tr>
+    <tr><td class="paramname">repo</td><td>Pointer to repository object to examine </td></tr>
+    <tr><td class="paramname">tree_id</td><td>Identity number of the active tree </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Wrapper of a git_signature* </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new git_tree object </dd></dl>
 
 <p class="reference">Referenced by <a class="el" href="classgit_1_1GitRepository.html#adc7f22f4a17a481e231b5e35c87fb3cf">git::GitRepository::commit()</a>, and <a class="el" href="classgit_1_1GitRepository.html#a25aa4b88d476c0d12940ceebee24ffc7">git::GitRepository::commit_initial()</a>.</p>
 
@@ -598,7 +598,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Dec 5 2023 13:31:08 for libgit4cpp by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Wed Dec 13 2023 15:26:45 for libgit4cpp by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
