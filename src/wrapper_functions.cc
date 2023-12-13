@@ -24,7 +24,6 @@
 
 #include <git2.h>
 #include <gul14/cat.h>
-#include<iostream>
 
 #include "libgit4cpp/wrapper_functions.h"
 #include "libgit4cpp/Error.h"
