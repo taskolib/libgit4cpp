@@ -36,6 +36,8 @@
 using namespace git;
 using gul14::cat;
 
+namespace {
+
 auto const reporoot = std::filesystem::path{ "reporoot" };
 
 /**
@@ -66,6 +68,8 @@ void create_testfiles(const std::filesystem::path& name, size_t nr_files,
         f << msg << cat("\nfile", i);
     }
 }
+
+} // anonymous namespace
 
 TEST_CASE("GitRepository Wrapper Test all", "[GitWrapper]")
 {
