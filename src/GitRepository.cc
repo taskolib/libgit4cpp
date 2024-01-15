@@ -427,6 +427,50 @@ void GitRepository::reset(unsigned int nr_of_commits)
         throw git::Error{ gul14::cat("Reset: ", git_error_last()->message) };
 }
 
+Remote GitRepository::add_remote(const std::string& remote_name, const std::string& url)
+{
+    auto remote = remote_create(repo_.get(), remote_name, url);
+    if (!remote)
+    {
+        throw git::Error{ gul14::cat("Cannot create remote \"", remote_name, "\": ",
+            git_error_last()->message) };
+    }
+    return Remote{ std::move(remote) };
+}
+
+gul14::optional<Remote> GitRepository::get_remote(const std::string& remote_name) const
+{
+    auto remote = remote_lookup(repo_.get(), remote_name);
+    if (!remote)
+        return {};
+
+    return Remote{ std::move(remote) };
+}
+
+gul14::SmallVector<Remote, 2> GitRepository::list_remotes() const
+{
+    gul14::SmallVector<Remote, 2> result;
+
+    git_strarray remotes;
+    int err = git_remote_list(&remotes, repo_.get());
+    if (err)
+        throw git::Error{ gul14::cat("Cannot list remotes: ", git_error_last()->message) };
+    auto cleanup = gul14::finally([&remotes]() { git_strarray_free(&remotes); });
+
+    for (std::size_t i = 0; i != remotes.count; ++i)
+    {
+        auto maybe_remote = get_remote(remotes.strings[i]);
+        if (!maybe_remote)
+        {
+            throw Error(gul14::cat("Lookup failed for remote \"", remotes.strings[i],
+                "\": ", git_error_last()->message));
+        }
+        result.push_back(std::move(*maybe_remote));
+    }
+
+    return result;
+}
+
 #if 0
 void GitRepository::push()
 {
