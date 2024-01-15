@@ -4,7 +4,7 @@
  * \date   Created on March 20, 2023
  * \brief  Implementation of the GitRepository class.
  *
- * \copyright Copyright 2023 Deutsches Elektronen-Synchrotron (DESY), Hamburg
+ * \copyright Copyright 2023-2024 Deutsches Elektronen-Synchrotron (DESY), Hamburg
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -27,6 +27,7 @@
 
 #include <git2.h>
 #include <gul14/cat.h>
+#include <gul14/finalizer.h>
 
 #include "libgit4cpp/Error.h"
 #include "libgit4cpp/GitRepository.h"
@@ -34,17 +35,11 @@
 
 namespace git {
 
-GitRepository::GitRepository(const std::filesystem::path& file_path, const std::string& url)
+GitRepository::GitRepository(const std::filesystem::path& file_path)
     : repo_path_{ file_path }
-    , url_{ url }
 {
     git_libgit2_init();
     init(file_path);
-
-    //check if remote already exists, else create new remote
-    auto remote_ = remote_lookup(repo_.get(), "origin");
-    if (not remote_ and not url.empty())
-        remote_ = remote_create(repo_.get(), "origin", url.c_str());
 }
 
 GitRepository::~GitRepository()
@@ -432,6 +427,7 @@ void GitRepository::reset(unsigned int nr_of_commits)
         throw git::Error{ gul14::cat("Reset: ", git_error_last()->message) };
 }
 
+#if 0
 void GitRepository::push()
 {
     // set options
@@ -452,7 +448,6 @@ void GitRepository::push()
     if (error)
         throw git::Error{ gul14::cat("Push remote: ", git_error_last()->message) };
 }
-
 
 void GitRepository::pull()
 {
@@ -496,7 +491,6 @@ void GitRepository::clone_repo(const std::string& url, const std::filesystem::pa
     }
 }
 
-
 bool GitRepository::branch_up_to_date(const std::string& branch_name)
 {
     auto local_ref = branch_lookup(repo_.get(), "master", GIT_BRANCH_LOCAL);
@@ -528,6 +522,7 @@ bool GitRepository::branch_up_to_date(const std::string& branch_name)
     // Compare OIDs to check if the branches are up to date
     return git_oid_equal(local_oid, remote_oid);
 }
+#endif
 
 } // namespace git
 

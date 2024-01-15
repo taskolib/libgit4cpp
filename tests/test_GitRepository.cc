@@ -4,7 +4,7 @@
  * \date   Created on March 22, 2023
  * \brief  Test suite for the GitRepository class.
  *
- * \copyright Copyright 2023 Deutsches Elektronen-Synchrotron (DESY), Hamburg
+ * \copyright Copyright 2023-2024 Deutsches Elektronen-Synchrotron (DESY), Hamburg
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -30,6 +30,7 @@
 #include <gul14/catch.h>
 #include <gul14/gul.h>
 
+#include "libgit4cpp/Error.h"
 #include "libgit4cpp/GitRepository.h"
 #include "libgit4cpp/wrapper_functions.h"
 
@@ -575,19 +576,18 @@ TEST_CASE("GitRepository add() with glob", "[GitWrapper]")
     }
 }
 
-
 /**
  * To test a remote repository, the following steps are executed
  * 1) Create a GitReposiotry with a link to a remote repository
  * 2) Commit and push files to remote repository (2x)
  * 3) Reset local repo to first commit and pull 2nd commit from remote
  * 4) Delete local repository and clone from remote
- * 
+ *
  * Tidy up) Reset remote, delete all local files
- 
+
 TEST_CASE("GitRepository Wrapper Test Remote", "[GitWrapper]")
 {
-    
+
 
     SECTION("Init empty GitRepository with remote connection")
     {
