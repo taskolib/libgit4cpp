@@ -576,6 +576,58 @@ TEST_CASE("GitRepository add() with glob", "[GitWrapper]")
     }
 }
 
+TEST_CASE("GitRepository: get_remote(), add_remote()", "[GitWrapper]")
+{
+    std::filesystem::remove_all(reporoot);
+
+    constexpr auto* repo_url
+        = "https://gitlab.desy.de/jannik.woehnert/taskolib_remote_test.git";
+
+    GitRepository repo{ reporoot };
+
+    auto maybe_remote = repo.get_remote("origin");
+    REQUIRE(maybe_remote.has_value() == false);
+
+    auto remote = repo.add_remote("origin", repo_url);
+    REQUIRE(remote.get() != nullptr);
+
+    maybe_remote = repo.get_remote("origin");
+    REQUIRE(maybe_remote.has_value());
+    REQUIRE(maybe_remote->get_name() == "origin");
+    REQUIRE(maybe_remote->get_url() == repo_url);
+    REQUIRE(maybe_remote->get() != nullptr);
+}
+
+TEST_CASE("GitRepository: list_remotes(), add_remote()", "[GitWrapper]")
+{
+    std::filesystem::remove_all(reporoot);
+
+    constexpr auto* repo_url
+        = "https://gitlab.desy.de/jannik.woehnert/taskolib_remote_test.git";
+
+    GitRepository repo{ reporoot };
+
+    // Repo list must be empty
+    auto remotes = repo.list_remotes();
+    REQUIRE(remotes.empty());
+
+    // Add a remote
+    auto remote = repo.add_remote("origin", repo_url);
+    REQUIRE(remote.get_name() == "origin");
+    REQUIRE(remote.get_url() == repo_url);
+    REQUIRE(remote.get() != nullptr);
+
+    // Repo list must not be empty anymore
+    remotes = repo.list_remotes();
+    REQUIRE(remotes.size() == 1);
+    REQUIRE(remotes[0].get_name() == "origin");
+    REQUIRE(remotes[0].get_url() == repo_url);
+    REQUIRE(remotes[0].get() != nullptr);
+
+    // Adding the same remote again must fail
+    REQUIRE_THROWS_AS(repo.add_remote("origin", repo_url), git::Error);
+}
+
 /**
  * To test a remote repository, the following steps are executed
  * 1) Create a GitReposiotry with a link to a remote repository

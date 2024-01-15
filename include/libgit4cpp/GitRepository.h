@@ -170,6 +170,25 @@ public:
     */
     void reset(unsigned int nr_of_commits);
 
+    /**
+     * Add a new git remote with the specified name and URL to the repository.
+     * \exception Error is thrown if the remote cannot be added, for instance because it
+     *            already exists.
+     */
+    Remote add_remote(const std::string& remote_name, const std::string& url);
+
+    /**
+     * Look up a git remote by name in the repository.
+     * \returns a Remote object if the remote exists, or an empty optional otherwise.
+     */
+    gul14::optional<Remote> get_remote(const std::string& remote_name) const;
+
+    /**
+     * Return a list of all configured git remotes.
+     * \exception Error is thrown if the remote list cannot be retrieved.
+     */
+    gul14::SmallVector<Remote, 2> list_remotes() const;
+
 #if 0
     /**
      * Push commits to the repository.
