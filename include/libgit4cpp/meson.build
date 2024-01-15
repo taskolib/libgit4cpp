@@ -3,6 +3,7 @@ public_headers = [
     'Error.h',
     'GitRepository.h',
     'libgit4cpp.h',
+    'Remote.h',
     'types.h',
     'wrapper_functions.h',
 ]
