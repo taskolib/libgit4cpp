@@ -4,7 +4,7 @@
  * \date   Created on March 20, 2023
  * \brief  Wrapper for C-Package libgit2
  *
- * \copyright Copyright 2023 Deutsches Elektronen-Synchrotron (DESY), Hamburg
+ * \copyright Copyright 2023-2024 Deutsches Elektronen-Synchrotron (DESY), Hamburg
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -31,7 +31,9 @@
 
 #include <git2.h>
 #include <gul14/escape.h>
+#include <gul14/SmallVector.h>
 
+#include "libgit4cpp/Remote.h"
 #include "libgit4cpp/types.h"
 
 namespace git {
@@ -80,9 +82,8 @@ public:
     /**
      * Constructor which specifies the root dir of the git repository.
      * \param file_path  Path to git directory
-     * \param url        Optional remote repository url
      */
-    explicit GitRepository(const std::filesystem::path& file_path, const std::string& url = { });
+    explicit GitRepository(const std::filesystem::path& file_path);
 
     /**
      * Reset all knowledge this object knows about the repository and load the knowledge again.
@@ -169,16 +170,17 @@ public:
     */
     void reset(unsigned int nr_of_commits);
 
+#if 0
     /**
      * Push commits to the repository.
      * \param addr Address of the remote git repository host
-    */
+     */
     void push();
 
     /**
      * Pull changes from the remote repository.
      * \param addr Address of the git repository host
-    */
+     */
     void pull();
 
     /**
@@ -192,6 +194,7 @@ public:
      * \param branch_name
     */
     bool branch_up_to_date(const std::string& branch_name);
+#endif
 
     /**
      * Remove all entries from the index under a given directory.
@@ -243,12 +246,6 @@ private:
 
     /// Path to the repository.
     std::filesystem::path repo_path_;
-
-    /// URL of the remote repository.
-    std::string url_;
-
-    /// git remote object
-    LibGitRemote remote_{ nullptr, git_remote_free };
 
     /// Pointer which holds all infos of the active repository.
     LibGitRepository repo_{ nullptr, git_repository_free };

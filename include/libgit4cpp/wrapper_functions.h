@@ -120,12 +120,12 @@ LibGitRemote remote_create (git_repository* repo, const std::string& remote_name
                 const std::string& url);
 
 /**
- * Collects the remove connection by name.
+ * Find a remote repository by name.
  * \param repo Pointer to repository object
- * \param remote_name Name of the remote, e.g. "origin"
- * \return new git_remote object
+ * \param remote_name Name of the remote repository, e.g. "origin"
+ * \returns a pointer to a git_remote object (null if not found)
  */
-LibGitRemote remote_lookup (git_repository* repo, const std::string& remote_name);
+LibGitRemote remote_lookup(git_repository* repo, const std::string& remote_name);
 
 /**
  * Clone existing git repository into local filesystem.

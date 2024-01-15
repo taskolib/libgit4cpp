@@ -118,12 +118,9 @@ LibGitRemote remote_create(git_repository* repo, const std::string& remote_name,
 
 LibGitRemote remote_lookup(git_repository* repo, const std::string& remote_name)
 {
-    git_remote* remote;
-    if (git_remote_lookup(&remote, repo, remote_name.c_str()))
-    {
-        // gul14::cat("remote_lookup: ", git_error_last()->message);
-        remote = nullptr;
-    }
+    git_remote* remote = nullptr;
+    if (repo)
+        git_remote_lookup(&remote, repo, remote_name.c_str());
     return { remote, git_remote_free };
 }
 
