@@ -172,8 +172,15 @@ public:
 
     /**
      * Add a new git remote with the specified name and URL to the repository.
+     * \returns a Remote object representing the newly added remote
      * \exception Error is thrown if the remote cannot be added, for instance because it
      *            already exists.
+     *
+     * \code{.cpp}
+     * GitRepository repo{ "/path/to/repo" };
+     * repo.add_remote("origin", "https://gitlab.com/a/b.git");
+     * repo.add_remote("upstream", "file:///path/to/upstream/repo");
+     * \endcode
      */
     Remote add_remote(const std::string& remote_name, const std::string& url);
 
@@ -189,13 +196,20 @@ public:
      */
     gul14::SmallVector<Remote, 2> list_remotes() const;
 
-#if 0
     /**
-     * Push commits to the repository.
-     * \param addr Address of the remote git repository host
+     * Push something to the specified remote.
+     *
+     * In git parlance, this updates a remote ref from a local ref. The "refspec"
+     * specifies which local ref and which remote ref is used. For instance, the default
+     * "HEAD:refs/heads/main" pushes HEAD (whatever is currently checked out in the local
+     * working directory) to the remote branch "main".
+     *
+     * \param remote   The git remote to push to (e.g. obtained by get_remote())
+     * \param refspec  The refspec to push (e.g. "HEAD" or "refs/heads/main")
      */
-    void push();
+    void push(const Remote& remote, const std::string& refspec = "HEAD:refs/heads/main");
 
+#if 0
     /**
      * Pull changes from the remote repository.
      * \param addr Address of the git repository host

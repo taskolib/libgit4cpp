@@ -73,7 +73,7 @@ void create_testfiles(const std::filesystem::path& name, size_t nr_files,
 
 } // anonymous namespace
 
-TEST_CASE("GitRepository Wrapper Test all", "[GitWrapper]")
+TEST_CASE("GitRepository Wrapper Test all", "[GitRepository]")
 {
     /**
      * Create files in a directory and then initialize the git repository within.
@@ -391,7 +391,7 @@ TEST_CASE("GitRepository Wrapper Test all", "[GitWrapper]")
     }
 }
 
-TEST_CASE("GitRepository add() with glob", "[GitWrapper]")
+TEST_CASE("GitRepository add() with glob", "[GitRepository]")
 {
     std::filesystem::remove_all(reporoot);
     create_testfiles(".Atlantis", 1, "Atlantis");
@@ -577,7 +577,7 @@ TEST_CASE("GitRepository add() with glob", "[GitWrapper]")
     }
 }
 
-TEST_CASE("GitRepository: get_remote(), add_remote()", "[GitWrapper]")
+TEST_CASE("GitRepository: get_remote(), add_remote()", "[GitRepository]")
 {
     std::filesystem::remove_all(reporoot);
 
@@ -599,7 +599,7 @@ TEST_CASE("GitRepository: get_remote(), add_remote()", "[GitWrapper]")
     REQUIRE(maybe_remote->get() != nullptr);
 }
 
-TEST_CASE("GitRepository: list_remotes(), add_remote()", "[GitWrapper]")
+TEST_CASE("GitRepository: list_remotes(), add_remote()", "[GitRepository]")
 {
     std::filesystem::remove_all(reporoot);
 
@@ -627,6 +627,35 @@ TEST_CASE("GitRepository: list_remotes(), add_remote()", "[GitWrapper]")
 
     // Adding the same remote again must fail
     REQUIRE_THROWS_AS(repo.add_remote("origin", repo_url), git::Error);
+}
+
+TEST_CASE("GitRepository: push()", "[GitRepository]")
+{
+    const auto working_dir = unit_test_folder() / "push_test";
+    const auto remote_repo = unit_test_folder() / "push_test_remote";
+
+    std::filesystem::remove_all(working_dir);
+    std::filesystem::remove_all(remote_repo);
+
+    // Create a local repository and commit a single file
+    GitRepository repo{ working_dir };
+
+    std::ofstream f(working_dir / "test.txt");
+    f << "push() test\n";
+    f.close();
+
+    repo.add();
+    repo.commit("Add test.txt");
+
+    // Create a bare remote repository
+    repository_init(remote_repo, true);
+
+    // Add the remote to the local repository
+    auto remote = repo.add_remote(
+        "origin", "file://" + std::filesystem::absolute(remote_repo).string());
+
+    // Push the local repository to the remote
+    repo.push(remote);
 }
 
 /**
