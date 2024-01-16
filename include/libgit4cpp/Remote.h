@@ -61,6 +61,16 @@ public:
     /// Return the URL of the remote (e.g. "https://gitlab.com/a/b.git").
     const std::string& get_url() const { return url_; }
 
+    /**
+     * Retrieve a list of references available on this remote repository
+     * ("git ls-remote").
+     *
+     * \note
+     * The API for this function is preliminary. It would be more useful to return not
+     * just the names of the references, but also additional details like the commit IDs.
+     */
+    std::vector<std::string> list_references();
+
 private:
     std::string name_;
     std::string url_;
