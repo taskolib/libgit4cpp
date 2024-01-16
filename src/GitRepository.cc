@@ -32,6 +32,7 @@
 #include "libgit4cpp/Error.h"
 #include "libgit4cpp/GitRepository.h"
 #include "libgit4cpp/wrapper_functions.h"
+#include "credentials_callback.h"
 
 using gul14::cat;
 
@@ -472,19 +473,6 @@ gul14::SmallVector<Remote, 2> GitRepository::list_remotes() const
 
     return result;
 }
-
-namespace {
-extern "C" {
-
-// Dummy credentials callback: Always return the same username and password
-int credentials_callback(git_cred** out, const char* /*url*/,
-    const char* /*username_from_url*/, unsigned int /*allowed_types*/, void* /*payload*/)
-{
-    return git_cred_userpass_plaintext_new(out, "user", "pwd");
-}
-
-} // extern "C"
-} // anonymous namespace
 
 void GitRepository::push(const Remote& remote, const std::string& refspec)
 {
