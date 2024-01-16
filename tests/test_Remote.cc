@@ -32,17 +32,16 @@
 #include "libgit4cpp/GitRepository.h"
 #include "libgit4cpp/Remote.h"
 #include "libgit4cpp/wrapper_functions.h"
+#include "test_main.h"
 
 using namespace git;
 using namespace std::literals;
 using gul14::cat;
 
-namespace {
-auto const reporoot = std::filesystem::path{ "reporoot" };
-} // anonymous namespace
-
 TEST_CASE("Remote: Constructor", "[Remote]")
 {
+    const auto reporoot = unit_test_folder() / "Remote";
+
     std::filesystem::remove_all(reporoot);
 
     const std::string repo_url{

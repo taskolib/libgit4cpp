@@ -1,10 +1,10 @@
 /**
- * \file   test_main.cc
+ * \file   test_main.h
  * \author Lars Fröhlich
- * \date   Created on November 26, 2019
- * \brief  Test suite for libgit4cpp
+ * \date   Created on January 16, 2024
+ * \brief  Declaration of global functions for the unit test suite.
  *
- * \copyright Copyright 2019-2024 Deutsches Elektronen-Synchrotron (DESY), Hamburg
+ * \copyright Copyright 2024 Deutsches Elektronen-Synchrotron (DESY), Hamburg
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -22,20 +22,4 @@
 
 // SPDX-License-Identifier: LGPL-2.1-or-later
 
-#include <filesystem>
-
-#define CATCH_CONFIG_RUNNER
-#include <gul14/catch.h>
-
-#include "test_main.h"
-
-std::filesystem::path unit_test_folder()
-{
-    return "unit_test_files";
-}
-
-int main(int argc, char* argv[])
-{
-    std::filesystem::remove_all(unit_test_folder());
-    return Catch::Session().run(argc, argv);
-}
+std::filesystem::path unit_test_folder();
