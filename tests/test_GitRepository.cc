@@ -36,6 +36,7 @@
 #include "test_main.h"
 
 using namespace git;
+using namespace std::literals;
 using gul14::cat;
 
 namespace {
@@ -637,9 +638,10 @@ TEST_CASE("GitRepository: push()", "[GitRepository]")
     std::filesystem::remove_all(working_dir);
     std::filesystem::remove_all(remote_repo);
 
-    // Create a local repository and commit a single file
+    // Create a local repository
     GitRepository repo{ working_dir };
 
+    // Commit a single file
     std::ofstream f(working_dir / "test.txt");
     f << "push() test\n";
     f.close();
@@ -654,8 +656,18 @@ TEST_CASE("GitRepository: push()", "[GitRepository]")
     auto remote = repo.add_remote(
         "origin", "file://" + std::filesystem::absolute(remote_repo).string());
 
+    // The remote must still be empty
+    auto refs = remote.list_references();
+    REQUIRE(refs.empty());
+
     // Push the local repository to the remote
     repo.push(remote);
+
+    // The remote must now contain the main branch "refs/heads/main". Additionally, it
+    // probably contains a reference for "HEAD".
+    refs = remote.list_references();
+    REQUIRE(refs.size() >= 1);
+    REQUIRE(std::find(refs.begin(), refs.end(), "refs/heads/main"s) != refs.end());
 }
 
 /**
