@@ -33,13 +33,14 @@
 #include "libgit4cpp/Error.h"
 #include "libgit4cpp/GitRepository.h"
 #include "libgit4cpp/wrapper_functions.h"
+#include "test_main.h"
 
 using namespace git;
 using gul14::cat;
 
 namespace {
 
-auto const reporoot = std::filesystem::path{ "reporoot" };
+const auto reporoot = unit_test_folder() / "reporoot";
 
 /**
  * Create a directory and store files in it.
