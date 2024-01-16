@@ -473,28 +473,48 @@ gul14::SmallVector<Remote, 2> GitRepository::list_remotes() const
     return result;
 }
 
-#if 0
-void GitRepository::push()
+namespace {
+extern "C" {
+
+// Dummy credentials callback: Always return the same username and password
+int credentials_callback(git_cred** out, const char* /*url*/,
+    const char* /*username_from_url*/, unsigned int /*allowed_types*/, void* /*payload*/)
 {
-    // set options
-    git_push_options gpush;
-    int error = git_push_init_options(&gpush, GIT_PUSH_OPTIONS_VERSION);
+    return git_cred_userpass_plaintext_new(out, "user", "pwd");
+}
+
+} // extern "C"
+} // anonymous namespace
+
+void GitRepository::push(const Remote& remote, const std::string& refspec)
+{
+    git_remote_callbacks callbacks;
+    int error = git_remote_init_callbacks(&callbacks, GIT_REMOTE_CALLBACKS_VERSION);
+    if (error)
+    {
+        throw Error{ cat("Cannot initialize remote callbacks for push: ",
+            git_error_last()->message) };
+    }
+    callbacks.credentials = credentials_callback;
+
+    git_push_options push_options;
+    error = git_push_init_options(&push_options, GIT_PUSH_OPTIONS_VERSION);
     if (error)
         throw Error{ cat("Init push: ", git_error_last()->message) };
+    push_options.callbacks = callbacks;
 
-    // set remote
-    /*
-    auto remote = remote_lookup(repo_.get(), "origin");
-    if (not remote)
-        throw Error{ "Cannot find remote object." };
-    */
+    char* refspec_ptr = const_cast<char*>(refspec.c_str());
+    const git_strarray refspec_array = {
+        &refspec_ptr,
+        1
+    };
 
-    // push to upstream
-    error = git_remote_push(remote_.get(), nullptr, &gpush);
+    error = git_remote_push(remote.get(), &refspec_array, &push_options);
     if (error)
         throw Error{ cat("Push remote: ", git_error_last()->message) };
 }
 
+#if 0
 void GitRepository::pull()
 {
     // define fetch options
