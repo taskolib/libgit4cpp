@@ -29,6 +29,7 @@
 #include "libgit4cpp/Error.h"
 #include "libgit4cpp/Remote.h"
 #include "libgit4cpp/wrapper_functions.h"
+#include "credentials_callback.h"
 
 using gul14::cat;
 
@@ -42,6 +43,39 @@ Remote::Remote(LibGitRemote&& remote_ptr)
 
     name_ = gul14::safe_string(git_remote_name(remote_.get()), 512);
     url_ = gul14::safe_string(git_remote_url(remote_.get()), 512);
+}
+
+std::vector<std::string> Remote::list_references()
+{
+    if (!git_remote_connected(remote_.get()))
+    {
+        git_remote_callbacks callbacks = GIT_REMOTE_CALLBACKS_INIT;
+        callbacks.credentials = credentials_callback;
+
+        int error = git_remote_connect(remote_.get(), GIT_DIRECTION_FETCH, &callbacks,
+            nullptr, nullptr);
+        if (error < 0)
+        {
+            throw Error{ cat("Cannot connect to remote \"", name_, "\": ",
+                git_error_last()->message) };
+        }
+    }
+
+    const git_remote_head** out{ nullptr };
+    size_t size{ 0 };
+    auto error = git_remote_ls(&out, &size, remote_.get());
+    if (error)
+    {
+        throw Error{ cat("Cannot list references on remote \"", name_, "\": ",
+            git_error_last()->message) };
+    }
+
+    std::vector<std::string> refs;
+    refs.reserve(size);
+    for (size_t i = 0; i != size; ++i)
+        refs.emplace_back(out[i]->name);
+
+    return refs;
 }
 
 } // namespace git

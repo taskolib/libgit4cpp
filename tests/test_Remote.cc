@@ -23,6 +23,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 
 #include <filesystem>
+#include <fstream>
 
 #include <git2.h>
 #include <gul14/catch.h>
@@ -61,4 +62,43 @@ TEST_CASE("Remote: Constructor", "[Remote]")
     REQUIRE(re_ptr != nullptr);
     REQUIRE(git_remote_name(re_ptr) == "origin"s);
     REQUIRE(git_remote_url(re_ptr) == repo_url);
+}
+
+TEST_CASE("Remote: list_references()", "[GitRepository]")
+{
+    const auto working_dir = unit_test_folder() / "Remote_list_references";
+    const auto remote_repo = unit_test_folder() / "Remote_list_references.remote";
+
+    std::filesystem::remove_all(working_dir);
+    std::filesystem::remove_all(remote_repo);
+
+    // Create a local repository and commit a single file
+    GitRepository repo{ working_dir };
+
+    std::ofstream f(working_dir / "test.txt");
+    f << "Remote::list_references() test\n";
+    f.close();
+
+    repo.add();
+    repo.commit("Add test.txt");
+
+    // Create a bare remote repository
+    repository_init(remote_repo, true);
+
+    // Add the remote to the local repository
+    auto remote = repo.add_remote(
+        "origin", "file://" + std::filesystem::absolute(remote_repo).string());
+
+    // The remote must still be empty
+    auto refs = remote.list_references();
+    REQUIRE(refs.empty());
+
+    // Push the local repository to the remote (default: HEAD -> refs/heads/main)
+    repo.push(remote);
+
+    // The remote must now contain the main branch "refs/heads/main". Additionally, it
+    // probably contains a reference for "HEAD".
+    refs = remote.list_references();
+    REQUIRE(refs.size() >= 1);
+    REQUIRE(std::find(refs.begin(), refs.end(), "refs/heads/main"s) != refs.end());
 }
