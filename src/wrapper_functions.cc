@@ -169,17 +169,17 @@ LibGitReference branch_lookup(git_repository* repo, const std::string& branch_na
     return { ref, git_reference_free };
 }
 
-// std::string branch_remote_name(git_repository* repo, const std::string& branch_name)
-// {
-//     git_buf buf;
-//     if (git_branch_remote_name(&buf, repo, branch_name.c_str()))
-//     {
-//         // gul14::cat("branch_remote_name: ", git_error_last()->message);
-//         return "";
-//     }
-//     auto ret = std::string{ buf.ptr };
-//     git_buf_dispose(&buf);
-//     return ret;
-// }
+std::string branch_remote_name(git_repository* repo, const std::string& branch_name)
+{
+    git_buf buf{ };
+    auto result = git_branch_remote_name(&buf, repo, branch_name.c_str());
+    if (result) {
+        git_buf_dispose(&buf);
+        throw Error{ result, gul14::cat("branch_remote_name: ", git_error_last()->message) };
+    }
+    auto ret = std::string{ buf.ptr };
+    git_buf_dispose(&buf);
+    return ret;
+}
 
 } // namespace git
