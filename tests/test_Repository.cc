@@ -98,6 +98,9 @@ TEST_CASE("Repository Wrapper Test all", "[Repository]")
 
         // Test if repo_ got initialized
         REQUIRE(gl.get_last_commit_message() == "Initial commit");
+
+        // We have no remote at this point
+        REQUIRE_THROWS(branch_remote_name(gl.get_repo(), "master"));
     }
 
 
