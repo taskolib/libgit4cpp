@@ -1,10 +1,9 @@
 /**
  * \file   test_Error.cc
- * \author Lars Fröhlich
- * \date   Created on December 10, 2021
- * \brief  Test suite for the Error exception class.
+ * \date   Created on January 23, 2024
+ * \brief  Test suite for the git::Error exception class.
  *
- * \copyright Copyright 2021-2023 Deutsches Elektronen-Synchrotron (DESY), Hamburg
+ * \copyright Copyright 2024 Deutsches Elektronen-Synchrotron (DESY), Hamburg
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -29,44 +28,30 @@
 #include "libgit4cpp/Error.h"
 
 using namespace std::literals;
-using namespace task;
 
 TEST_CASE("Error: Constructor", "[exceptions]")
 {
-    Error e("Test");
-    REQUIRE(e.what() == "Test"s);
+    // Default error code is -7 == GIT_EUSER
+    git::Error e("Test");
+    REQUIRE(e.what() == "Test: GIT_EUSER"s);
+    REQUIRE(e.code().value() == git::Error::GIT_EUSER);
+    REQUIRE(e.code().value() == -7);
 }
 
 TEST_CASE("Error: Copy constructor", "[exceptions]")
 {
-    const Error e("Test");
-    Error e2(e);
+    const git::Error e("Test");
+    git::Error e2(e);
 
     REQUIRE(e.what() == std::string(e2.what()));
 }
 
 TEST_CASE("Error: Copy assignment", "[exceptions]")
 {
-    const Error e("Test", 1);
-    Error e2("Test2", 2);
+    const git::Error e(1, "Test");
+    git::Error e2(2, "Test2");
 
     e2 = e;
 
-    REQUIRE(e2.what() == "Test"s);
-}
-
-TEST_CASE("Error: operator==", "[exceptions]")
-{
-    REQUIRE(Error("Test") == Error("Test"));
-    REQUIRE(Error("") == Error(""));
-
-    REQUIRE_FALSE(Error("test") == Error("TEST"));
-}
-
-TEST_CASE("Error: operator!=", "[exceptions]")
-{
-    REQUIRE_FALSE(Error("Test") != Error("Test"));
-    REQUIRE_FALSE(Error("") != Error(""));
-
-    REQUIRE(Error("test") != Error("TEST"));
+    REQUIRE(e2.what() == "Test: unknown GIT error"s);
 }
