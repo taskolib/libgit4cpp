@@ -1,5 +1,6 @@
 # Test sources
 test_src = files(
+    'test_Error.cc',
     'test_main.cc',
     'test_Remote.cc',
     'test_Repository.cc',
