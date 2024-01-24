@@ -22,12 +22,11 @@
 
 // SPDX-License-Identifier: LGPL-2.1-or-later
 
-#include <git2.h>
+#include "credentials_callback.h"
 
-namespace git {
 extern "C" {
 
-int credentials_callback(git_cred** out_credentials, const char* /*url*/,
+static int dummy_credentials_callback(git_cred** out_credentials, const char* /*url*/,
     const char* /*username_from_url*/, unsigned int /*allowed_types*/, void* /*payload*/)
 {
     // Dummy implementation: Always return the same username and password
@@ -35,4 +34,13 @@ int credentials_callback(git_cred** out_credentials, const char* /*url*/,
 }
 
 } // extern "C"
+
+
+namespace git {
+
+CredentialsCallback get_dummy_credentials_callback()
+{
+    return dummy_credentials_callback;
+}
+
 } // namespace git

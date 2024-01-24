@@ -25,20 +25,22 @@
 #ifndef LIBGIT4CPP_CREDENTIALS_CALLBACK_H_
 #define LIBGIT4CPP_CREDENTIALS_CALLBACK_H_
 
+#include <git2.h>
+
 namespace git {
-extern "C" {
+
+using CredentialsCallback
+    = int (*)(git_cred**, const char*, const char*, unsigned int, void*);
 
 /**
- * Credentials callback function for libgit2.
+ * Return a dummy credentials callback function for libgit2.
  *
- * This function is called by libgit2 when it needs credentials to access a remote, e.g.
- * over an HTTPS connection. Currently, this is just a dummy implementation that always
- * returns the same username and password.
+ * The returned function pointer may be called by libgit2 when it needs credentials to
+ * access a remote, e.g. over an HTTPS connection. Currently, this is just a dummy
+ * implementation that always returns the same username and password.
  */
-int credentials_callback(git_cred** out_credentials, const char* /*url*/,
-    const char* /*username_from_url*/, unsigned int /*allowed_types*/, void* /*payload*/);
+CredentialsCallback get_dummy_credentials_callback();
 
-} // extern "C"
 } // namespace git
 
 #endif
