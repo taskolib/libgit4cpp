@@ -50,7 +50,7 @@ std::vector<std::string> Remote::list_references()
     if (!git_remote_connected(remote_.get()))
     {
         git_remote_callbacks callbacks = GIT_REMOTE_CALLBACKS_INIT;
-        callbacks.credentials = credentials_callback;
+        callbacks.credentials = get_dummy_credentials_callback();
 
         int error = git_remote_connect(remote_.get(), GIT_DIRECTION_FETCH, &callbacks,
             nullptr, nullptr);

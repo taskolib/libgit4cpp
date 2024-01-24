@@ -483,7 +483,7 @@ void GitRepository::push(const Remote& remote, const std::string& refspec)
         throw Error{ cat("Cannot initialize remote callbacks for push: ",
             git_error_last()->message) };
     }
-    callbacks.credentials = credentials_callback;
+    callbacks.credentials = get_dummy_credentials_callback();
 
     git_push_options push_options;
     error = git_push_init_options(&push_options, GIT_PUSH_OPTIONS_VERSION);
