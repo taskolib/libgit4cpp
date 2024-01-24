@@ -120,20 +120,21 @@ LibGitRemote remote_create (git_repository* repo, const std::string& remote_name
                 const std::string& url);
 
 /**
- * Find a remote repository by name.
- * \param repo Pointer to repository object
+ * Find a remote repository by the name under which it is configured in the given
+ * repository.
+ * \param repo Pointer to the repository object to search in
  * \param remote_name Name of the remote repository, e.g. "origin"
  * \returns a pointer to a git_remote object (null if not found)
  */
 LibGitRemote remote_lookup(git_repository* repo, const std::string& remote_name);
 
 /**
- * Clone existing git repository into local filesystem.
+ * Clone an existing git repository into the local filesystem.
  * \param url Address of remote connection, e.g https://github.com/...
  * \param repo_path Absolute or relative path to the repository root
  * \return new git_repository object
 */
-LibGitRepository clone (const std::string& url, const std::string& repo_path);
+LibGitRepository clone(const std::string& url, const std::string& repo_path);
 
 /**
  * Find a named branch.
