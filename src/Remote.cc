@@ -24,7 +24,6 @@
 
 #include <git2.h>
 #include <gul14/cat.h>
-#include <gul14/string_util.h>
 
 #include "libgit4cpp/Error.h"
 #include "libgit4cpp/Remote.h"
@@ -41,8 +40,11 @@ Remote::Remote(LibGitRemote&& remote_ptr)
     if (remote_ == nullptr)
         throw Error{ "Remote pointer may not be null" };
 
-    name_ = gul14::safe_string(git_remote_name(remote_.get()), 512);
-    url_ = gul14::safe_string(git_remote_url(remote_.get()), 512);
+    const char* name = git_remote_name(remote_.get());
+    name_ = name ? name : "";
+
+    const char* url = git_remote_url(remote_.get());
+    url_ = url ? url : "";
 }
 
 std::vector<std::string> Remote::list_references()
