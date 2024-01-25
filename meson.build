@@ -62,6 +62,13 @@ deps = [
     dependency('libgit2')
 ]
 
+## libgit2 has an API change at some point; a check might become useful in the future
+#local_compiler_args = []
+#if dependency('libgit2').version().version_compare('<1')
+#    message('Ancient libgit2 version detected')
+#    local_compiler_args += [ '-DANCIENT_LIBGIT2' ]
+#endif
+
 lib = both_libraries('git4cpp',
     sources,
     dependencies : deps,
