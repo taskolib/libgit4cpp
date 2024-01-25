@@ -73,20 +73,20 @@ TEST_CASE("Remote: list_references()", "[GitRepository]")
     std::filesystem::remove_all(remote_repo);
 
     // Create a local repository and commit a single file
-    GitRepository repo{ working_dir };
+    auto repo = std::make_unique<GitRepository>(working_dir);
 
     std::ofstream f(working_dir / "test.txt");
     f << "Remote::list_references() test\n";
     f.close();
 
-    repo.add();
-    repo.commit("Add test.txt");
+    repo->add();
+    repo->commit("Add test.txt");
 
     // Create a bare remote repository
     repository_init(remote_repo, true);
 
     // Add the remote to the local repository
-    auto remote = repo.add_remote(
+    auto remote = repo->add_remote(
         "origin", "file://" + std::filesystem::absolute(remote_repo).string());
 
     // The remote must still be empty
@@ -94,10 +94,16 @@ TEST_CASE("Remote: list_references()", "[GitRepository]")
     REQUIRE(refs.empty());
 
     // Push the local repository to the remote (default: HEAD -> refs/heads/main)
-    repo.push(remote);
+    repo->push(remote);
 
     // The remote must now contain the main branch "refs/heads/main". Additionally, it
     // probably contains a reference for "HEAD".
+    refs = remote.list_references();
+    REQUIRE(refs.size() >= 1);
+    REQUIRE(std::find(refs.begin(), refs.end(), "refs/heads/main"s) != refs.end());
+
+    // Remove the "parent" repository and check if the remote still works
+    repo.reset();
     refs = remote.list_references();
     REQUIRE(refs.size() >= 1);
     REQUIRE(std::find(refs.begin(), refs.end(), "refs/heads/main"s) != refs.end());
