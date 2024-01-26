@@ -20,7 +20,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libgit4cpp
-   &#160;<span id="projectnumber">0.1.2</span>
+   &#160;<span id="projectnumber">0.2.1</span>
    </div>
   </td>
  </tr>
@@ -62,6 +62,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgit_1_1GitRepository.html">GitRepository</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A class to wrap used methods from C-Library libgit2.  <a href="classgit_1_1GitRepository.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgit_1_1Remote.html">Remote</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An abstraction of a git remote repository (such as "origin").  <a href="classgit_1_1Remote.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -85,6 +88,8 @@ Typedefs</h2></td></tr>
 <tr class="separator:aee525396cf5bb68a3dff4d92983dd4c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a59da38690afb266a8d8c3ab3da971e86"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegit.html#a59da38690afb266a8d8c3ab3da971e86">LibGitBuf</a> = std::unique_ptr&lt; git_buf, void(*)(git_buf *)&gt;</td></tr>
 <tr class="separator:a59da38690afb266a8d8c3ab3da971e86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9ec8cbe4ae1c9d213ea21f48292571f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegit.html#aa9ec8cbe4ae1c9d213ea21f48292571f">CredentialsCallback</a> = int(*)(git_cred **, const char *, const char *, unsigned int, void *)</td></tr>
+<tr class="separator:aa9ec8cbe4ae1c9d213ea21f48292571f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -119,10 +124,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga16104435825c0175b6093c1b61d1e0d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new remote connection in the repository.  <a href="group__lgptrfunc.html#ga16104435825c0175b6093c1b61d1e0d9">More...</a><br /></td></tr>
 <tr class="separator:ga16104435825c0175b6093c1b61d1e0d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga51ca138903cfb1857d5c9cc4f52d58df"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacegit.html#af6155f34e925707b166d5e6d30438811">LibGitRemote</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#ga51ca138903cfb1857d5c9cc4f52d58df">remote_lookup</a> (git_repository *repo, const std::string &amp;remote_name)</td></tr>
-<tr class="memdesc:ga51ca138903cfb1857d5c9cc4f52d58df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collects the remove connection by name.  <a href="group__lgptrfunc.html#ga51ca138903cfb1857d5c9cc4f52d58df">More...</a><br /></td></tr>
+<tr class="memdesc:ga51ca138903cfb1857d5c9cc4f52d58df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find a remote repository by the name under which it is configured in the given repository.  <a href="group__lgptrfunc.html#ga51ca138903cfb1857d5c9cc4f52d58df">More...</a><br /></td></tr>
 <tr class="separator:ga51ca138903cfb1857d5c9cc4f52d58df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9dcf264223c8fd0b1834e64c2ffc10c5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacegit.html#a02ed921ec3573c4c08dea619172fc58f">LibGitRepository</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#ga9dcf264223c8fd0b1834e64c2ffc10c5">clone</a> (const std::string &amp;url, const std::string &amp;repo_path)</td></tr>
-<tr class="memdesc:ga9dcf264223c8fd0b1834e64c2ffc10c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clone existing git repository into local filesystem.  <a href="group__lgptrfunc.html#ga9dcf264223c8fd0b1834e64c2ffc10c5">More...</a><br /></td></tr>
+<tr class="memdesc:ga9dcf264223c8fd0b1834e64c2ffc10c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clone an existing git repository into the local filesystem.  <a href="group__lgptrfunc.html#ga9dcf264223c8fd0b1834e64c2ffc10c5">More...</a><br /></td></tr>
 <tr class="separator:ga9dcf264223c8fd0b1834e64c2ffc10c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga286555a049d8e3650ec2bc6ef73c88e1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacegit.html#aee525396cf5bb68a3dff4d92983dd4c4">LibGitReference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#ga286555a049d8e3650ec2bc6ef73c88e1">branch_lookup</a> (git_repository *repo, const std::string &amp;branch_name, git_branch_t branch_type)</td></tr>
 <tr class="memdesc:ga286555a049d8e3650ec2bc6ef73c88e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find a named branch.  <a href="group__lgptrfunc.html#ga286555a049d8e3650ec2bc6ef73c88e1">More...</a><br /></td></tr>
@@ -130,8 +135,25 @@ Functions</h2></td></tr>
 <tr class="memitem:ga940c39825defe26e9b9849d1f6bd99b4"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#ga940c39825defe26e9b9849d1f6bd99b4">branch_remote_name</a> (git_repository *repo, const std::string &amp;branch_name)</td></tr>
 <tr class="memdesc:ga940c39825defe26e9b9849d1f6bd99b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the name of a branch on the remote.  <a href="group__lgptrfunc.html#ga940c39825defe26e9b9849d1f6bd99b4">More...</a><br /></td></tr>
 <tr class="separator:ga940c39825defe26e9b9849d1f6bd99b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e2a9442cf8a7de44671b743b388d45a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacegit.html#aa9ec8cbe4ae1c9d213ea21f48292571f">CredentialsCallback</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegit.html#a0e2a9442cf8a7de44671b743b388d45a">get_dummy_credentials_callback</a> ()</td></tr>
+<tr class="memdesc:a0e2a9442cf8a7de44671b743b388d45a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a dummy credentials callback function for libgit2.  <a href="namespacegit.html#a0e2a9442cf8a7de44671b743b388d45a">More...</a><br /></td></tr>
+<tr class="separator:a0e2a9442cf8a7de44671b743b388d45a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
+<a id="aa9ec8cbe4ae1c9d213ea21f48292571f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9ec8cbe4ae1c9d213ea21f48292571f">&#9670;&nbsp;</a></span>CredentialsCallback</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespacegit.html#aa9ec8cbe4ae1c9d213ea21f48292571f">git::CredentialsCallback</a> = typedef int (*)(git_cred**, const char*, const char*, unsigned int, void*)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a59da38690afb266a8d8c3ab3da971e86"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a59da38690afb266a8d8c3ab3da971e86">&#9670;&nbsp;</a></span>LibGitBuf</h2>
 
@@ -273,6 +295,28 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a0e2a9442cf8a7de44671b743b388d45a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e2a9442cf8a7de44671b743b388d45a">&#9670;&nbsp;</a></span>get_dummy_credentials_callback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacegit.html#aa9ec8cbe4ae1c9d213ea21f48292571f">CredentialsCallback</a> git::get_dummy_credentials_callback </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return a dummy credentials callback function for libgit2. </p>
+<p>The returned function pointer may be called by libgit2 when it needs credentials to access a remote, e.g. over an HTTPS connection. Currently, this is just a dummy implementation that always returns the same username and password. </p>
+
+<p class="reference">Referenced by <a class="el" href="classgit_1_1Remote.html#a64450179d756c9d2385ba78a81b1e026">git::Remote::list_references()</a>, and <a class="el" href="classgit_1_1GitRepository.html#a893e934c416577f8f632bb0faa9f3303">git::GitRepository::push()</a>.</p>
+
+</div>
+</div>
 <a id="adffa0aeb5885ef910579785c7485b150"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adffa0aeb5885ef910579785c7485b150">&#9670;&nbsp;</a></span>operator&lt;&lt;()</h2>
 
@@ -314,7 +358,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 13 2023 15:26:45 for libgit4cpp by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Fri Jan 26 2024 13:56:00 for libgit4cpp by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

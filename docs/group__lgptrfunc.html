@@ -20,7 +20,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libgit4cpp
-   &#160;<span id="projectnumber">0.1.2</span>
+   &#160;<span id="projectnumber">0.2.1</span>
    </div>
   </td>
  </tr>
@@ -80,10 +80,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga16104435825c0175b6093c1b61d1e0d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new remote connection in the repository.  <a href="group__lgptrfunc.html#ga16104435825c0175b6093c1b61d1e0d9">More...</a><br /></td></tr>
 <tr class="separator:ga16104435825c0175b6093c1b61d1e0d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga51ca138903cfb1857d5c9cc4f52d58df"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacegit.html#af6155f34e925707b166d5e6d30438811">LibGitRemote</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#ga51ca138903cfb1857d5c9cc4f52d58df">git::remote_lookup</a> (git_repository *repo, const std::string &amp;remote_name)</td></tr>
-<tr class="memdesc:ga51ca138903cfb1857d5c9cc4f52d58df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collects the remove connection by name.  <a href="group__lgptrfunc.html#ga51ca138903cfb1857d5c9cc4f52d58df">More...</a><br /></td></tr>
+<tr class="memdesc:ga51ca138903cfb1857d5c9cc4f52d58df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find a remote repository by the name under which it is configured in the given repository.  <a href="group__lgptrfunc.html#ga51ca138903cfb1857d5c9cc4f52d58df">More...</a><br /></td></tr>
 <tr class="separator:ga51ca138903cfb1857d5c9cc4f52d58df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9dcf264223c8fd0b1834e64c2ffc10c5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacegit.html#a02ed921ec3573c4c08dea619172fc58f">LibGitRepository</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#ga9dcf264223c8fd0b1834e64c2ffc10c5">git::clone</a> (const std::string &amp;url, const std::string &amp;repo_path)</td></tr>
-<tr class="memdesc:ga9dcf264223c8fd0b1834e64c2ffc10c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clone existing git repository into local filesystem.  <a href="group__lgptrfunc.html#ga9dcf264223c8fd0b1834e64c2ffc10c5">More...</a><br /></td></tr>
+<tr class="memdesc:ga9dcf264223c8fd0b1834e64c2ffc10c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clone an existing git repository into the local filesystem.  <a href="group__lgptrfunc.html#ga9dcf264223c8fd0b1834e64c2ffc10c5">More...</a><br /></td></tr>
 <tr class="separator:ga9dcf264223c8fd0b1834e64c2ffc10c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga286555a049d8e3650ec2bc6ef73c88e1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacegit.html#aee525396cf5bb68a3dff4d92983dd4c4">LibGitReference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#ga286555a049d8e3650ec2bc6ef73c88e1">git::branch_lookup</a> (git_repository *repo, const std::string &amp;branch_name, git_branch_t branch_type)</td></tr>
 <tr class="memdesc:ga286555a049d8e3650ec2bc6ef73c88e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find a named branch.  <a href="group__lgptrfunc.html#ga286555a049d8e3650ec2bc6ef73c88e1">More...</a><br /></td></tr>
@@ -136,8 +136,6 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>new git_reference object </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="classgit_1_1GitRepository.html#a13b5c999cf7816077fce159a2c00bd46">git::GitRepository::branch_up_to_date()</a>.</p>
-
 </div>
 </div>
 <a id="ga940c39825defe26e9b9849d1f6bd99b4"></a>
@@ -176,8 +174,6 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>name on remote , e.g. 'origin/main' or 'origin/fix-bugs' </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="classgit_1_1GitRepository.html#a13b5c999cf7816077fce159a2c00bd46">git::GitRepository::branch_up_to_date()</a>.</p>
-
 </div>
 </div>
 <a id="ga9dcf264223c8fd0b1834e64c2ffc10c5"></a>
@@ -206,7 +202,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Clone existing git repository into local filesystem. </p>
+<p>Clone an existing git repository into the local filesystem. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">url</td><td>Address of remote connection, e.g <a href="https://github.com/..">https://github.com/..</a>. </td></tr>
@@ -215,8 +211,6 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>new git_repository object </dd></dl>
-
-<p class="reference">Referenced by <a class="el" href="classgit_1_1GitRepository.html#aac9392fcf7460d419f97da48bc1682aa">git::GitRepository::clone_repo()</a>.</p>
 
 </div>
 </div>
@@ -263,7 +257,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>new git_remote object </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="classgit_1_1GitRepository.html#afa89d50c2c9cd929688fbc064a093963">git::GitRepository::GitRepository()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="classgit_1_1GitRepository.html#ab1e39515618a07155483ff3799c0a2a7">git::GitRepository::add_remote()</a>.</p>
 
 </div>
 </div>
@@ -293,17 +287,17 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Collects the remove connection by name. </p>
+<p>Find a remote repository by the name under which it is configured in the given repository. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">repo</td><td>Pointer to repository object </td></tr>
-    <tr><td class="paramname">remote_name</td><td>Name of the remote, e.g. "origin" </td></tr>
+    <tr><td class="paramname">repo</td><td>Pointer to the repository object to search in </td></tr>
+    <tr><td class="paramname">remote_name</td><td>Name of the remote repository, e.g. "origin" </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>new git_remote object </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>a pointer to a git_remote object (null if not found) </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="classgit_1_1GitRepository.html#a13b5c999cf7816077fce159a2c00bd46">git::GitRepository::branch_up_to_date()</a>, <a class="el" href="classgit_1_1GitRepository.html#aac9392fcf7460d419f97da48bc1682aa">git::GitRepository::clone_repo()</a>, and <a class="el" href="classgit_1_1GitRepository.html#afa89d50c2c9cd929688fbc064a093963">git::GitRepository::GitRepository()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="classgit_1_1GitRepository.html#a41a727bd1f8b43ea371f81c699711e12">git::GitRepository::get_remote()</a>.</p>
 
 </div>
 </div>
@@ -598,7 +592,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 13 2023 15:26:45 for libgit4cpp by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Fri Jan 26 2024 13:56:00 for libgit4cpp by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

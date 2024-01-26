@@ -20,7 +20,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libgit4cpp
-   &#160;<span id="projectnumber">0.1.2</span>
+   &#160;<span id="projectnumber">0.2.1</span>
    </div>
   </td>
  </tr>
@@ -63,9 +63,9 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:afa89d50c2c9cd929688fbc064a093963"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgit_1_1GitRepository.html#afa89d50c2c9cd929688fbc064a093963">GitRepository</a> (const std::filesystem::path &amp;file_path, const std::string &amp;url={ })</td></tr>
-<tr class="memdesc:afa89d50c2c9cd929688fbc064a093963"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor which specifies the root dir of the git repository.  <a href="classgit_1_1GitRepository.html#afa89d50c2c9cd929688fbc064a093963">More...</a><br /></td></tr>
-<tr class="separator:afa89d50c2c9cd929688fbc064a093963"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd33aa307bfc4211f46507fd9bcb585c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgit_1_1GitRepository.html#abd33aa307bfc4211f46507fd9bcb585c">GitRepository</a> (const std::filesystem::path &amp;file_path)</td></tr>
+<tr class="memdesc:abd33aa307bfc4211f46507fd9bcb585c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor which specifies the root dir of the git repository.  <a href="classgit_1_1GitRepository.html#abd33aa307bfc4211f46507fd9bcb585c">More...</a><br /></td></tr>
+<tr class="separator:abd33aa307bfc4211f46507fd9bcb585c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3ac41109808dd2f6acfdeea8b7000730"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgit_1_1GitRepository.html#a3ac41109808dd2f6acfdeea8b7000730">reset_repo</a> ()</td></tr>
 <tr class="memdesc:a3ac41109808dd2f6acfdeea8b7000730"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset all knowledge this object knows about the repository and load the knowledge again.  <a href="classgit_1_1GitRepository.html#a3ac41109808dd2f6acfdeea8b7000730">More...</a><br /></td></tr>
 <tr class="separator:a3ac41109808dd2f6acfdeea8b7000730"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -93,18 +93,21 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a3b7ec89b0fff7a83a15fcdd03e0975ba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgit_1_1GitRepository.html#a3b7ec89b0fff7a83a15fcdd03e0975ba">reset</a> (unsigned int nr_of_commits)</td></tr>
 <tr class="memdesc:a3b7ec89b0fff7a83a15fcdd03e0975ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hard reset of repository.  <a href="classgit_1_1GitRepository.html#a3b7ec89b0fff7a83a15fcdd03e0975ba">More...</a><br /></td></tr>
 <tr class="separator:a3b7ec89b0fff7a83a15fcdd03e0975ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf320bc570edae63832b7c2eb7b2e0ea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgit_1_1GitRepository.html#adf320bc570edae63832b7c2eb7b2e0ea">push</a> ()</td></tr>
-<tr class="memdesc:adf320bc570edae63832b7c2eb7b2e0ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Push commits to the repository.  <a href="classgit_1_1GitRepository.html#adf320bc570edae63832b7c2eb7b2e0ea">More...</a><br /></td></tr>
-<tr class="separator:adf320bc570edae63832b7c2eb7b2e0ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a24608b4a79ee94e5be73b11924013e1f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgit_1_1GitRepository.html#a24608b4a79ee94e5be73b11924013e1f">pull</a> ()</td></tr>
-<tr class="memdesc:a24608b4a79ee94e5be73b11924013e1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pull changes from the remote repository.  <a href="classgit_1_1GitRepository.html#a24608b4a79ee94e5be73b11924013e1f">More...</a><br /></td></tr>
-<tr class="separator:a24608b4a79ee94e5be73b11924013e1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac9392fcf7460d419f97da48bc1682aa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgit_1_1GitRepository.html#aac9392fcf7460d419f97da48bc1682aa">clone_repo</a> (const std::string &amp;url, const std::filesystem::path &amp;repo_path)</td></tr>
-<tr class="memdesc:aac9392fcf7460d419f97da48bc1682aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clone a repository.  <a href="classgit_1_1GitRepository.html#aac9392fcf7460d419f97da48bc1682aa">More...</a><br /></td></tr>
-<tr class="separator:aac9392fcf7460d419f97da48bc1682aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13b5c999cf7816077fce159a2c00bd46"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgit_1_1GitRepository.html#a13b5c999cf7816077fce159a2c00bd46">branch_up_to_date</a> (const std::string &amp;branch_name)</td></tr>
-<tr class="memdesc:a13b5c999cf7816077fce159a2c00bd46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if remote and local branch are in same state.  <a href="classgit_1_1GitRepository.html#a13b5c999cf7816077fce159a2c00bd46">More...</a><br /></td></tr>
-<tr class="separator:a13b5c999cf7816077fce159a2c00bd46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1e39515618a07155483ff3799c0a2a7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgit_1_1Remote.html">Remote</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgit_1_1GitRepository.html#ab1e39515618a07155483ff3799c0a2a7">add_remote</a> (const std::string &amp;remote_name, const std::string &amp;url)</td></tr>
+<tr class="memdesc:ab1e39515618a07155483ff3799c0a2a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a new git remote with the specified name and URL to the repository.  <a href="classgit_1_1GitRepository.html#ab1e39515618a07155483ff3799c0a2a7">More...</a><br /></td></tr>
+<tr class="separator:ab1e39515618a07155483ff3799c0a2a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41a727bd1f8b43ea371f81c699711e12"><td class="memItemLeft" align="right" valign="top">gul14::optional&lt; <a class="el" href="classgit_1_1Remote.html">Remote</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgit_1_1GitRepository.html#a41a727bd1f8b43ea371f81c699711e12">get_remote</a> (const std::string &amp;remote_name) const</td></tr>
+<tr class="memdesc:a41a727bd1f8b43ea371f81c699711e12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Look up a git remote by name in the repository.  <a href="classgit_1_1GitRepository.html#a41a727bd1f8b43ea371f81c699711e12">More...</a><br /></td></tr>
+<tr class="separator:a41a727bd1f8b43ea371f81c699711e12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a954a9fe20aa43429238463bcb254b614"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classgit_1_1Remote.html">Remote</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgit_1_1GitRepository.html#a954a9fe20aa43429238463bcb254b614">list_remotes</a> () const</td></tr>
+<tr class="memdesc:a954a9fe20aa43429238463bcb254b614"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a list of all configured remote repositories.  <a href="classgit_1_1GitRepository.html#a954a9fe20aa43429238463bcb254b614">More...</a><br /></td></tr>
+<tr class="separator:a954a9fe20aa43429238463bcb254b614"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7ad04b43eb8145cf2de1ff4c7f9b011"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgit_1_1GitRepository.html#af7ad04b43eb8145cf2de1ff4c7f9b011">list_remote_names</a> () const</td></tr>
+<tr class="memdesc:af7ad04b43eb8145cf2de1ff4c7f9b011"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a list containing the names of all configured remote repositories (such as "origin").  <a href="classgit_1_1GitRepository.html#af7ad04b43eb8145cf2de1ff4c7f9b011">More...</a><br /></td></tr>
+<tr class="separator:af7ad04b43eb8145cf2de1ff4c7f9b011"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a893e934c416577f8f632bb0faa9f3303"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgit_1_1GitRepository.html#a893e934c416577f8f632bb0faa9f3303">push</a> (const <a class="el" href="classgit_1_1Remote.html">Remote</a> &amp;remote, const std::string &amp;refspec=&quot;HEAD:refs/heads/main&quot;)</td></tr>
+<tr class="memdesc:a893e934c416577f8f632bb0faa9f3303"><td class="mdescLeft">&#160;</td><td class="mdescRight">Push something to the specified remote.  <a href="classgit_1_1GitRepository.html#a893e934c416577f8f632bb0faa9f3303">More...</a><br /></td></tr>
+<tr class="separator:a893e934c416577f8f632bb0faa9f3303"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a18a739afb893b7ed5a040d792cf1d67b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgit_1_1GitRepository.html#a18a739afb893b7ed5a040d792cf1d67b">remove_directory</a> (const std::filesystem::path &amp;directory)</td></tr>
 <tr class="memdesc:a18a739afb893b7ed5a040d792cf1d67b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove all entries from the index under a given directory.  <a href="classgit_1_1GitRepository.html#a18a739afb893b7ed5a040d792cf1d67b">More...</a><br /></td></tr>
 <tr class="separator:a18a739afb893b7ed5a040d792cf1d67b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -153,12 +156,6 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a83d585dfca04386eb184c9859cd52051"><td class="memItemLeft" align="right" valign="top">std::filesystem::path&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgit_1_1GitRepository.html#a83d585dfca04386eb184c9859cd52051">repo_path_</a></td></tr>
 <tr class="memdesc:a83d585dfca04386eb184c9859cd52051"><td class="mdescLeft">&#160;</td><td class="mdescRight">Path to the repository.  <a href="classgit_1_1GitRepository.html#a83d585dfca04386eb184c9859cd52051">More...</a><br /></td></tr>
 <tr class="separator:a83d585dfca04386eb184c9859cd52051"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2596f6035152cc6c2733cf4eb15c19bf"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgit_1_1GitRepository.html#a2596f6035152cc6c2733cf4eb15c19bf">url_</a></td></tr>
-<tr class="memdesc:a2596f6035152cc6c2733cf4eb15c19bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">URL of the remote repository.  <a href="classgit_1_1GitRepository.html#a2596f6035152cc6c2733cf4eb15c19bf">More...</a><br /></td></tr>
-<tr class="separator:a2596f6035152cc6c2733cf4eb15c19bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a934717ded9977eed43fcdd45d611fa15"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacegit.html#af6155f34e925707b166d5e6d30438811">LibGitRemote</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgit_1_1GitRepository.html#a934717ded9977eed43fcdd45d611fa15">remote_</a> { nullptr, git_remote_free }</td></tr>
-<tr class="memdesc:a934717ded9977eed43fcdd45d611fa15"><td class="mdescLeft">&#160;</td><td class="mdescRight">git remote object  <a href="classgit_1_1GitRepository.html#a934717ded9977eed43fcdd45d611fa15">More...</a><br /></td></tr>
-<tr class="separator:a934717ded9977eed43fcdd45d611fa15"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8ffc14c23ddfe471e68429f6be201702"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacegit.html#a02ed921ec3573c4c08dea619172fc58f">LibGitRepository</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgit_1_1GitRepository.html#a8ffc14c23ddfe471e68429f6be201702">repo_</a> { nullptr, git_repository_free }</td></tr>
 <tr class="memdesc:a8ffc14c23ddfe471e68429f6be201702"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer which holds all infos of the active repository.  <a href="classgit_1_1GitRepository.html#a8ffc14c23ddfe471e68429f6be201702">More...</a><br /></td></tr>
 <tr class="separator:a8ffc14c23ddfe471e68429f6be201702"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -167,8 +164,8 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a5e48caa600e8015de73e755df3f96350"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="afa89d50c2c9cd929688fbc064a093963"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afa89d50c2c9cd929688fbc064a093963">&#9670;&nbsp;</a></span>GitRepository()</h2>
+<a id="abd33aa307bfc4211f46507fd9bcb585c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd33aa307bfc4211f46507fd9bcb585c">&#9670;&nbsp;</a></span>GitRepository()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -180,18 +177,8 @@ Private Attributes</h2></td></tr>
           <td class="memname">git::GitRepository::GitRepository </td>
           <td>(</td>
           <td class="paramtype">const std::filesystem::path &amp;&#160;</td>
-          <td class="paramname"><em>file_path</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><em>file_path</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>url</em> = <code>{&#160;}</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -205,12 +192,11 @@ Private Attributes</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">file_path</td><td>Path to git directory </td></tr>
-    <tr><td class="paramname">url</td><td>Optional remote repository url </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="reference">References <a class="el" href="classgit_1_1GitRepository.html#a9a4c98257f6cee06cca03c8a14675760">init()</a>, <a class="el" href="classgit_1_1GitRepository.html#a934717ded9977eed43fcdd45d611fa15">remote_</a>, <a class="el" href="group__lgptrfunc.html#ga16104435825c0175b6093c1b61d1e0d9">git::remote_create()</a>, <a class="el" href="group__lgptrfunc.html#ga51ca138903cfb1857d5c9cc4f52d58df">git::remote_lookup()</a>, and <a class="el" href="classgit_1_1GitRepository.html#a8ffc14c23ddfe471e68429f6be201702">repo_</a>.</p>
+<p class="reference">References <a class="el" href="classgit_1_1GitRepository.html#a9a4c98257f6cee06cca03c8a14675760">init()</a>.</p>
 
 </div>
 </div>
@@ -309,51 +295,23 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a13b5c999cf7816077fce159a2c00bd46"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a13b5c999cf7816077fce159a2c00bd46">&#9670;&nbsp;</a></span>branch_up_to_date()</h2>
+<a id="ab1e39515618a07155483ff3799c0a2a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1e39515618a07155483ff3799c0a2a7">&#9670;&nbsp;</a></span>add_remote()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool git::GitRepository::branch_up_to_date </td>
+          <td class="memname"><a class="el" href="classgit_1_1Remote.html">Remote</a> git::GitRepository::add_remote </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>branch_name</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Check if remote and local branch are in same state. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">branch_name</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="reference">References <a class="el" href="group__lgptrfunc.html#ga286555a049d8e3650ec2bc6ef73c88e1">git::branch_lookup()</a>, <a class="el" href="group__lgptrfunc.html#ga940c39825defe26e9b9849d1f6bd99b4">git::branch_remote_name()</a>, <a class="el" href="group__lgptrfunc.html#ga51ca138903cfb1857d5c9cc4f52d58df">git::remote_lookup()</a>, and <a class="el" href="classgit_1_1GitRepository.html#a8ffc14c23ddfe471e68429f6be201702">repo_</a>.</p>
-
-</div>
-</div>
-<a id="aac9392fcf7460d419f97da48bc1682aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aac9392fcf7460d419f97da48bc1682aa">&#9670;&nbsp;</a></span>clone_repo()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void git::GitRepository::clone_repo </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>url</em>, </td>
+          <td class="paramname"><em>remote_name</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::filesystem::path &amp;&#160;</td>
-          <td class="paramname"><em>repo_path</em>&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>url</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -363,15 +321,20 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Clone a repository. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">addr</td><td>Address of the git repository host </td></tr>
+<p>Add a new git remote with the specified name and URL to the repository. </p>
+<dl class="section return"><dt>Returns</dt><dd>a <a class="el" href="classgit_1_1Remote.html" title="An abstraction of a git remote repository (such as &quot;origin&quot;).">Remote</a> object representing the newly added remote </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classgit_1_1Error.html" title="An exception class carrying an error message.">Error</a></td><td>is thrown if the remote cannot be added, for instance because it already exists.</td></tr>
   </table>
   </dd>
 </dl>
-
-<p class="reference">References <a class="el" href="group__lgptrfunc.html#ga9dcf264223c8fd0b1834e64c2ffc10c5">git::clone()</a>, <a class="el" href="classgit_1_1GitRepository.html#a934717ded9977eed43fcdd45d611fa15">remote_</a>, <a class="el" href="group__lgptrfunc.html#ga51ca138903cfb1857d5c9cc4f52d58df">git::remote_lookup()</a>, <a class="el" href="classgit_1_1GitRepository.html#a8ffc14c23ddfe471e68429f6be201702">repo_</a>, <a class="el" href="classgit_1_1GitRepository.html#a83d585dfca04386eb184c9859cd52051">repo_path_</a>, and <a class="el" href="classgit_1_1GitRepository.html#a2596f6035152cc6c2733cf4eb15c19bf">url_</a>.</p>
+<div class="fragment"><div class="line"><a class="code" href="classgit_1_1GitRepository.html#abd33aa307bfc4211f46507fd9bcb585c">GitRepository</a> repo{ <span class="stringliteral">&quot;/path/to/repo&quot;</span> };</div>
+<div class="line">repo.add_remote(<span class="stringliteral">&quot;origin&quot;</span>, <span class="stringliteral">&quot;https://gitlab.com/a/b.git&quot;</span>);</div>
+<div class="line">repo.add_remote(<span class="stringliteral">&quot;upstream&quot;</span>, <span class="stringliteral">&quot;file:///path/to/upstream/repo&quot;</span>);</div>
+<div class="ttc" id="aclassgit_1_1GitRepository_html_abd33aa307bfc4211f46507fd9bcb585c"><div class="ttname"><a href="classgit_1_1GitRepository.html#abd33aa307bfc4211f46507fd9bcb585c">git::GitRepository::GitRepository</a></div><div class="ttdeci">GitRepository(const std::filesystem::path &amp;file_path)</div><div class="ttdoc">Constructor which specifies the root dir of the git repository.</div><div class="ttdef"><b>Definition:</b> GitRepository.cc:41</div></div>
+</div><!-- fragment --> 
+<p class="reference">References <a class="el" href="group__lgptrfunc.html#ga16104435825c0175b6093c1b61d1e0d9">git::remote_create()</a>, and <a class="el" href="classgit_1_1GitRepository.html#a8ffc14c23ddfe471e68429f6be201702">repo_</a>.</p>
 
 </div>
 </div>
@@ -593,6 +556,31 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a41a727bd1f8b43ea371f81c699711e12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41a727bd1f8b43ea371f81c699711e12">&#9670;&nbsp;</a></span>get_remote()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">gul14::optional&lt; <a class="el" href="classgit_1_1Remote.html">Remote</a> &gt; git::GitRepository::get_remote </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>remote_name</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Look up a git remote by name in the repository. </p>
+<dl class="section return"><dt>Returns</dt><dd>a <a class="el" href="classgit_1_1Remote.html" title="An abstraction of a git remote repository (such as &quot;origin&quot;).">Remote</a> object if the remote exists, or an empty optional otherwise. </dd></dl>
+
+<p class="reference">References <a class="el" href="group__lgptrfunc.html#ga51ca138903cfb1857d5c9cc4f52d58df">git::remote_lookup()</a>, and <a class="el" href="classgit_1_1GitRepository.html#a8ffc14c23ddfe471e68429f6be201702">repo_</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="classgit_1_1GitRepository.html#a954a9fe20aa43429238463bcb254b614">list_remotes()</a>.</p>
+
+</div>
+</div>
 <a id="ace941a03146605cfbbd5e092676e54f6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ace941a03146605cfbbd5e092676e54f6">&#9670;&nbsp;</a></span>get_repo()</h2>
 
@@ -643,7 +631,7 @@ Private Attributes</h2></td></tr>
 
 <p class="reference">References <a class="el" href="classgit_1_1GitRepository.html#a25aa4b88d476c0d12940ceebee24ffc7">commit_initial()</a>, <a class="el" href="classgit_1_1GitRepository.html#a5033b46997f0c7f8cb977710b4e0a047">make_signature()</a>, <a class="el" href="classgit_1_1GitRepository.html#a8ffc14c23ddfe471e68429f6be201702">repo_</a>, <a class="el" href="classgit_1_1GitRepository.html#a83d585dfca04386eb184c9859cd52051">repo_path_</a>, <a class="el" href="group__lgptrfunc.html#gaf2f6161d8960c78db86858aca4b09c96">git::repository_init()</a>, <a class="el" href="group__lgptrfunc.html#ga86f9f5c496c45f179485ce026dda67b4">git::repository_open()</a>, and <a class="el" href="classgit_1_1GitRepository.html#aa53b4e6a57863bfc05469f0501e18b09">update()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="classgit_1_1GitRepository.html#afa89d50c2c9cd929688fbc064a093963">GitRepository()</a>, and <a class="el" href="classgit_1_1GitRepository.html#a3ac41109808dd2f6acfdeea8b7000730">reset_repo()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="classgit_1_1GitRepository.html#abd33aa307bfc4211f46507fd9bcb585c">GitRepository()</a>, and <a class="el" href="classgit_1_1GitRepository.html#a3ac41109808dd2f6acfdeea8b7000730">reset_repo()</a>.</p>
 
 </div>
 </div>
@@ -749,6 +737,62 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="af7ad04b43eb8145cf2de1ff4c7f9b011"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7ad04b43eb8145cf2de1ff4c7f9b011">&#9670;&nbsp;</a></span>list_remote_names()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::string &gt; git::GitRepository::list_remote_names </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return a list containing the names of all configured remote repositories (such as "origin"). </p>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classgit_1_1Error.html" title="An exception class carrying an error message.">Error</a></td><td>is thrown if the remote list cannot be retrieved. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="reference">References <a class="el" href="classgit_1_1GitRepository.html#a8ffc14c23ddfe471e68429f6be201702">repo_</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="classgit_1_1GitRepository.html#a954a9fe20aa43429238463bcb254b614">list_remotes()</a>.</p>
+
+</div>
+</div>
+<a id="a954a9fe20aa43429238463bcb254b614"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a954a9fe20aa43429238463bcb254b614">&#9670;&nbsp;</a></span>list_remotes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="classgit_1_1Remote.html">Remote</a> &gt; git::GitRepository::list_remotes </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return a list of all configured remote repositories. </p>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classgit_1_1Error.html" title="An exception class carrying an error message.">Error</a></td><td>is thrown if the list cannot be retrieved. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="reference">References <a class="el" href="classgit_1_1GitRepository.html#a41a727bd1f8b43ea371f81c699711e12">get_remote()</a>, and <a class="el" href="classgit_1_1GitRepository.html#af7ad04b43eb8145cf2de1ff4c7f9b011">list_remote_names()</a>.</p>
+
+</div>
+</div>
 <a id="a5033b46997f0c7f8cb977710b4e0a047"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5033b46997f0c7f8cb977710b4e0a047">&#9670;&nbsp;</a></span>make_signature()</h2>
 
@@ -780,35 +824,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a24608b4a79ee94e5be73b11924013e1f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a24608b4a79ee94e5be73b11924013e1f">&#9670;&nbsp;</a></span>pull()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void git::GitRepository::pull </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Pull changes from the remote repository. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">addr</td><td>Address of the git repository host </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="reference">References <a class="el" href="classgit_1_1GitRepository.html#a934717ded9977eed43fcdd45d611fa15">remote_</a>, and <a class="el" href="classgit_1_1GitRepository.html#a8ffc14c23ddfe471e68429f6be201702">repo_</a>.</p>
-
-</div>
-</div>
-<a id="adf320bc570edae63832b7c2eb7b2e0ea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adf320bc570edae63832b7c2eb7b2e0ea">&#9670;&nbsp;</a></span>push()</h2>
+<a id="a893e934c416577f8f632bb0faa9f3303"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a893e934c416577f8f632bb0faa9f3303">&#9670;&nbsp;</a></span>push()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -816,21 +833,34 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">void git::GitRepository::push </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classgit_1_1Remote.html">Remote</a> &amp;&#160;</td>
+          <td class="paramname"><em>remote</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>refspec</em> = <code>&quot;HEAD:refs/heads/main&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Push commits to the repository. </p>
+<p>Push something to the specified remote. </p>
+<p>In git parlance, this updates a remote ref from a local ref. The "refspec" specifies which local ref and which remote ref is used. For instance, the default "HEAD:refs/heads/main" pushes HEAD (whatever is currently checked out in the local working directory) to the remote branch "main".</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">addr</td><td>Address of the remote git repository host </td></tr>
+    <tr><td class="paramname">remote</td><td>The git remote to push to (e.g. obtained by <a class="el" href="classgit_1_1GitRepository.html#a41a727bd1f8b43ea371f81c699711e12" title="Look up a git remote by name in the repository.">get_remote()</a>) </td></tr>
+    <tr><td class="paramname">refspec</td><td>The refspec to push (e.g. "HEAD" or "refs/heads/main") </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="reference">References <a class="el" href="classgit_1_1GitRepository.html#a934717ded9977eed43fcdd45d611fa15">remote_</a>.</p>
+<p class="reference">References <a class="el" href="classgit_1_1Remote.html#a3773f5690686f9e42ce3f232b2bf7330">git::Remote::get()</a>, and <a class="el" href="namespacegit.html#a0e2a9442cf8a7de44671b743b388d45a">git::get_dummy_credentials_callback()</a>.</p>
 
 </div>
 </div>
@@ -1035,32 +1065,6 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a934717ded9977eed43fcdd45d611fa15"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a934717ded9977eed43fcdd45d611fa15">&#9670;&nbsp;</a></span>remote_</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespacegit.html#af6155f34e925707b166d5e6d30438811">LibGitRemote</a> git::GitRepository::remote_ { nullptr, git_remote_free }</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>git remote object </p>
-
-<p class="reference">Referenced by <a class="el" href="classgit_1_1GitRepository.html#aac9392fcf7460d419f97da48bc1682aa">clone_repo()</a>, <a class="el" href="classgit_1_1GitRepository.html#afa89d50c2c9cd929688fbc064a093963">GitRepository()</a>, <a class="el" href="classgit_1_1GitRepository.html#a24608b4a79ee94e5be73b11924013e1f">pull()</a>, and <a class="el" href="classgit_1_1GitRepository.html#adf320bc570edae63832b7c2eb7b2e0ea">push()</a>.</p>
-
-</div>
-</div>
 <a id="a8ffc14c23ddfe471e68429f6be201702"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8ffc14c23ddfe471e68429f6be201702">&#9670;&nbsp;</a></span>repo_</h2>
 
@@ -1083,7 +1087,7 @@ Private Attributes</h2></td></tr>
 
 <p>Pointer which holds all infos of the active repository. </p>
 
-<p class="reference">Referenced by <a class="el" href="classgit_1_1GitRepository.html#ac53214aae8a3f3fc7ce3ddb20d17b908">add()</a>, <a class="el" href="classgit_1_1GitRepository.html#af46265cab9cc299c8d899b43a8f0d281">add_files()</a>, <a class="el" href="classgit_1_1GitRepository.html#a13b5c999cf7816077fce159a2c00bd46">branch_up_to_date()</a>, <a class="el" href="classgit_1_1GitRepository.html#aac9392fcf7460d419f97da48bc1682aa">clone_repo()</a>, <a class="el" href="classgit_1_1GitRepository.html#adc7f22f4a17a481e231b5e35c87fb3cf">commit()</a>, <a class="el" href="classgit_1_1GitRepository.html#a25aa4b88d476c0d12940ceebee24ffc7">commit_initial()</a>, <a class="el" href="classgit_1_1GitRepository.html#ad7e72b7c04874d69cf6bce810ac8ce55">get_commit()</a>, <a class="el" href="classgit_1_1GitRepository.html#ace941a03146605cfbbd5e092676e54f6">get_repo()</a>, <a class="el" href="classgit_1_1GitRepository.html#afa89d50c2c9cd929688fbc064a093963">GitRepository()</a>, <a class="el" href="classgit_1_1GitRepository.html#a9a4c98257f6cee06cca03c8a14675760">init()</a>, <a class="el" href="classgit_1_1GitRepository.html#a5033b46997f0c7f8cb977710b4e0a047">make_signature()</a>, <a class="el" href="classgit_1_1GitRepository.html#a24608b4a79ee94e5be73b11924013e1f">pull()</a>, <a class="el" href="classgit_1_1GitRepository.html#a18a739afb893b7ed5a040d792cf1d67b">remove_directory()</a>, <a class="el" href="classgit_1_1GitRepository.html#a7168cb78c542bad81e3165b9f702fd9f">remove_files()</a>, <a class="el" href="classgit_1_1GitRepository.html#a3b7ec89b0fff7a83a15fcdd03e0975ba">reset()</a>, <a class="el" href="classgit_1_1GitRepository.html#a3ac41109808dd2f6acfdeea8b7000730">reset_repo()</a>, <a class="el" href="classgit_1_1GitRepository.html#a19901a34ee3fdffc62962df77da90bf7">status()</a>, <a class="el" href="classgit_1_1GitRepository.html#aa53b4e6a57863bfc05469f0501e18b09">update()</a>, and <a class="el" href="classgit_1_1GitRepository.html#a2464f58fc0ae6351242a52ac547ba6ca">~GitRepository()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="classgit_1_1GitRepository.html#ac53214aae8a3f3fc7ce3ddb20d17b908">add()</a>, <a class="el" href="classgit_1_1GitRepository.html#af46265cab9cc299c8d899b43a8f0d281">add_files()</a>, <a class="el" href="classgit_1_1GitRepository.html#ab1e39515618a07155483ff3799c0a2a7">add_remote()</a>, <a class="el" href="classgit_1_1GitRepository.html#adc7f22f4a17a481e231b5e35c87fb3cf">commit()</a>, <a class="el" href="classgit_1_1GitRepository.html#a25aa4b88d476c0d12940ceebee24ffc7">commit_initial()</a>, <a class="el" href="classgit_1_1GitRepository.html#ad7e72b7c04874d69cf6bce810ac8ce55">get_commit()</a>, <a class="el" href="classgit_1_1GitRepository.html#a41a727bd1f8b43ea371f81c699711e12">get_remote()</a>, <a class="el" href="classgit_1_1GitRepository.html#ace941a03146605cfbbd5e092676e54f6">get_repo()</a>, <a class="el" href="classgit_1_1GitRepository.html#a9a4c98257f6cee06cca03c8a14675760">init()</a>, <a class="el" href="classgit_1_1GitRepository.html#af7ad04b43eb8145cf2de1ff4c7f9b011">list_remote_names()</a>, <a class="el" href="classgit_1_1GitRepository.html#a5033b46997f0c7f8cb977710b4e0a047">make_signature()</a>, <a class="el" href="classgit_1_1GitRepository.html#a18a739afb893b7ed5a040d792cf1d67b">remove_directory()</a>, <a class="el" href="classgit_1_1GitRepository.html#a7168cb78c542bad81e3165b9f702fd9f">remove_files()</a>, <a class="el" href="classgit_1_1GitRepository.html#a3b7ec89b0fff7a83a15fcdd03e0975ba">reset()</a>, <a class="el" href="classgit_1_1GitRepository.html#a3ac41109808dd2f6acfdeea8b7000730">reset_repo()</a>, <a class="el" href="classgit_1_1GitRepository.html#a19901a34ee3fdffc62962df77da90bf7">status()</a>, <a class="el" href="classgit_1_1GitRepository.html#aa53b4e6a57863bfc05469f0501e18b09">update()</a>, and <a class="el" href="classgit_1_1GitRepository.html#a2464f58fc0ae6351242a52ac547ba6ca">~GitRepository()</a>.</p>
 
 </div>
 </div>
@@ -1109,33 +1113,7 @@ Private Attributes</h2></td></tr>
 
 <p>Path to the repository. </p>
 
-<p class="reference">Referenced by <a class="el" href="classgit_1_1GitRepository.html#aac9392fcf7460d419f97da48bc1682aa">clone_repo()</a>, <a class="el" href="classgit_1_1GitRepository.html#abc911439c6d0e248485b9a3d570a7f9e">get_path()</a>, <a class="el" href="classgit_1_1GitRepository.html#a9a4c98257f6cee06cca03c8a14675760">init()</a>, and <a class="el" href="classgit_1_1GitRepository.html#a3ac41109808dd2f6acfdeea8b7000730">reset_repo()</a>.</p>
-
-</div>
-</div>
-<a id="a2596f6035152cc6c2733cf4eb15c19bf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2596f6035152cc6c2733cf4eb15c19bf">&#9670;&nbsp;</a></span>url_</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string git::GitRepository::url_</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>URL of the remote repository. </p>
-
-<p class="reference">Referenced by <a class="el" href="classgit_1_1GitRepository.html#aac9392fcf7460d419f97da48bc1682aa">clone_repo()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="classgit_1_1GitRepository.html#abc911439c6d0e248485b9a3d570a7f9e">get_path()</a>, <a class="el" href="classgit_1_1GitRepository.html#a9a4c98257f6cee06cca03c8a14675760">init()</a>, and <a class="el" href="classgit_1_1GitRepository.html#a3ac41109808dd2f6acfdeea8b7000730">reset_repo()</a>.</p>
 
 </div>
 </div>
@@ -1146,7 +1124,7 @@ Private Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 13 2023 15:26:45 for libgit4cpp by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Fri Jan 26 2024 13:56:00 for libgit4cpp by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

@@ -1,0 +1,7 @@
+<map id="Remote.h" name="Remote.h">
+<area shape="rect" id="node1" title="Declaration of the Remote class." alt="" coords="145,5,231,32"/>
+<area shape="rect" id="node2" href="$GitRepository_8h.html" title="Wrapper for C&#45;Package libgit2." alt="" coords="62,80,183,107"/>
+<area shape="rect" id="node5" href="$Remote_8cc.html" title="Implementation of the Remote class." alt="" coords="208,80,299,107"/>
+<area shape="rect" id="node3" href="$libgit4cpp_8h.html" title="Main include file for libgit4cpp." alt="" coords="5,155,104,181"/>
+<area shape="rect" id="node4" href="$GitRepository_8cc.html" title="Implementation of the GitRepository class." alt="" coords="129,155,255,181"/>
+</map>
