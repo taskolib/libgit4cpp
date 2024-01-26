@@ -36,10 +36,11 @@
 namespace git {
 
 /**
- * An abstraction of a git remote (such as "origin").
+ * An abstraction of a git remote repository (such as "origin").
  *
  * A remote has a name and a URL which can be accessed via get_name() and get_url(),
- * respectively.
+ * respectively. In addition, a non-owning pointer to the underlying git_remote object
+ * can be retrieved via get().
  */
 class Remote
 {
@@ -56,10 +57,10 @@ public:
     git_remote* get() const { return remote_.get(); }
 
     /// Return the name of the remote (e.g. "origin"). May be empty for in-memory remotes.
-    const std::string& get_name() const { return name_; }
+    std::string get_name() const;
 
     /// Return the URL of the remote (e.g. "https://gitlab.com/a/b.git").
-    const std::string& get_url() const { return url_; }
+    std::string get_url() const;
 
     /**
      * Retrieve a list of references available on this remote repository
@@ -72,8 +73,6 @@ public:
     std::vector<std::string> list_references();
 
 private:
-    std::string name_;
-    std::string url_;
     LibGitRemote remote_{ nullptr, git_remote_free };
 };
 
