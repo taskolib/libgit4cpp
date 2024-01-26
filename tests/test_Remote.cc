@@ -43,8 +43,6 @@ TEST_CASE("Remote: Constructor", "[Remote]")
 {
     const auto reporoot = unit_test_folder() / "Remote";
 
-    std::filesystem::remove_all(reporoot);
-
     const std::string repo_url{
         "https://gitlab.desy.de/jannik.woehnert/taskolib_remote_test.git" };
 
@@ -68,9 +66,6 @@ TEST_CASE("Remote: list_references()", "[GitRepository]")
 {
     const auto working_dir = unit_test_folder() / "Remote_list_references";
     const auto remote_repo = unit_test_folder() / "Remote_list_references.remote";
-
-    std::filesystem::remove_all(working_dir);
-    std::filesystem::remove_all(remote_repo);
 
     // Create a local repository and commit a single file
     auto repo = std::make_unique<GitRepository>(working_dir);
