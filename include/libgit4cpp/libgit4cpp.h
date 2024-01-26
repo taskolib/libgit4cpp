@@ -26,7 +26,7 @@
 #define LIBGIT4CPP_LIBGIT4CPP_H_
 
 #include "libgit4cpp/Error.h"
-#include "libgit4cpp/GitRepository.h"
+#include "libgit4cpp/Repository.h"
 #include "libgit4cpp/types.h"
 #include "libgit4cpp/wrapper_functions.h"
 

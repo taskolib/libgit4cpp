@@ -1,8 +1,8 @@
 /**
- * \file   GitRepository.cc
+ * \file   Repository.cc
  * \author Sven-Jannik Wöhnert
  * \date   Created on March 20, 2023
- * \brief  Implementation of the GitRepository class.
+ * \brief  Implementation of the Repository class.
  *
  * \copyright Copyright 2023-2024 Deutsches Elektronen-Synchrotron (DESY), Hamburg
  *
@@ -30,7 +30,7 @@
 #include <gul14/finalizer.h>
 
 #include "libgit4cpp/Error.h"
-#include "libgit4cpp/GitRepository.h"
+#include "libgit4cpp/Repository.h"
 #include "libgit4cpp/wrapper_functions.h"
 #include "credentials_callback.h"
 
@@ -38,28 +38,28 @@ using gul14::cat;
 
 namespace git {
 
-GitRepository::GitRepository(const std::filesystem::path& file_path)
+Repository::Repository(const std::filesystem::path& file_path)
     : repo_path_{ file_path }
 {
     git_libgit2_init();
     init(file_path);
 }
 
-GitRepository::~GitRepository()
+Repository::~Repository()
 {
     repo_.reset();
     my_signature_.reset();
     git_libgit2_shutdown();
 }
 
-void GitRepository::make_signature()
+void Repository::make_signature()
 {
     my_signature_ = signature_default(repo_.get());
     if (not my_signature_)
         my_signature_ = signature_new("Taskomat", "(none)", std::time(0), 0);
 }
 
-void GitRepository::reset_repo()
+void Repository::reset_repo()
 {
     repo_.reset();
     my_signature_.reset();
@@ -68,23 +68,23 @@ void GitRepository::reset_repo()
     init(repo_path_);
 }
 
-std::string GitRepository::get_last_commit_message()
+std::string Repository::get_last_commit_message()
 {
     const auto commit = get_commit();
     return git_commit_message(commit.get());
 }
 
-std::filesystem::path GitRepository::get_path() const
+std::filesystem::path Repository::get_path() const
 {
     return repo_path_;
 }
 
-git_repository* GitRepository::get_repo()
+git_repository* Repository::get_repo()
 {
     return repo_.get();
 }
 
-void GitRepository::update(const std::string& glob)
+void Repository::update(const std::string& glob)
 {
     auto index = repository_index(repo_.get());
 
@@ -96,7 +96,7 @@ void GitRepository::update(const std::string& glob)
     git_index_write(index.get());
 }
 
-void GitRepository::init(const std::filesystem::path& file_path)
+void Repository::init(const std::filesystem::path& file_path)
 {
     repo_ = repository_open(repo_path_);
 
@@ -118,7 +118,7 @@ void GitRepository::init(const std::filesystem::path& file_path)
     }
 }
 
-void GitRepository::commit_initial()
+void Repository::commit_initial()
 {
     // prepare gitlib data types
     auto index = repository_index(repo_.get());
@@ -144,7 +144,7 @@ void GitRepository::commit_initial()
         throw Error{ cat("Initial commit failed: ", git_error_last()->message) };
 }
 
-void GitRepository::commit(const std::string& commit_message)
+void Repository::commit(const std::string& commit_message)
 {
     auto parent_commit = get_commit();
     const git_commit* raw_commit = parent_commit.get();
@@ -173,7 +173,7 @@ void GitRepository::commit(const std::string& commit_message)
         throw Error{ cat("Commit: ", git_error_last()->message) };
 }
 
-void GitRepository::add(const std::string& glob)
+void Repository::add(const std::string& glob)
 {
     auto gindex = repository_index(repo_.get());
 
@@ -188,7 +188,7 @@ void GitRepository::add(const std::string& glob)
     git_index_write(gindex.get());
 }
 
-void GitRepository::remove_directory(const std::filesystem::path& directory)
+void Repository::remove_directory(const std::filesystem::path& directory)
 {
     auto gindex = repository_index(repo_.get());
 
@@ -199,7 +199,7 @@ void GitRepository::remove_directory(const std::filesystem::path& directory)
     git_index_write(gindex.get());
 }
 
-void GitRepository::remove_files(const std::vector<std::filesystem::path>& filepaths)
+void Repository::remove_files(const std::vector<std::filesystem::path>& filepaths)
 {
     auto gindex = repository_index(repo_.get());
 
@@ -215,7 +215,7 @@ void GitRepository::remove_files(const std::vector<std::filesystem::path>& filep
     git_index_write(gindex.get());
 }
 
-LibGitCommit GitRepository::get_commit(unsigned int count)
+LibGitCommit Repository::get_commit(unsigned int count)
 {
     git_commit* parent;
     auto err = git_commit_nth_gen_ancestor(&parent, get_commit("HEAD").get(), count);
@@ -224,7 +224,7 @@ LibGitCommit GitRepository::get_commit(unsigned int count)
     return { parent, git_commit_free };
 }
 
-LibGitCommit GitRepository::get_commit(const std::string& ref)
+LibGitCommit Repository::get_commit(const std::string& ref)
 {
     git_commit* commit;
     git_oid oid_parent_commit;
@@ -242,7 +242,7 @@ LibGitCommit GitRepository::get_commit(const std::string& ref)
     return { commit, git_commit_free };
 }
 
-bool GitRepository::is_unstaged(FileStatus& filestats, const git_status_entry* s)
+bool Repository::is_unstaged(FileStatus& filestats, const git_status_entry* s)
 {
     std::string wstatus = "";
 
@@ -272,7 +272,7 @@ bool GitRepository::is_unstaged(FileStatus& filestats, const git_status_entry* s
     return true;
 }
 
-bool GitRepository::is_staged(FileStatus& filestats, const git_status_entry* s)
+bool Repository::is_staged(FileStatus& filestats, const git_status_entry* s)
 {
     std::string istatus = "";
 
@@ -304,7 +304,7 @@ bool GitRepository::is_staged(FileStatus& filestats, const git_status_entry* s)
     return true;
 }
 
-RepoState GitRepository::collect_status(LibGitStatusList& status) const
+RepoState Repository::collect_status(LibGitStatusList& status) const
 {
     // get number of submodules
     const size_t nr_entries = git_status_list_entrycount(status.get());
@@ -388,7 +388,7 @@ RepoState GitRepository::collect_status(LibGitStatusList& status) const
     return return_array;
 }
 
-RepoState GitRepository::status()
+RepoState Repository::status()
 {
     git_status_options status_opt = GIT_STATUS_OPTIONS_INIT;
     status_opt.flags =  GIT_STATUS_OPT_INCLUDE_UNTRACKED |          // untracked files
@@ -403,7 +403,7 @@ RepoState GitRepository::status()
     return collect_status(my_status);
 }
 
-std::vector<int> GitRepository::add_files(const std::vector<std::filesystem::path>& filepaths)
+std::vector<int> Repository::add_files(const std::vector<std::filesystem::path>& filepaths)
 {
     auto gindex = repository_index(repo_.get());
 
@@ -422,7 +422,7 @@ std::vector<int> GitRepository::add_files(const std::vector<std::filesystem::pat
     return error_list;
 }
 
-void GitRepository::reset(unsigned int nr_of_commits)
+void Repository::reset(unsigned int nr_of_commits)
 {
     auto parent_commit = get_commit(nr_of_commits);
     auto error = git_reset(repo_.get(), reinterpret_cast<git_object*>(parent_commit.get()), GIT_RESET_HARD, nullptr);
@@ -430,7 +430,7 @@ void GitRepository::reset(unsigned int nr_of_commits)
         throw Error{ cat("Reset: ", git_error_last()->message) };
 }
 
-Remote GitRepository::add_remote(const std::string& remote_name, const std::string& url)
+Remote Repository::add_remote(const std::string& remote_name, const std::string& url)
 {
     auto remote = remote_create(repo_.get(), remote_name, url);
     if (!remote)
@@ -441,7 +441,7 @@ Remote GitRepository::add_remote(const std::string& remote_name, const std::stri
     return Remote{ std::move(remote) };
 }
 
-gul14::optional<Remote> GitRepository::get_remote(const std::string& remote_name) const
+gul14::optional<Remote> Repository::get_remote(const std::string& remote_name) const
 {
     auto remote = remote_lookup(repo_.get(), remote_name);
     if (!remote)
@@ -450,7 +450,7 @@ gul14::optional<Remote> GitRepository::get_remote(const std::string& remote_name
     return Remote{ std::move(remote) };
 }
 
-std::vector<Remote> GitRepository::list_remotes() const
+std::vector<Remote> Repository::list_remotes() const
 {
     auto remote_names = list_remote_names();
 
@@ -471,7 +471,7 @@ std::vector<Remote> GitRepository::list_remotes() const
     return result;
 }
 
-std::vector<std::string> GitRepository::list_remote_names() const
+std::vector<std::string> Repository::list_remote_names() const
 {
     git_strarray remotes;
     int err = git_remote_list(&remotes, repo_.get());
@@ -490,7 +490,7 @@ std::vector<std::string> GitRepository::list_remote_names() const
     return list;
 }
 
-void GitRepository::push(const Remote& remote, const std::string& refspec)
+void Repository::push(const Remote& remote, const std::string& refspec)
 {
     git_remote_callbacks callbacks;
     int error = git_remote_init_callbacks(&callbacks, GIT_REMOTE_CALLBACKS_VERSION);
@@ -519,7 +519,7 @@ void GitRepository::push(const Remote& remote, const std::string& refspec)
 }
 
 #if 0
-void GitRepository::pull()
+void Repository::pull()
 {
     // define fetch options
     git_fetch_options options = GIT_FETCH_OPTIONS_INIT;
@@ -545,7 +545,7 @@ void GitRepository::pull()
 
 }
 
-void GitRepository::clone_repo(const std::string& url, const std::filesystem::path& repo_path)
+void Repository::clone_repo(const std::string& url, const std::filesystem::path& repo_path)
 {
     auto repo = clone(url, repo_path);
     if (not repo) {
@@ -561,7 +561,7 @@ void GitRepository::clone_repo(const std::string& url, const std::filesystem::pa
     }
 }
 
-bool GitRepository::branch_up_to_date(const std::string& branch_name)
+bool Repository::branch_up_to_date(const std::string& branch_name)
 {
     auto local_ref = branch_lookup(repo_.get(), "master", GIT_BRANCH_LOCAL);
     if (not local_ref)

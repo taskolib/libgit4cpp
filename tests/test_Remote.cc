@@ -30,7 +30,7 @@
 #include <gul14/gul.h>
 
 #include "libgit4cpp/Error.h"
-#include "libgit4cpp/GitRepository.h"
+#include "libgit4cpp/Repository.h"
 #include "libgit4cpp/Remote.h"
 #include "libgit4cpp/wrapper_functions.h"
 #include "test_main.h"
@@ -46,7 +46,7 @@ TEST_CASE("Remote: Constructor", "[Remote]")
     const std::string repo_url{
         "https://gitlab.desy.de/jannik.woehnert/taskolib_remote_test.git" };
 
-    GitRepository repo{ reporoot };
+    Repository repo{ reporoot };
 
     auto remote_ptr = remote_create(repo.get_repo(), "origin", repo_url);
     REQUIRE(remote_ptr != nullptr);
@@ -62,13 +62,13 @@ TEST_CASE("Remote: Constructor", "[Remote]")
     REQUIRE(git_remote_url(re_ptr) == repo_url);
 }
 
-TEST_CASE("Remote: list_references()", "[GitRepository]")
+TEST_CASE("Remote: list_references()", "[Remote]")
 {
     const auto working_dir = unit_test_folder() / "Remote_list_references";
     const auto remote_repo = unit_test_folder() / "Remote_list_references.remote";
 
     // Create a local repository and commit a single file
-    auto repo = std::make_unique<GitRepository>(working_dir);
+    auto repo = std::make_unique<Repository>(working_dir);
 
     std::ofstream f(working_dir / "test.txt");
     f << "Remote::list_references() test\n";

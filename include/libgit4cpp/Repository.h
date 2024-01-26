@@ -1,5 +1,5 @@
 /**
- * \file   GitRepository.h
+ * \file   Repository.h
  * \author Sven-Jannik Wöhnert
  * \date   Created on March 20, 2023
  * \brief  Wrapper for C-Package libgit2
@@ -22,8 +22,8 @@
 
 // SPDX-License-Identifier: LGPL-2.1-or-later
 
-#ifndef LIBGIT4CPP_GITREPOSITORY_H_
-#define LIBGIT4CPP_GITREPOSITORY_H_
+#ifndef LIBGIT4CPP_REPOSITORY_H_
+#define LIBGIT4CPP_REPOSITORY_H_
 
 #include <filesystem>
 #include <string>
@@ -74,7 +74,7 @@ inline std::ostream& operator<<(std::ostream& stream, const RepoState& repostate
  * git functions which are not implemented in this class will be
  * implemented in case of necessity
  */
-class GitRepository
+class Repository
 {
 public:
 
@@ -82,7 +82,7 @@ public:
      * Constructor which specifies the root dir of the git repository.
      * \param file_path  Path to git directory
      */
-    explicit GitRepository(const std::filesystem::path& file_path);
+    explicit Repository(const std::filesystem::path& file_path);
 
     /**
      * Reset all knowledge this object knows about the repository and load the knowledge again.
@@ -176,7 +176,7 @@ public:
      *            already exists.
      *
      * \code{.cpp}
-     * GitRepository repo{ "/path/to/repo" };
+     * Repository repo{ "/path/to/repo" };
      * repo.add_remote("origin", "https://gitlab.com/a/b.git");
      * repo.add_remote("upstream", "file:///path/to/upstream/repo");
      * \endcode
@@ -279,7 +279,7 @@ public:
     RepoState status();
 
     /// Destructor
-    ~GitRepository();
+    ~Repository();
 
 private:
 

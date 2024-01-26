@@ -1,8 +1,8 @@
 # Test sources
 test_src = files(
-    'test_GitRepository.cc',
     'test_main.cc',
     'test_Remote.cc',
+    'test_Repository.cc',
 )
 
 # The tests are executed in the build dir to avoid pollution of the git repository with
