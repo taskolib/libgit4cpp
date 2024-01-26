@@ -39,12 +39,18 @@ Remote::Remote(LibGitRemote&& remote_ptr)
 {
     if (remote_ == nullptr)
         throw Error{ "Remote pointer may not be null" };
+}
 
+std::string Remote::get_name() const
+{
     const char* name = git_remote_name(remote_.get());
-    name_ = name ? name : "";
+    return name ? name : "";
+}
 
+std::string Remote::get_url() const
+{
     const char* url = git_remote_url(remote_.get());
-    url_ = url ? url : "";
+    return url ? url : "";
 }
 
 std::vector<std::string> Remote::list_references()
@@ -58,7 +64,7 @@ std::vector<std::string> Remote::list_references()
             nullptr, nullptr);
         if (error < 0)
         {
-            throw Error{ cat("Cannot connect to remote \"", name_, "\": ",
+            throw Error{ cat("Cannot connect to remote \"", get_name(), "\": ",
                 git_error_last()->message) };
         }
     }
@@ -68,7 +74,7 @@ std::vector<std::string> Remote::list_references()
     auto error = git_remote_ls(&out, &size, remote_.get());
     if (error)
     {
-        throw Error{ cat("Cannot list references on remote \"", name_, "\": ",
+        throw Error{ cat("Cannot list references on remote \"", get_name(), "\": ",
             git_error_last()->message) };
     }
 
