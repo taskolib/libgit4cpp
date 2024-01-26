@@ -450,28 +450,44 @@ gul14::optional<Remote> GitRepository::get_remote(const std::string& remote_name
     return Remote{ std::move(remote) };
 }
 
-gul14::SmallVector<Remote, 2> GitRepository::list_remotes() const
+std::vector<Remote> GitRepository::list_remotes() const
 {
-    gul14::SmallVector<Remote, 2> result;
+    auto remote_names = list_remote_names();
 
+    std::vector<Remote> result;
+    result.reserve(remote_names.size());
+
+    for (const std::string& name : remote_names)
+    {
+        auto maybe_remote = get_remote(name);
+        if (!maybe_remote)
+        {
+            throw Error(cat("Lookup failed for remote \"", name, "\": ",
+                git_error_last()->message));
+        }
+        result.push_back(std::move(*maybe_remote));
+    }
+
+    return result;
+}
+
+std::vector<std::string> GitRepository::list_remote_names() const
+{
     git_strarray remotes;
     int err = git_remote_list(&remotes, repo_.get());
     if (err)
         throw Error{ cat("Cannot list remotes: ", git_error_last()->message) };
     auto cleanup = gul14::finally([&remotes]() { git_strarray_free(&remotes); });
 
+    std::vector<std::string> list;
+    list.reserve(remotes.count);
     for (std::size_t i = 0; i != remotes.count; ++i)
     {
-        auto maybe_remote = get_remote(remotes.strings[i]);
-        if (!maybe_remote)
-        {
-            throw Error(cat("Lookup failed for remote \"", remotes.strings[i],
-                "\": ", git_error_last()->message));
-        }
-        result.push_back(std::move(*maybe_remote));
+        const char* name = remotes.strings[i];
+        list.emplace_back(name ? name : "");
     }
 
-    return result;
+    return list;
 }
 
 void GitRepository::push(const Remote& remote, const std::string& refspec)

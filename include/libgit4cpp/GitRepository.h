@@ -31,7 +31,6 @@
 
 #include <git2.h>
 #include <gul14/escape.h>
-#include <gul14/SmallVector.h>
 
 #include "libgit4cpp/Remote.h"
 #include "libgit4cpp/types.h"
@@ -191,10 +190,17 @@ public:
     gul14::optional<Remote> get_remote(const std::string& remote_name) const;
 
     /**
-     * Return a list of all configured git remotes.
+     * Return a list of all configured remote repositories.
+     * \exception Error is thrown if the list cannot be retrieved.
+     */
+    std::vector<Remote> list_remotes() const;
+
+    /**
+     * Return a list containing the names of all configured remote repositories (such as
+     * "origin").
      * \exception Error is thrown if the remote list cannot be retrieved.
      */
-    gul14::SmallVector<Remote, 2> list_remotes() const;
+    std::vector<std::string> list_remote_names() const;
 
     /**
      * Push something to the specified remote.
