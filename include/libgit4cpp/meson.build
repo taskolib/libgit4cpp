@@ -1,7 +1,7 @@
 # The public_headers are tested for self-containment in the tests section
 public_headers = [
     'Error.h',
-    'GitRepository.h',
+    'Repository.h',
     'libgit4cpp.h',
     'Remote.h',
     'types.h',

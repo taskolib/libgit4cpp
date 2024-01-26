@@ -1,8 +1,8 @@
 /**
- * \file   test_GitRepository.cc
+ * \file   test_Repository.cc
  * \author Sven-Jannik Wöhnert
  * \date   Created on March 22, 2023
- * \brief  Test suite for the GitRepository class.
+ * \brief  Test suite for the Repository class.
  *
  * \copyright Copyright 2023-2024 Deutsches Elektronen-Synchrotron (DESY), Hamburg
  *
@@ -31,7 +31,7 @@
 #include <gul14/gul.h>
 
 #include "libgit4cpp/Error.h"
-#include "libgit4cpp/GitRepository.h"
+#include "libgit4cpp/Repository.h"
 #include "libgit4cpp/wrapper_functions.h"
 #include "test_main.h"
 
@@ -74,7 +74,7 @@ void create_testfiles(const std::filesystem::path& name, size_t nr_files,
 
 } // anonymous namespace
 
-TEST_CASE("GitRepository Wrapper Test all", "[GitRepository]")
+TEST_CASE("Repository Wrapper Test all", "[Repository]")
 {
     /**
      * Create files in a directory and then initialize the git repository within.
@@ -84,12 +84,12 @@ TEST_CASE("GitRepository Wrapper Test all", "[GitRepository]")
      * Check if a comit was created (initial commit)
      *
     */
-    SECTION("Construct GitRepository object")
+    SECTION("Construct Repository object")
     {
         std::filesystem::remove_all(reporoot);
         create_testfiles("unit_test_1", 2, "Construct");
 
-        GitRepository gl{ reporoot };
+        Repository gl{ reporoot };
 
         REQUIRE(not gl.get_path().empty());
         REQUIRE(gl.get_path() == reporoot);
@@ -112,7 +112,7 @@ TEST_CASE("GitRepository Wrapper Test all", "[GitRepository]")
     {
         create_testfiles("unit_test_2", 2, "Stage");
 
-        GitRepository gl{ reporoot };
+        Repository gl{ reporoot };
 
         auto stats = gl.status();
         REQUIRE(stats.size() != 0);
@@ -152,7 +152,7 @@ TEST_CASE("GitRepository Wrapper Test all", "[GitRepository]")
     {
 
         // Create Git Library
-        GitRepository gl{ reporoot };
+        Repository gl{ reporoot };
 
         auto stats = gl.status();
 
@@ -196,7 +196,7 @@ TEST_CASE("GitRepository Wrapper Test all", "[GitRepository]")
     */
     SECTION("Add by path")
     {
-        GitRepository gl{ reporoot };
+        Repository gl{ reporoot };
 
         create_testfiles("unit_test_1", 2, "Add by path");
 
@@ -258,7 +258,7 @@ TEST_CASE("GitRepository Wrapper Test all", "[GitRepository]")
     SECTION("Delete file")
     {
         // Create Git Library
-        GitRepository gl{ reporoot };
+        Repository gl{ reporoot };
 
         std::filesystem::path myfile = "unit_test_2/file1.txt";
         REQUIRE(std::filesystem::exists(gl.get_path() / myfile) == true);
@@ -287,7 +287,7 @@ TEST_CASE("GitRepository Wrapper Test all", "[GitRepository]")
 
     SECTION("Get previous commit (git reset)")
     {
-        GitRepository gl{ reporoot };
+        Repository gl{ reporoot };
 
         std::stringstream ss{ };
         ss << gl.status();
@@ -332,7 +332,7 @@ TEST_CASE("GitRepository Wrapper Test all", "[GitRepository]")
     SECTION("Delete Directory")
     {
         // Create Git Library
-        GitRepository gl{ reporoot };
+        Repository gl{ reporoot };
 
         std::filesystem::path mypath = "unit_test_2";
         REQUIRE(std::filesystem::exists(gl.get_path() / mypath) == true);
@@ -369,7 +369,7 @@ TEST_CASE("GitRepository Wrapper Test all", "[GitRepository]")
 
     SECTION("Adding with glob (git add)")
     {
-        GitRepository gl{ reporoot };
+        Repository gl{ reporoot };
         auto ss = std::stringstream{ };
         ss << gl.status();
         REQUIRE(gul14::trim(ss.str()) == "RepoState {\n" \
@@ -392,7 +392,7 @@ TEST_CASE("GitRepository Wrapper Test all", "[GitRepository]")
     }
 }
 
-TEST_CASE("GitRepository add() with glob", "[GitRepository]")
+TEST_CASE("Repository add() with glob", "[Repository]")
 {
     std::filesystem::remove_all(reporoot);
     create_testfiles(".Atlantis", 1, "Atlantis");
@@ -404,7 +404,7 @@ TEST_CASE("GitRepository add() with glob", "[GitRepository]")
     create_testfiles("Malaysia", 1, "Kuala Lumpur");
     create_testfiles("Paraguay", 2, "Asuncion");
     create_testfiles("Peru", 2, "Lima");
-    GitRepository gl{ reporoot };
+    Repository gl{ reporoot };
     gl.reset(0);
 
     /**
@@ -578,14 +578,14 @@ TEST_CASE("GitRepository add() with glob", "[GitRepository]")
     }
 }
 
-TEST_CASE("GitRepository: get_remote(), add_remote()", "[GitRepository]")
+TEST_CASE("Repository: get_remote(), add_remote()", "[Repository]")
 {
     std::filesystem::remove_all(reporoot);
 
     constexpr auto* repo_url
         = "https://gitlab.desy.de/jannik.woehnert/taskolib_remote_test.git";
 
-    GitRepository repo{ reporoot };
+    Repository repo{ reporoot };
 
     auto maybe_remote = repo.get_remote("origin");
     REQUIRE(maybe_remote.has_value() == false);
@@ -602,14 +602,14 @@ TEST_CASE("GitRepository: get_remote(), add_remote()", "[GitRepository]")
     REQUIRE(maybe_remote->get_url() == repo_url);
 }
 
-TEST_CASE("GitRepository: list_remotes(), add_remote()", "[GitRepository]")
+TEST_CASE("Repository: list_remotes(), add_remote()", "[Repository]")
 {
     std::filesystem::remove_all(reporoot);
 
     constexpr auto* repo_url
         = "https://gitlab.desy.de/jannik.woehnert/taskolib_remote_test.git";
 
-    GitRepository repo{ reporoot };
+    Repository repo{ reporoot };
 
     // Repo list must be empty
     auto remotes = repo.list_remotes();
@@ -632,14 +632,14 @@ TEST_CASE("GitRepository: list_remotes(), add_remote()", "[GitRepository]")
     REQUIRE_THROWS_AS(repo.add_remote("origin", repo_url), git::Error);
 }
 
-TEST_CASE("GitRepository: list_remote_names(), add_remote()", "[GitRepository]")
+TEST_CASE("Repository: list_remote_names(), add_remote()", "[Repository]")
 {
     const auto folder = unit_test_folder() / "list_remote_names";
 
     constexpr auto* repo_url
         = "https://gitlab.desy.de/jannik.woehnert/taskolib_remote_test.git";
 
-    GitRepository repo{ folder };
+    Repository repo{ folder };
 
     // Repo list must be empty
     auto remotes = repo.list_remote_names();
@@ -660,7 +660,7 @@ TEST_CASE("GitRepository: list_remote_names(), add_remote()", "[GitRepository]")
     REQUIRE_THROWS_AS(repo.add_remote("origin", repo_url), git::Error);
 }
 
-TEST_CASE("GitRepository: push()", "[GitRepository]")
+TEST_CASE("Repository: push()", "[Repository]")
 {
     const auto working_dir = unit_test_folder() / "push_test";
     const auto remote_repo = unit_test_folder() / "push_test_remote";
@@ -669,7 +669,7 @@ TEST_CASE("GitRepository: push()", "[GitRepository]")
     std::filesystem::remove_all(remote_repo);
 
     // Create a local repository
-    GitRepository repo{ working_dir };
+    Repository repo{ working_dir };
 
     // Commit a single file
     std::ofstream f(working_dir / "test.txt");
@@ -702,22 +702,22 @@ TEST_CASE("GitRepository: push()", "[GitRepository]")
 
 /**
  * To test a remote repository, the following steps are executed
- * 1) Create a GitReposiotry with a link to a remote repository
+ * 1) Create a Repository with a link to a remote repository
  * 2) Commit and push files to remote repository (2x)
  * 3) Reset local repo to first commit and pull 2nd commit from remote
  * 4) Delete local repository and clone from remote
  *
  * Tidy up) Reset remote, delete all local files
 
-TEST_CASE("GitRepository Wrapper Test Remote", "[GitWrapper]")
+TEST_CASE("Repository Wrapper Test Remote", "[GitWrapper]")
 {
 
 
-    SECTION("Init empty GitRepository with remote connection")
+    SECTION("Init empty Repository with remote connection")
     {
         std::filesystem::remove_all(reporoot);
 
-        GitRepository gl{ reporoot, "https://gitlab.desy.de/jannik.woehnert/taskolib_remote_test.git" };
+        Repository gl{ reporoot, "https://gitlab.desy.de/jannik.woehnert/taskolib_remote_test.git" };
 
         REQUIRE(not gl.get_path().empty());
         REQUIRE(gl.get_path() == reporoot);
@@ -732,7 +732,7 @@ TEST_CASE("GitRepository Wrapper Test Remote", "[GitWrapper]")
 
     SECTION("make commit and push to remote repository")
     {
-        GitRepository gl{ reporoot, "https://gitlab.desy.de/jannik.woehnert/taskolib_remote_test.git" };
+        Repository gl{ reporoot, "https://gitlab.desy.de/jannik.woehnert/taskolib_remote_test.git" };
 
         create_testfiles("unit_test_1", 2, "commit and push");
 
@@ -764,7 +764,7 @@ TEST_CASE("GitRepository Wrapper Test Remote", "[GitWrapper]")
 
     SECTION("Reset repository to former commit and pull current commit from remote repository")
     {
-        GitRepository gl{ reporoot, "https://gitlab.desy.de/jannik.woehnert/taskolib_remote_test.git" };
+        Repository gl{ reporoot, "https://gitlab.desy.de/jannik.woehnert/taskolib_remote_test.git" };
 
         //second commit
         create_testfiles("unit_test_2", 1, "commit and push 2");
@@ -792,7 +792,7 @@ TEST_CASE("GitRepository Wrapper Test Remote", "[GitWrapper]")
 
 
         //clone reposiotry from remote
-        GitRepository gl{ reporoot };
+        Repository gl{ reporoot };
         gl.clone_repo("https://gitlab.desy.de/jannik.woehnert/taskolib_remote_test.git", reporoot);
 
         REQUIRE(gl.get_last_commit_message() == "Second commit");
