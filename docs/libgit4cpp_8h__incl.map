@@ -1,7 +1,7 @@
 <map id="libgit4cpp.h" name="libgit4cpp.h">
-<area shape="rect" id="node1" title="Main include file for libgit4cpp." alt="" coords="446,5,545,32"/>
-<area shape="rect" id="node2" href="$Error_8h.html" title="Definition of the Error exception class." alt="" coords="121,80,253,107"/>
-<area shape="rect" id="node4" href="$GitRepository_8h.html" title="Wrapper for C&#45;Package libgit2." alt="" coords="533,80,722,107"/>
+<area shape="rect" id="node1" title="Main include file for libgit4cpp." alt="" coords="451,5,550,32"/>
+<area shape="rect" id="node2" href="$Error_8h.html" title="Definition of the Error exception class." alt="" coords="127,80,259,107"/>
+<area shape="rect" id="node4" href="$Repository_8h.html" title="Wrapper for C&#45;Package libgit2." alt="" coords="542,80,713,107"/>
 <area shape="rect" id="node13" href="$types_8h.html" title="Definition of owner types for raw pointers." alt="" coords="865,244,1003,271"/>
 <area shape="rect" id="node15" href="$wrapper__functions_8h.html" title="Declaration of wrappers for libgit2 functions." alt="" coords="267,155,409,196"/>
 <area shape="rect" id="node3" title=" " alt="" coords="5,162,92,189"/>

@@ -1,10 +1,10 @@
 <map id="types.h" name="types.h">
-<area shape="rect" id="node1" title="Definition of owner types for raw pointers." alt="" coords="82,5,152,32"/>
-<area shape="rect" id="node2" href="$GitRepository_8h.html" title="Wrapper for C&#45;Package libgit2." alt="" coords="22,155,143,181"/>
-<area shape="rect" id="node3" href="$libgit4cpp_8h.html" title="Main include file for libgit4cpp." alt="" coords="33,229,132,256"/>
-<area shape="rect" id="node5" href="$Remote_8h.html" title="Declaration of the Remote class." alt="" coords="114,80,200,107"/>
-<area shape="rect" id="node7" href="$wrapper__functions_8h.html" title="Declaration of wrappers for libgit2 functions." alt="" coords="224,80,378,107"/>
-<area shape="rect" id="node4" href="$GitRepository_8cc.html" title="Implementation of the GitRepository class." alt="" coords="219,229,346,256"/>
-<area shape="rect" id="node6" href="$Remote_8cc.html" title="Implementation of the Remote class." alt="" coords="168,155,258,181"/>
-<area shape="rect" id="node8" href="$wrapper__functions_8cc.html" title="Implementation of wrappers for libgit2 functions." alt="" coords="384,155,544,181"/>
+<area shape="rect" id="node1" title="Definition of owner types for raw pointers." alt="" coords="67,5,137,32"/>
+<area shape="rect" id="node2" href="$libgit4cpp_8h.html" title="Main include file for libgit4cpp." alt="" coords="23,229,122,256"/>
+<area shape="rect" id="node3" href="$Remote_8h.html" title="Declaration of the Remote class." alt="" coords="99,80,185,107"/>
+<area shape="rect" id="node4" href="$Repository_8h.html" title="Wrapper for C&#45;Package libgit2." alt="" coords="21,155,124,181"/>
+<area shape="rect" id="node7" href="$wrapper__functions_8h.html" title="Declaration of wrappers for libgit2 functions." alt="" coords="209,80,363,107"/>
+<area shape="rect" id="node6" href="$Remote_8cc.html" title="Implementation of the Remote class." alt="" coords="149,155,239,181"/>
+<area shape="rect" id="node5" href="$Repository_8cc.html" title="Implementation of the Repository class." alt="" coords="209,229,317,256"/>
+<area shape="rect" id="node8" href="$wrapper__functions_8cc.html" title="Implementation of wrappers for libgit2 functions." alt="" coords="365,155,525,181"/>
 </map>
