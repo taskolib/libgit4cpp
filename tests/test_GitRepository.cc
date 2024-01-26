@@ -632,6 +632,34 @@ TEST_CASE("GitRepository: list_remotes(), add_remote()", "[GitRepository]")
     REQUIRE_THROWS_AS(repo.add_remote("origin", repo_url), git::Error);
 }
 
+TEST_CASE("GitRepository: list_remote_names(), add_remote()", "[GitRepository]")
+{
+    const auto folder = unit_test_folder() / "list_remote_names";
+
+    constexpr auto* repo_url
+        = "https://gitlab.desy.de/jannik.woehnert/taskolib_remote_test.git";
+
+    GitRepository repo{ folder };
+
+    // Repo list must be empty
+    auto remotes = repo.list_remote_names();
+    REQUIRE(remotes.empty());
+
+    // Add a remote
+    auto remote = repo.add_remote("origin", repo_url);
+    REQUIRE(remote.get() != nullptr);
+    REQUIRE(remote.get_name() == "origin");
+    REQUIRE(remote.get_url() == repo_url);
+
+    // Repo list must not be empty anymore
+    remotes = repo.list_remote_names();
+    REQUIRE(remotes.size() == 1);
+    REQUIRE(remotes[0] == "origin");
+
+    // Adding the same remote again must fail
+    REQUIRE_THROWS_AS(repo.add_remote("origin", repo_url), git::Error);
+}
+
 TEST_CASE("GitRepository: push()", "[GitRepository]")
 {
     const auto working_dir = unit_test_folder() / "push_test";
