@@ -29,7 +29,7 @@
 
 using namespace std::literals;
 
-TEST_CASE("Error: Constructor", "[exceptions]")
+TEST_CASE("Error: Constructor", "[Error]")
 {
     // Default error code is -7 == GIT_EUSER
     git::Error e("Test");
@@ -38,7 +38,7 @@ TEST_CASE("Error: Constructor", "[exceptions]")
     REQUIRE(e.code().value() == -7);
 }
 
-TEST_CASE("Error: Copy constructor", "[exceptions]")
+TEST_CASE("Error: Copy constructor", "[Error]")
 {
     const git::Error e("Test");
     git::Error e2(e);
@@ -46,7 +46,7 @@ TEST_CASE("Error: Copy constructor", "[exceptions]")
     REQUIRE(e.what() == std::string(e2.what()));
 }
 
-TEST_CASE("Error: Copy assignment", "[exceptions]")
+TEST_CASE("Error: Copy assignment", "[Error]")
 {
     const git::Error e(1, "Test");
     git::Error e2(2, "Test2");
