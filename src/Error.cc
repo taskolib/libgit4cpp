@@ -79,9 +79,14 @@ std::string git_category_impl::message(int ev) const
         case git_error_code::GIT_EMISMATCH: return "GIT_EMISMATCH";
         case git_error_code::GIT_EINDEXDIRTY: return "GIT_EINDEXDIRTY";
         case git_error_code::GIT_EAPPLYFAIL: return "GIT_EAPPLYFAIL";
-#ifndef ANCIENT_LIBGIT2
+#if LIBGIT2_FULLVERSION >= 1005000
         case git_error_code::GIT_EOWNER: return "GIT_EOWNER";
+#if LIBGIT2_FULLVERSION >= 1007000
         case git_error_code::GIT_TIMEOUT: return "GIT_TIMEOUT";
+#if LIBGIT2_FULLVERSION > 1007002
+        case git_error_code::GIT_EUNCHANGED: return "GIT_EUNCHANGED";
+#endif
+#endif
 #endif
         default: return "unknown GIT error";
     }
