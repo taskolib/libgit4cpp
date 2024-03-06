@@ -62,12 +62,12 @@ deps = [
     dependency('libgit2')
 ]
 
-## libgit2 has an API change at some point; a check might become useful in the future
-#local_compiler_args = []
-#if dependency('libgit2').version().version_compare('<1')
-#    message('Ancient libgit2 version detected')
-#    local_compiler_args += [ '-DANCIENT_LIBGIT2' ]
-#endif
+# libgit2 has an API change at some point; a check might become useful in the future
+local_compiler_args = []
+if dependency('libgit2').version().version_compare('<1')
+    message('Ancient libgit2 version detected')
+    local_compiler_args += [ '-DANCIENT_LIBGIT2' ]
+endif
 
 lib = both_libraries('git4cpp',
     sources,
@@ -78,6 +78,7 @@ lib = both_libraries('git4cpp',
     build_rpath : meson.current_build_dir(),
     install_rpath : get_option('prefix') / get_option('libdir'),
     #gnu_symbol_visibility : 'hidden',
+    cpp_args : local_compiler_args,
     install : true)
 
 

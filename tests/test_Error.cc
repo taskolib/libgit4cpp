@@ -34,7 +34,7 @@ TEST_CASE("Error: Constructor", "[exceptions]")
     // Default error code is -7 == GIT_EUSER
     git::Error e("Test");
     REQUIRE(e.what() == "Test: GIT_EUSER"s);
-    REQUIRE(e.code().value() == git::Error::GIT_EUSER);
+    REQUIRE(e.code().value() == git::git_error_code::GIT_EUSER);
     REQUIRE(e.code().value() == -7);
 }
 

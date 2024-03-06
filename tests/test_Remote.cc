@@ -39,6 +39,9 @@ using namespace git;
 using namespace std::literals;
 using gul14::cat;
 
+static const auto working_dir = unit_test_folder() / "Remote_list_references";
+static const auto remote_repo = unit_test_folder() / "Remote_list_references.remote";
+
 TEST_CASE("Remote: Constructor", "[Remote]")
 {
     const auto reporoot = unit_test_folder() / "Remote";
@@ -64,9 +67,6 @@ TEST_CASE("Remote: Constructor", "[Remote]")
 
 TEST_CASE("Remote: list_references()", "[Remote]")
 {
-    const auto working_dir = unit_test_folder() / "Remote_list_references";
-    const auto remote_repo = unit_test_folder() / "Remote_list_references.remote";
-
     // Create a local repository and commit a single file
     auto repo = std::make_unique<Repository>(working_dir);
 
@@ -102,4 +102,33 @@ TEST_CASE("Remote: list_references()", "[Remote]")
     refs = remote.list_references();
     REQUIRE(refs.size() >= 1);
     REQUIRE(std::find(refs.begin(), refs.end(), "refs/heads/main"s) != refs.end());
+
+}
+
+TEST_CASE("wrapper_functions: branch_remote_name()", "[Remote]")
+{
+    // Use the repo-with-a-remote from the previous test
+    auto repo = std::make_unique<Repository>(working_dir);
+
+    // The following test is modeled after the example code in Error.h class Error
+    std::string name_str;
+    try {
+        name_str = git::branch_remote_name(repo->get_repo(), "refs/remotes/origin/main"s);
+    }
+    catch (const git::Error& e) {
+        if (e.code().category() == git::git_category() and e.code().value() == git::git_error_code::GIT_EAMBIGUOUS) {
+            REQUIRE(false); // will not happen
+        }
+        throw e;
+    }
+    REQUIRE(name_str == "origin"s);
+
+    try {
+        name_str = git::branch_remote_name(repo->get_repo(), "vanillavoid"s);
+    }
+    catch (const git::Error& e) {
+        if (e.code() == git::git_error_code::GIT_EAMBIGUOUS) {
+            REQUIRE(false); // must not happen
+        }
+    }
 }
