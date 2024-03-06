@@ -29,11 +29,15 @@
 
 namespace git {
 
+namespace detail {
+
 class git_category_impl : public std::error_category {
     public:
         virtual const char* name() const noexcept;
         virtual std::string message(int ev) const;
 };
+
+} // namespace detail
 
 const std::error_category& git_category();
 
@@ -129,7 +133,7 @@ public:
     /// The error category must be an unique object
     const std::error_category& git_category()
     {
-        static git_category_impl instance;
+        static detail::git_category_impl instance;
         return instance;
     }
 

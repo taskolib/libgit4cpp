@@ -26,6 +26,8 @@
 
 namespace git {
 
+namespace detail {
+
 const char* git_category_impl::name() const noexcept
 {
     return "git";
@@ -69,5 +71,7 @@ std::string git_category_impl::message(int ev) const
         default: return "unknown GIT error";
     }
 }
+
+} // namespace detail
 
 } // namespace git
