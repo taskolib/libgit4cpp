@@ -24,6 +24,7 @@
 
 #include <git2.h>
 #include <gul14/cat.h>
+#include <gul14/finalizer.h>
 
 #include "libgit4cpp/wrapper_functions.h"
 #include "libgit4cpp/Error.h"
@@ -172,13 +173,12 @@ LibGitReference branch_lookup(git_repository* repo, const std::string& branch_na
 std::string branch_remote_name(git_repository* repo, const std::string& branch_name)
 {
     git_buf buf{ };
+    auto _ = gul14::finally([buf_addr = &buf]() { git_buf_dispose(buf_addr); });
     auto result = git_branch_remote_name(&buf, repo, branch_name.c_str());
     if (result) {
-        git_buf_dispose(&buf);
         throw Error{ result, gul14::cat("branch_remote_name: ", git_error_last()->message) };
     }
     auto ret = std::string{ buf.ptr };
-    git_buf_dispose(&buf);
     return ret;
 }
 
