@@ -59,6 +59,18 @@ const std::error_category& git_category();
  * }
  * \endcode
  *
+ * \code
+ * try
+ * {
+ *     name_str = branch_remote_name(repo, branch_name);
+ * }
+ * catch (const git::Error& e)
+ * {
+ *     if (e.code().category() == git_category() and e.code().value() == GIT_EAMBIGUOUS)
+ *         std::cerr << "The supplied branch name is ambiguous.\n";
+ * }
+ * \endcode
+ *
  * If no error code is specified GIT_EUSER is used.
  *
  * \note
