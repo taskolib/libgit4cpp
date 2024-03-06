@@ -1,6 +1,6 @@
 /**
  * \file   Error.cc
- * \author Lars Fröhlich, Jannik Wöhnert
+ * \author Fini Jastrow
  * \date   Created on June 7, 2023
  * \brief  Definition of the Error exception class.
  *
