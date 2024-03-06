@@ -56,18 +56,20 @@ subdir('include')
 subdir('src')
 
 gul_dep = dependency('libgul14', version : '> 2.6', fallback : [ 'libgul14', 'libgul_dep' ])
+libgit2_dep = dependency('libgit2')
 
 deps = [
     gul_dep.partial_dependency(compile_args : true, includes : true),
-    dependency('libgit2')
+    libgit2_dep,
 ]
 
 # libgit2 has an API change at some point; a check might become useful in the future
-local_compiler_args = []
-if dependency('libgit2').version().version_compare('<1')
-    message('Ancient libgit2 version detected')
-    local_compiler_args += [ '-DANCIENT_LIBGIT2' ]
-endif
+libgit2_version_parts = libgit2_dep.version().split('.')
+libgit2_fullversion = 'LIBGIT2_FULLVERSION=@0@'.format(
+    (libgit2_version_parts[0].to_int() * 1000 + libgit2_version_parts[1].to_int()) * 1000
+    + libgit2_version_parts[2].to_int())
+message(libgit2_fullversion)
+local_compiler_args = [ '-D' + libgit2_fullversion ]
 
 lib = both_libraries('git4cpp',
     sources,
