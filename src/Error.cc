@@ -26,6 +26,12 @@
 
 namespace git {
 
+const std::error_category& git_category()
+{
+  static detail::git_category_impl instance{ };
+  return instance;
+}
+
 namespace detail {
 
 const char* git_category_impl::name() const noexcept
