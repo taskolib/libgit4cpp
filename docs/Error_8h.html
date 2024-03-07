@@ -46,7 +46,8 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">Error.h File Reference</div>  </div>
 </div><!--header-->
@@ -59,14 +60,16 @@ $(function() {
 <p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 2.1 of the license, or (at your option) any later version.</p>
 <p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.</p>
 <p>You should have received a copy of the GNU Lesser General Public License along with this program. If not, see <a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>. </p>
-</div><div class="textblock"><code>#include &lt;stdexcept&gt;</code><br />
+</div><div class="textblock"><code>#include &lt;system_error&gt;</code><br />
+<code>#include &lt;git2/errors.h&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for Error.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="Error_8h__incl.png" border="0" usemap="#aError_8h" alt=""/></div>
 <map name="aError_8h" id="aError_8h">
-<area shape="rect" title="Definition of the Error exception class." alt="" coords="17,5,81,32"/>
-<area shape="rect" title=" " alt="" coords="5,80,92,107"/>
+<area shape="rect" title="Definition of the Error exception class." alt="" coords="91,5,155,32"/>
+<area shape="rect" title=" " alt="" coords="5,80,113,107"/>
+<area shape="rect" title=" " alt="" coords="138,80,239,107"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -74,11 +77,12 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="Error_8h__dep__incl.png" border="0" usemap="#aError_8hdep" alt=""/></div>
 <map name="aError_8hdep" id="aError_8hdep">
-<area shape="rect" title="Definition of the Error exception class." alt="" coords="203,5,267,32"/>
+<area shape="rect" title="Definition of the Error exception class." alt="" coords="237,5,301,32"/>
 <area shape="rect" href="libgit4cpp_8h.html" title="Main include file for libgit4cpp." alt="" coords="5,80,104,107"/>
-<area shape="rect" href="Remote_8cc.html" title="Implementation of the Remote class." alt="" coords="128,80,219,107"/>
-<area shape="rect" href="Repository_8cc.html" title="Implementation of the Repository class." alt="" coords="243,80,351,107"/>
-<area shape="rect" href="wrapper__functions_8cc.html" title="Implementation of wrappers for libgit2 functions." alt="" coords="376,80,536,107"/>
+<area shape="rect" href="Error_8cc.html" title="Definition of the Error exception class." alt="" coords="129,80,199,107"/>
+<area shape="rect" href="Remote_8cc.html" title="Implementation of the Remote class." alt="" coords="224,80,315,107"/>
+<area shape="rect" href="Repository_8cc.html" title="Implementation of the Repository class." alt="" coords="339,80,447,107"/>
+<area shape="rect" href="wrapper__functions_8cc.html" title="Implementation of wrappers for libgit2 functions." alt="" coords="472,80,632,107"/>
 </map>
 </div>
 </div>
@@ -86,8 +90,12 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgit_1_1detail_1_1git__category__impl.html">git::detail::git_category_impl</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgit_1_1Error.html">git::Error</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An exception class carrying an error message.  <a href="classgit_1_1Error.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An exception class carrying an error code and message.  <a href="classgit_1_1Error.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstd_1_1is__error__code__enum_3_01git_1_1git__error__code_01_4.html">std::is_error_code_enum&lt; git::git_error_code &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
@@ -95,11 +103,41 @@ Namespaces</h2></td></tr>
 <tr class="memitem:namespacegit"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegit.html">git</a></td></tr>
 <tr class="memdesc:namespacegit"><td class="mdescLeft">&#160;</td><td class="mdescRight">Namespace git contains all functions, classes, and other declarations of libgit4cpp. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespacegit_1_1detail"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegit_1_1detail.html">git::detail</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespacestd"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestd.html">std</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ae490b2ac5a64724f60494afd750e6fe8"><td class="memItemLeft" align="right" valign="top">const std::error_category &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegit.html#ae490b2ac5a64724f60494afd750e6fe8">git::git_category</a> ()</td></tr>
+<tr class="separator:ae490b2ac5a64724f60494afd750e6fe8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfd920f0890295fa9caa5e71f42ec07c"><td class="memItemLeft" align="right" valign="top">std::error_code&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Error_8h.html#adfd920f0890295fa9caa5e71f42ec07c">make_error_code</a> (git::git_error_code e)</td></tr>
+<tr class="separator:adfd920f0890295fa9caa5e71f42ec07c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="adfd920f0890295fa9caa5e71f42ec07c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adfd920f0890295fa9caa5e71f42ec07c">&#9670;&nbsp;</a></span>make_error_code()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::error_code make_error_code </td>
+          <td>(</td>
+          <td class="paramtype">git::git_error_code&#160;</td>
+          <td class="paramname"><em>e</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 26 2024 17:20:03 for libgit4cpp by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Thu Mar 7 2024 13:52:10 for libgit4cpp by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

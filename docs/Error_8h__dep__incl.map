@@ -1,7 +1,8 @@
 <map id="Error.h" name="Error.h">
-<area shape="rect" id="node1" title="Definition of the Error exception class." alt="" coords="203,5,267,32"/>
+<area shape="rect" id="node1" title="Definition of the Error exception class." alt="" coords="237,5,301,32"/>
 <area shape="rect" id="node2" href="$libgit4cpp_8h.html" title="Main include file for libgit4cpp." alt="" coords="5,80,104,107"/>
-<area shape="rect" id="node3" href="$Remote_8cc.html" title="Implementation of the Remote class." alt="" coords="128,80,219,107"/>
-<area shape="rect" id="node4" href="$Repository_8cc.html" title="Implementation of the Repository class." alt="" coords="243,80,351,107"/>
-<area shape="rect" id="node5" href="$wrapper__functions_8cc.html" title="Implementation of wrappers for libgit2 functions." alt="" coords="376,80,536,107"/>
+<area shape="rect" id="node3" href="$Error_8cc.html" title="Definition of the Error exception class." alt="" coords="129,80,199,107"/>
+<area shape="rect" id="node4" href="$Remote_8cc.html" title="Implementation of the Remote class." alt="" coords="224,80,315,107"/>
+<area shape="rect" id="node5" href="$Repository_8cc.html" title="Implementation of the Repository class." alt="" coords="339,80,447,107"/>
+<area shape="rect" id="node6" href="$wrapper__functions_8cc.html" title="Implementation of wrappers for libgit2 functions." alt="" coords="472,80,632,107"/>
 </map>

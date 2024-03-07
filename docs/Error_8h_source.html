@@ -54,25 +54,85 @@ $(function() {
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#ifndef LIBGIT4CPP_ERROR_H_</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#define LIBGIT4CPP_ERROR_H_</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#include &lt;stdexcept&gt;</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#include &lt;system_error&gt;</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="namespacegit.html">   30</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacegit.html">git</a> {</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &lt;git2/errors.h&gt;</span></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="classgit_1_1Error.html">   54</a></span>&#160;<span class="keyword">class </span><a class="code" href="classgit_1_1Error.html">Error</a> : <span class="keyword">public</span> std::runtime_error</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;{</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">using</span> std::runtime_error::runtime_error;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;};</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;} <span class="comment">// namespace git</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aclassgit_1_1Error_html"><div class="ttname"><a href="classgit_1_1Error.html">git::Error</a></div><div class="ttdoc">An exception class carrying an error message.</div><div class="ttdef"><b>Definition:</b> Error.h:55</div></div>
-<div class="ttc" id="anamespacegit_html"><div class="ttname"><a href="namespacegit.html">git</a></div><div class="ttdoc">Namespace git contains all functions, classes, and other declarations of libgit4cpp.</div><div class="ttdef"><b>Definition:</b> Error.h:30</div></div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="namespacegit.html">   32</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacegit.html">git</a> {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;using ::git_error_code; <span class="comment">// from git2/errors.h</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="namespacegit_1_1detail.html">   36</a></span>&#160;<span class="keyword">namespace </span>detail {</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="classgit_1_1detail_1_1git__category__impl.html">   38</a></span>&#160;<span class="keyword">class </span><a class="code" href="classgit_1_1detail_1_1git__category__impl.html">git_category_impl</a> : <span class="keyword">public</span> std::error_category {</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keyword">virtual</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="classgit_1_1detail_1_1git__category__impl.html#af0d1791d7dba8d6a6dd53010bc2e0f4e">name</a>() <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keyword">virtual</span> std::string <a class="code" href="classgit_1_1detail_1_1git__category__impl.html#ac9793eee864b67f27e7ea1aaf6fcee8e">message</a>(<span class="keywordtype">int</span> ev) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;};</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;} <span class="comment">// namespace detail</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keyword">const</span> std::error_category&amp; <a class="code" href="namespacegit.html#ae490b2ac5a64724f60494afd750e6fe8">git_category</a>();</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="classgit_1_1Error.html">   89</a></span>&#160;<span class="keyword">class </span><a class="code" href="classgit_1_1Error.html">Error</a> : <span class="keyword">public</span> std::system_error</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;{</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keyword">using</span> std::system_error::system_error;</div>
+<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="classgit_1_1Error.html#a2f94a6b8c8e5ed5a74232ab247bef566">   93</a></span>&#160;    <a class="code" href="classgit_1_1Error.html#a2f94a6b8c8e5ed5a74232ab247bef566">Error</a>(<span class="keywordtype">int</span> ev)</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        : <a class="code" href="namespacestd.html">std</a>::system_error(ev, <a class="code" href="classgit_1_1Error.html#a29eaf498c30623ea021186904b2bab3a">git_category</a>())</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        { }</div>
+<div class="line"><a name="l00096"></a><span class="lineno"><a class="line" href="classgit_1_1Error.html#a07847f5d4ca882267075be19cc8d4bb0">   96</a></span>&#160;    <a class="code" href="classgit_1_1Error.html#a07847f5d4ca882267075be19cc8d4bb0">Error</a>(<span class="keywordtype">int</span> ev, <span class="keyword">const</span> std::string&amp; what)</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        : <a class="code" href="namespacestd.html">std</a>::system_error(ev, <a class="code" href="classgit_1_1Error.html#a29eaf498c30623ea021186904b2bab3a">git_category</a>(), what)</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        { }</div>
+<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="classgit_1_1Error.html#a51f1d7124aed476277b013ea8906dbc6">   99</a></span>&#160;    <a class="code" href="classgit_1_1Error.html#a51f1d7124aed476277b013ea8906dbc6">Error</a>(<span class="keywordtype">int</span> ev, <span class="keyword">const</span> <span class="keywordtype">char</span>* what)</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        : <a class="code" href="namespacestd.html">std</a>::system_error(ev, <a class="code" href="classgit_1_1Error.html#a29eaf498c30623ea021186904b2bab3a">git_category</a>(), what)</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        { }</div>
+<div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="classgit_1_1Error.html#aaf81d60e03505832eff0cf8c910040af">  102</a></span>&#160;    <a class="code" href="classgit_1_1Error.html#aaf81d60e03505832eff0cf8c910040af">Error</a>(<span class="keyword">const</span> std::string&amp; what)</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        : <a class="code" href="namespacestd.html">std</a>::system_error(static_cast&lt;int&gt;(GIT_EUSER), <a class="code" href="classgit_1_1Error.html#a29eaf498c30623ea021186904b2bab3a">git_category</a>(), what)</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        { }</div>
+<div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="classgit_1_1Error.html#af52ed06382da7e58549fea480807cded">  105</a></span>&#160;    <a class="code" href="classgit_1_1Error.html#af52ed06382da7e58549fea480807cded">Error</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* what)</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        : <a class="code" href="namespacestd.html">std</a>::system_error(static_cast&lt;int&gt;(GIT_EUSER), <a class="code" href="classgit_1_1Error.html#a29eaf498c30623ea021186904b2bab3a">git_category</a>(), what)</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        { }</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
+<div class="line"><a name="l00110"></a><span class="lineno"><a class="line" href="classgit_1_1Error.html#a29eaf498c30623ea021186904b2bab3a">  110</a></span>&#160;    <span class="keyword">const</span> std::error_category&amp; <a class="code" href="classgit_1_1Error.html#a29eaf498c30623ea021186904b2bab3a">git_category</a>()</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    {</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        <span class="keyword">static</span> <a class="code" href="classgit_1_1detail_1_1git__category__impl.html">detail::git_category_impl</a> instance;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        <span class="keywordflow">return</span> instance;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    }</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;};</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;} <span class="comment">// namespace git</span></div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
+<div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="namespacestd.html">  120</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacestd.html">std</a></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;{</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="comment">// register for implicit conversion to std::error_code</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keyword">template</span> &lt;&gt;</div>
+<div class="line"><a name="l00124"></a><span class="lineno"><a class="line" href="structstd_1_1is__error__code__enum_3_01git_1_1git__error__code_01_4.html">  124</a></span>&#160;    <span class="keyword">struct </span>is_error_code_enum&lt;<a class="code" href="namespacegit.html">git</a>::git_error_code&gt; : <span class="keyword">public</span> true_type</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    { };</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;}</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
+<div class="line"><a name="l00128"></a><span class="lineno"><a class="line" href="Error_8h.html#adfd920f0890295fa9caa5e71f42ec07c">  128</a></span>&#160;std::error_code <a class="code" href="Error_8h.html#adfd920f0890295fa9caa5e71f42ec07c">make_error_code</a>(git::git_error_code e);</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aError_8h_html_adfd920f0890295fa9caa5e71f42ec07c"><div class="ttname"><a href="Error_8h.html#adfd920f0890295fa9caa5e71f42ec07c">make_error_code</a></div><div class="ttdeci">std::error_code make_error_code(git::git_error_code e)</div></div>
+<div class="ttc" id="aclassgit_1_1Error_html"><div class="ttname"><a href="classgit_1_1Error.html">git::Error</a></div><div class="ttdoc">An exception class carrying an error code and message.</div><div class="ttdef"><b>Definition:</b> Error.h:90</div></div>
+<div class="ttc" id="aclassgit_1_1Error_html_a07847f5d4ca882267075be19cc8d4bb0"><div class="ttname"><a href="classgit_1_1Error.html#a07847f5d4ca882267075be19cc8d4bb0">git::Error::Error</a></div><div class="ttdeci">Error(int ev, const std::string &amp;what)</div><div class="ttdef"><b>Definition:</b> Error.h:96</div></div>
+<div class="ttc" id="aclassgit_1_1Error_html_a29eaf498c30623ea021186904b2bab3a"><div class="ttname"><a href="classgit_1_1Error.html#a29eaf498c30623ea021186904b2bab3a">git::Error::git_category</a></div><div class="ttdeci">const std::error_category &amp; git_category()</div><div class="ttdoc">The error category must be an unique object.</div><div class="ttdef"><b>Definition:</b> Error.h:110</div></div>
+<div class="ttc" id="aclassgit_1_1Error_html_a2f94a6b8c8e5ed5a74232ab247bef566"><div class="ttname"><a href="classgit_1_1Error.html#a2f94a6b8c8e5ed5a74232ab247bef566">git::Error::Error</a></div><div class="ttdeci">Error(int ev)</div><div class="ttdef"><b>Definition:</b> Error.h:93</div></div>
+<div class="ttc" id="aclassgit_1_1Error_html_a51f1d7124aed476277b013ea8906dbc6"><div class="ttname"><a href="classgit_1_1Error.html#a51f1d7124aed476277b013ea8906dbc6">git::Error::Error</a></div><div class="ttdeci">Error(int ev, const char *what)</div><div class="ttdef"><b>Definition:</b> Error.h:99</div></div>
+<div class="ttc" id="aclassgit_1_1Error_html_aaf81d60e03505832eff0cf8c910040af"><div class="ttname"><a href="classgit_1_1Error.html#aaf81d60e03505832eff0cf8c910040af">git::Error::Error</a></div><div class="ttdeci">Error(const std::string &amp;what)</div><div class="ttdef"><b>Definition:</b> Error.h:102</div></div>
+<div class="ttc" id="aclassgit_1_1Error_html_af52ed06382da7e58549fea480807cded"><div class="ttname"><a href="classgit_1_1Error.html#af52ed06382da7e58549fea480807cded">git::Error::Error</a></div><div class="ttdeci">Error(const char *what)</div><div class="ttdef"><b>Definition:</b> Error.h:105</div></div>
+<div class="ttc" id="aclassgit_1_1detail_1_1git__category__impl_html"><div class="ttname"><a href="classgit_1_1detail_1_1git__category__impl.html">git::detail::git_category_impl</a></div><div class="ttdef"><b>Definition:</b> Error.h:38</div></div>
+<div class="ttc" id="aclassgit_1_1detail_1_1git__category__impl_html_ac9793eee864b67f27e7ea1aaf6fcee8e"><div class="ttname"><a href="classgit_1_1detail_1_1git__category__impl.html#ac9793eee864b67f27e7ea1aaf6fcee8e">git::detail::git_category_impl::message</a></div><div class="ttdeci">virtual std::string message(int ev) const</div><div class="ttdef"><b>Definition:</b> Error.cc:42</div></div>
+<div class="ttc" id="aclassgit_1_1detail_1_1git__category__impl_html_af0d1791d7dba8d6a6dd53010bc2e0f4e"><div class="ttname"><a href="classgit_1_1detail_1_1git__category__impl.html#af0d1791d7dba8d6a6dd53010bc2e0f4e">git::detail::git_category_impl::name</a></div><div class="ttdeci">virtual const char * name() const noexcept</div><div class="ttdef"><b>Definition:</b> Error.cc:37</div></div>
+<div class="ttc" id="anamespacegit_html"><div class="ttname"><a href="namespacegit.html">git</a></div><div class="ttdoc">Namespace git contains all functions, classes, and other declarations of libgit4cpp.</div><div class="ttdef"><b>Definition:</b> Error.h:32</div></div>
+<div class="ttc" id="anamespacegit_html_ae490b2ac5a64724f60494afd750e6fe8"><div class="ttname"><a href="namespacegit.html#ae490b2ac5a64724f60494afd750e6fe8">git::git_category</a></div><div class="ttdeci">const std::error_category &amp; git_category()</div><div class="ttdef"><b>Definition:</b> Error.cc:29</div></div>
+<div class="ttc" id="anamespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition:</b> Error.h:121</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 26 2024 17:20:03 for libgit4cpp by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Thu Mar 7 2024 13:52:10 for libgit4cpp by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

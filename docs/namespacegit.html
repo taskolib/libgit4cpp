@@ -41,6 +41,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#namespaces">Namespaces</a> &#124;
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
@@ -51,10 +52,15 @@ $(function() {
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Namespace git contains all functions, classes, and other declarations of libgit4cpp. </p>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:namespacegit_1_1detail"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegit_1_1detail.html">detail</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgit_1_1Error.html">Error</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An exception class carrying an error message.  <a href="classgit_1_1Error.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An exception class carrying an error code and message.  <a href="classgit_1_1Error.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgit_1_1Remote.html">Remote</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An abstraction of a git remote repository (such as "origin").  <a href="classgit_1_1Remote.html#details">More...</a><br /></td></tr>
@@ -93,6 +99,8 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:ae490b2ac5a64724f60494afd750e6fe8"><td class="memItemLeft" align="right" valign="top">const std::error_category &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegit.html#ae490b2ac5a64724f60494afd750e6fe8">git_category</a> ()</td></tr>
+<tr class="separator:ae490b2ac5a64724f60494afd750e6fe8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adffa0aeb5885ef910579785c7485b150"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegit.html#adffa0aeb5885ef910579785c7485b150">operator&lt;&lt;</a> (std::ostream &amp;stream, const <a class="el" href="namespacegit.html#a86311d432349e1cf80f79685da4754f8">RepoState</a> &amp;repostate)</td></tr>
 <tr class="memdesc:adffa0aeb5885ef910579785c7485b150"><td class="mdescLeft">&#160;</td><td class="mdescRight">State of all files in the repo.  <a href="namespacegit.html#adffa0aeb5885ef910579785c7485b150">More...</a><br /></td></tr>
 <tr class="separator:adffa0aeb5885ef910579785c7485b150"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -317,6 +325,25 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ae490b2ac5a64724f60494afd750e6fe8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae490b2ac5a64724f60494afd750e6fe8">&#9670;&nbsp;</a></span>git_category()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::error_category &amp; git::git_category </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="Error_8cc.html#a12b80a32c59bd902a5ca1691bd1e3749">make_error_code()</a>.</p>
+
+</div>
+</div>
 <a id="adffa0aeb5885ef910579785c7485b150"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adffa0aeb5885ef910579785c7485b150">&#9670;&nbsp;</a></span>operator&lt;&lt;()</h2>
 
@@ -358,7 +385,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 26 2024 17:20:03 for libgit4cpp by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Thu Mar 7 2024 13:52:10 for libgit4cpp by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

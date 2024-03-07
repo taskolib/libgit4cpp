@@ -61,6 +61,7 @@ $(function() {
 <p>You should have received a copy of the GNU Lesser General Public License along with this program. If not, see <a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>. </p>
 </div><div class="textblock"><code>#include &lt;git2.h&gt;</code><br />
 <code>#include &lt;gul14/cat.h&gt;</code><br />
+<code>#include &lt;gul14/finalizer.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="wrapper__functions_8h_source.html">libgit4cpp/wrapper_functions.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Error_8h_source.html">libgit4cpp/Error.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
@@ -68,17 +69,19 @@ Include dependency graph for wrapper_functions.cc:</div>
 <div class="dyncontent">
 <div class="center"><img src="wrapper__functions_8cc__incl.png" border="0" usemap="#awrapper__functions_8cc" alt=""/></div>
 <map name="awrapper__functions_8cc" id="awrapper__functions_8cc">
-<area shape="rect" title="Implementation of wrappers for libgit2 functions." alt="" coords="71,5,231,32"/>
-<area shape="rect" title=" " alt="" coords="16,244,75,271"/>
-<area shape="rect" title=" " alt="" coords="33,87,128,114"/>
-<area shape="rect" href="wrapper__functions_8h.html" title="Declaration of wrappers for libgit2 functions." alt="" coords="152,80,294,121"/>
-<area shape="rect" href="Error_8h.html" title="Definition of the Error exception class." alt="" coords="405,87,537,114"/>
-<area shape="rect" title=" " alt="" coords="83,169,142,196"/>
-<area shape="rect" title=" " alt="" coords="166,169,242,196"/>
-<area shape="rect" title=" " alt="" coords="266,169,326,196"/>
-<area shape="rect" href="types_8h.html" title="Definition of owner types for raw pointers." alt="" coords="351,169,490,196"/>
-<area shape="rect" title=" " alt="" coords="382,244,459,271"/>
-<area shape="rect" title=" " alt="" coords="514,169,601,196"/>
+<area shape="rect" title="Implementation of wrappers for libgit2 functions." alt="" coords="132,5,292,32"/>
+<area shape="rect" title=" " alt="" coords="90,244,149,271"/>
+<area shape="rect" title=" " alt="" coords="30,87,124,114"/>
+<area shape="rect" title=" " alt="" coords="149,87,274,114"/>
+<area shape="rect" href="wrapper__functions_8h.html" title="Declaration of wrappers for libgit2 functions." alt="" coords="299,80,442,121"/>
+<area shape="rect" href="Error_8h.html" title="Definition of the Error exception class." alt="" coords="576,87,708,114"/>
+<area shape="rect" title=" " alt="" coords="157,169,216,196"/>
+<area shape="rect" title=" " alt="" coords="240,169,316,196"/>
+<area shape="rect" title=" " alt="" coords="340,169,400,196"/>
+<area shape="rect" href="types_8h.html" title="Definition of owner types for raw pointers." alt="" coords="425,169,564,196"/>
+<area shape="rect" title=" " alt="" coords="456,244,533,271"/>
+<area shape="rect" title=" " alt="" coords="588,169,696,196"/>
+<area shape="rect" title=" " alt="" coords="721,169,822,196"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -126,11 +129,14 @@ Functions</h2></td></tr>
 <tr class="memitem:ga286555a049d8e3650ec2bc6ef73c88e1"><td class="memItemLeft" align="right" valign="top">LibGitReference&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#ga286555a049d8e3650ec2bc6ef73c88e1">git::branch_lookup</a> (git_repository *repo, const std::string &amp;branch_name, git_branch_t branch_type)</td></tr>
 <tr class="memdesc:ga286555a049d8e3650ec2bc6ef73c88e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find a named branch.  <a href="group__lgptrfunc.html#ga286555a049d8e3650ec2bc6ef73c88e1">More...</a><br /></td></tr>
 <tr class="separator:ga286555a049d8e3650ec2bc6ef73c88e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga940c39825defe26e9b9849d1f6bd99b4"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#ga940c39825defe26e9b9849d1f6bd99b4">git::branch_remote_name</a> (git_repository *repo, const std::string &amp;branch_name)</td></tr>
+<tr class="memdesc:ga940c39825defe26e9b9849d1f6bd99b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the name of a branch on the remote.  <a href="group__lgptrfunc.html#ga940c39825defe26e9b9849d1f6bd99b4">More...</a><br /></td></tr>
+<tr class="separator:ga940c39825defe26e9b9849d1f6bd99b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 26 2024 17:20:03 for libgit4cpp by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Thu Mar 7 2024 13:52:10 for libgit4cpp by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

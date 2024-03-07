@@ -44,23 +44,43 @@ $(function() {
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="classgit_1_1Error-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">git::Error Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>An exception class carrying an error message. </p>
-<p><a class="el" href="classgit_1_1Error.html" title="An exception class carrying an error message.">Error</a> is used as the standard exception class throughout libgit4cpp. It can be used directly or inherited from.</p>
+<div class="textblock"><p>An exception class carrying an error code and message. </p>
+<p><a class="el" href="classgit_1_1Error.html" title="An exception class carrying an error code and message.">Error</a> is used as the standard exception class throughout libgit4cpp. It can be used directly or inherited from.</p>
 <div class="fragment"><div class="line"><span class="keywordflow">try</span></div>
 <div class="line">{</div>
-<div class="line">    <span class="keywordflow">throw</span> <a class="code" href="classgit_1_1Error.html">git::Error</a>(<span class="stringliteral">&quot;An error has occurred&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">throw</span> <a class="code" href="classgit_1_1Error.html">git::Error</a>(errorcode, <span class="stringliteral">&quot;An error has occurred&quot;</span>);</div>
+<div class="line">    <span class="comment">// or throw git::Error(&quot;Another error occurred&quot;);</span></div>
 <div class="line">}</div>
 <div class="line"><span class="keywordflow">catch</span> (<span class="keyword">const</span> <a class="code" href="classgit_1_1Error.html">git::Error</a>&amp; e)</div>
 <div class="line">{</div>
 <div class="line">    std::cerr &lt;&lt; e.what() &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line">}</div>
-<div class="ttc" id="aclassgit_1_1Error_html"><div class="ttname"><a href="classgit_1_1Error.html">git::Error</a></div><div class="ttdoc">An exception class carrying an error message.</div><div class="ttdef"><b>Definition:</b> Error.h:55</div></div>
-</div><!-- fragment --><dl class="section note"><dt>Note</dt><dd><a class="el" href="classgit_1_1Error.html" title="An exception class carrying an error message.">git::Error</a> is derived from std::runtime_error. It can therefore be caught by <code>catch (const std::exception&amp;)</code>, <code>catch (const std::runtime_error&amp;)</code>, and <code>catch (const <a class="el" href="classgit_1_1Error.html" title="An exception class carrying an error message.">git::Error</a>&amp;)</code>. </dd></dl>
+<div class="ttc" id="aclassgit_1_1Error_html"><div class="ttname"><a href="classgit_1_1Error.html">git::Error</a></div><div class="ttdoc">An exception class carrying an error code and message.</div><div class="ttdef"><b>Definition:</b> Error.h:90</div></div>
+</div><!-- fragment --><div class="fragment"><div class="line"><span class="keywordflow">try</span></div>
+<div class="line">{</div>
+<div class="line">    name_str = <a class="code" href="group__lgptrfunc.html#ga940c39825defe26e9b9849d1f6bd99b4">branch_remote_name</a>(repo, branch_name);</div>
+<div class="line">}</div>
+<div class="line"><span class="keywordflow">catch</span> (<span class="keyword">const</span> <a class="code" href="classgit_1_1Error.html">git::Error</a>&amp; e)</div>
+<div class="line">{</div>
+<div class="line">    <span class="keywordflow">if</span> (e.code().category() == <a class="code" href="namespacegit.html#ae490b2ac5a64724f60494afd750e6fe8">git::git_category</a>() and e.code().value() == git::git_error_code::GIT_EAMBIGUOUS)</div>
+<div class="line">        std::cerr &lt;&lt; <span class="stringliteral">&quot;The supplied branch name is ambiguous.\n&quot;</span>;</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// The following if statement checks both category and value like above:</span></div>
+<div class="line">    <span class="keywordflow">if</span> (e.code() == git::git_error_code::GIT_EAMBIGUOUS)</div>
+<div class="line">        std::cerr &lt;&lt; <span class="stringliteral">&quot;The supplied branch name is ambiguous.\n&quot;</span>;</div>
+<div class="line">}</div>
+<div class="ttc" id="agroup__lgptrfunc_html_ga940c39825defe26e9b9849d1f6bd99b4"><div class="ttname"><a href="group__lgptrfunc.html#ga940c39825defe26e9b9849d1f6bd99b4">git::branch_remote_name</a></div><div class="ttdeci">std::string branch_remote_name(git_repository *repo, const std::string &amp;branch_name)</div><div class="ttdoc">Find the name of a branch on the remote.</div><div class="ttdef"><b>Definition:</b> wrapper_functions.cc:173</div></div>
+<div class="ttc" id="anamespacegit_html_ae490b2ac5a64724f60494afd750e6fe8"><div class="ttname"><a href="namespacegit.html#ae490b2ac5a64724f60494afd750e6fe8">git::git_category</a></div><div class="ttdeci">const std::error_category &amp; git_category()</div><div class="ttdef"><b>Definition:</b> Error.cc:29</div></div>
+</div><!-- fragment --><p>If no error code is specified GIT_EUSER is used.</p>
+<dl class="section note"><dt>Note</dt><dd><a class="el" href="classgit_1_1Error.html" title="An exception class carrying an error code and message.">git::Error</a> is derived from std::system_error. It can therefore be caught by <code>catch (const std::exception&amp;)</code>, <code>catch (const std::runtime_error&amp;)</code>, <code>catch (const std::system_error&amp;)</code>, and <code>catch (const <a class="el" href="classgit_1_1Error.html" title="An exception class carrying an error code and message.">git::Error</a>&amp;)</code>. </dd></dl>
 </div>
 <p><code>#include &lt;<a class="el" href="Error_8h_source.html">Error.h</a>&gt;</code></p>
 <div class="dynheader">
@@ -68,9 +88,205 @@ Inheritance diagram for git::Error:</div>
 <div class="dyncontent">
 <div class="center"><img src="classgit_1_1Error__inherit__graph.png" border="0" usemap="#agit_1_1Error_inherit__map" alt="Inheritance graph"/></div>
 <map name="agit_1_1Error_inherit__map" id="agit_1_1Error_inherit__map">
-<area shape="rect" title="An exception class carrying an error message." alt="" coords="35,131,114,208"/>
-<area shape="rect" title=" " alt="" coords="5,5,144,83"/>
+<area shape="rect" title="An exception class carrying an error code and message." alt="" coords="9,131,137,281"/>
+<area shape="rect" title=" " alt="" coords="5,5,141,83"/>
 </map>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a2f94a6b8c8e5ed5a74232ab247bef566"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgit_1_1Error.html#a2f94a6b8c8e5ed5a74232ab247bef566">Error</a> (int ev)</td></tr>
+<tr class="separator:a2f94a6b8c8e5ed5a74232ab247bef566"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07847f5d4ca882267075be19cc8d4bb0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgit_1_1Error.html#a07847f5d4ca882267075be19cc8d4bb0">Error</a> (int ev, const std::string &amp;what)</td></tr>
+<tr class="separator:a07847f5d4ca882267075be19cc8d4bb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51f1d7124aed476277b013ea8906dbc6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgit_1_1Error.html#a51f1d7124aed476277b013ea8906dbc6">Error</a> (int ev, const char *what)</td></tr>
+<tr class="separator:a51f1d7124aed476277b013ea8906dbc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf81d60e03505832eff0cf8c910040af"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgit_1_1Error.html#aaf81d60e03505832eff0cf8c910040af">Error</a> (const std::string &amp;what)</td></tr>
+<tr class="separator:aaf81d60e03505832eff0cf8c910040af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af52ed06382da7e58549fea480807cded"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgit_1_1Error.html#af52ed06382da7e58549fea480807cded">Error</a> (const char *what)</td></tr>
+<tr class="separator:af52ed06382da7e58549fea480807cded"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29eaf498c30623ea021186904b2bab3a"><td class="memItemLeft" align="right" valign="top">const std::error_category &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgit_1_1Error.html#a29eaf498c30623ea021186904b2bab3a">git_category</a> ()</td></tr>
+<tr class="memdesc:a29eaf498c30623ea021186904b2bab3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The error category must be an unique object.  <a href="classgit_1_1Error.html#a29eaf498c30623ea021186904b2bab3a">More...</a><br /></td></tr>
+<tr class="separator:a29eaf498c30623ea021186904b2bab3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a2f94a6b8c8e5ed5a74232ab247bef566"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f94a6b8c8e5ed5a74232ab247bef566">&#9670;&nbsp;</a></span>Error() <span class="overload">[1/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">git::Error::Error </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>ev</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a07847f5d4ca882267075be19cc8d4bb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07847f5d4ca882267075be19cc8d4bb0">&#9670;&nbsp;</a></span>Error() <span class="overload">[2/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">git::Error::Error </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>ev</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>what</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a51f1d7124aed476277b013ea8906dbc6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51f1d7124aed476277b013ea8906dbc6">&#9670;&nbsp;</a></span>Error() <span class="overload">[3/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">git::Error::Error </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>ev</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>what</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aaf81d60e03505832eff0cf8c910040af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf81d60e03505832eff0cf8c910040af">&#9670;&nbsp;</a></span>Error() <span class="overload">[4/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">git::Error::Error </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>what</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af52ed06382da7e58549fea480807cded"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af52ed06382da7e58549fea480807cded">&#9670;&nbsp;</a></span>Error() <span class="overload">[5/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">git::Error::Error </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>what</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a29eaf498c30623ea021186904b2bab3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29eaf498c30623ea021186904b2bab3a">&#9670;&nbsp;</a></span>git_category()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::error_category&amp; git::Error::git_category </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The error category must be an unique object. </p>
+
+</div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="Error_8h_source.html">Error.h</a></li>
@@ -78,7 +294,7 @@ Inheritance diagram for git::Error:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 26 2024 17:20:03 for libgit4cpp by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Thu Mar 7 2024 13:52:10 for libgit4cpp by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
