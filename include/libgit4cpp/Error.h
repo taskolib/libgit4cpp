@@ -72,6 +72,10 @@ const std::error_category& git_category();
  * {
  *     if (e.code().category() == git::git_category() and e.code().value() == git::git_error_code::GIT_EAMBIGUOUS)
  *         std::cerr << "The supplied branch name is ambiguous.\n";
+ *
+ *     // The following if statement checks both category and value like above:
+ *     if (e.code() == git::git_error_code::GIT_EAMBIGUOUS)
+ *         std::cerr << "The supplied branch name is ambiguous.\n";
  * }
  * \endcode
  *

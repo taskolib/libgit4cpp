@@ -119,6 +119,9 @@ TEST_CASE("wrapper_functions: branch_remote_name()", "[Remote]")
         if (e.code().category() == git::git_category() and e.code().value() == git::git_error_code::GIT_EAMBIGUOUS) {
             REQUIRE(false); // will not happen
         }
+        if (e.code() == git::git_error_code::GIT_EAMBIGUOUS) {
+            REQUIRE(false); // will not happen
+        }
         throw e;
     }
     REQUIRE(name_str == "origin"s);
