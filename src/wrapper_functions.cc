@@ -174,9 +174,9 @@ std::string branch_remote_name(git_repository* repo, const std::string& branch_n
 {
     git_buf buf{ };
     auto _ = gul14::finally([buf_addr = &buf]() { git_buf_dispose(buf_addr); });
-    auto result = git_branch_remote_name(&buf, repo, branch_name.c_str());
-    if (result) {
-        throw Error{ result, gul14::cat("branch_remote_name: ", git_error_last()->message) };
+    auto error = git_branch_remote_name(&buf, repo, branch_name.c_str());
+    if (error) {
+        throw Error{ error, gul14::cat("branch_remote_name: ", git_error_last()->message) };
     }
     auto ret = std::string{ buf.ptr };
     return ret;
