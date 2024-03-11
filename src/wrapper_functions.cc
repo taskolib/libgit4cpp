@@ -170,6 +170,16 @@ LibGitReference branch_lookup(git_repository* repo, const std::string& branch_na
     return { ref, git_reference_free };
 }
 
+LibGitTree commit_tree(git_commit* commit)
+{
+    git_tree* tree;
+    if (git_commit_tree(&tree, commit))
+    {
+        tree = nullptr;
+    }
+    return { tree, git_tree_free };
+}
+
 std::string branch_remote_name(git_repository* repo, const std::string& branch_name)
 {
     git_buf buf{ };

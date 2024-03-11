@@ -233,7 +233,13 @@ public:
      * \param branch_name
     */
     bool branch_up_to_date(const std::string& branch_name);
+
 #endif
+
+    /**
+     * Checkout a branch with options
+    */
+    void checkout(const std::string& branch_name, const std::string& paths = "*");
 
     /**
      * Remove all entries from the index under a given directory.
