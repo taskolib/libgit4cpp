@@ -594,6 +594,27 @@ bool Repository::branch_up_to_date(const std::string& branch_name)
 }
 #endif
 
+void Repository::checkout(const std::string& branch_name, const std::vector<std::string>& paths)
+{
+     
+    git_checkout_options checkout_opts = GIT_CHECKOUT_OPTIONS_INIT;
+    // define the paths of files to checkout
+    checkout_opts.paths.count = paths.size();
+    checkout_opts.paths.strings = (char **) paths.data();
+    // dont enforce checkout (all changes must be committed) 
+    checkout_opts.checkout_strategy = GIT_CHECKOUT_SAFE;
+  
+    // find latest commit of said branch
+    auto last_commit = get_commit(branch_name);
+
+    auto tree = commit_tree(last_commit.get());
+
+    error = git_checkout_tree(repo.get(), tree.get(), &checkout_opts)
+    if (error)
+        throw Error{ cat("Checkout: ", git_error_last()->message) };
+}
+
+
 } // namespace git
 
 // vi:ts=4:sw=4:sts=4:et
