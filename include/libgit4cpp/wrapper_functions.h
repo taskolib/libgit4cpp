@@ -145,6 +145,16 @@ LibGitRepository clone(const std::string& url, const std::string& repo_path);
 */
 LibGitReference branch_lookup(git_repository* repo, const std::string& branch_name, git_branch_t branch_type);
 
+
+/**
+ * Create a new branch.
+ * \param repo Pointer to repository object
+ * \param new_branch_name The name of the new branch
+ * \param branch_type Which branch type to find, enum with 1=GIT_BRANCH_LOCAL, 2=GIT_BRANCH_REMOTE, 3=GIT_BRANCH_ALL
+ * \return new git_reference object
+*/
+LibGitReference branch_create(git_repository* repo, std::string& new_branch_name);
+
 /**
  * Find the name of a branch on the remote.
  * \param repo Pointer to repository object
@@ -152,6 +162,14 @@ LibGitReference branch_lookup(git_repository* repo, const std::string& branch_na
  * \return name on remote , e.g. 'origin/main' or 'origin/fix-bugs'
 */
 std::string branch_remote_name(git_repository* repo, const std::string& branch_name);
+
+/**
+ * Returns the human-readbale name of a reference.
+ * It is required for functions like \c git::branch_lookup() which requires a name instead of a reference object
+ * \param ref constant git_reference object
+ * \return readable name of reference (e.g. master, main, ...)
+*/
+std::string reference_shorthand(const git_reference* ref);
 
 /** \} */ // end of group lgptrfunc
 
