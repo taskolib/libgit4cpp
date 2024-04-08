@@ -192,4 +192,12 @@ std::string branch_remote_name(git_repository* repo, const std::string& branch_n
     return ret;
 }
 
+std::string reference_shorthand(const git_reference* ref)
+{
+    const char* name_cstr = git_reference_shorthand(ref);
+    if (name_cstr == nullptr)
+        throw Error{gul14::cat("reference_shorthand: ", git_error_last()->message) };
+    return std::string(name_cstr);
+}
+
 } // namespace git

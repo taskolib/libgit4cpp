@@ -236,6 +236,20 @@ public:
 
 #endif
 
+
+    /**
+     * Create a new branch from the current branch.
+     * \param branch_name name of the new branch
+    */
+    void new_branch(const std::string& branch_name);
+
+    /**
+     * Create a new branch from a specified existing branch.
+     * \param branch_name name of the new branch
+     * \param origin_branch_name name of the existing branch to checkout from
+    */
+    void new_branch(const std::string& branch_name, const:std::string& origin_branch_name);
+
     /**
      * Checkout a branch with options
     */
