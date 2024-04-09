@@ -595,7 +595,7 @@ bool Repository::branch_up_to_date(const std::string& branch_name)
 #endif
 
 
-void Repository::new_branch(const std::string& branch_name)
+LibGitReference Repository::new_branch(const std::string& branch_name)
 {
     // get current HEAD
     auto head = repository_head(repo_.get());
@@ -604,16 +604,21 @@ void Repository::new_branch(const std::string& branch_name)
     std::string origin_branch_name = reference_shorthand(head);
 
     // create branch
-    new_branch(branch_name, origin_branch_name);
+    return new_branch(branch_name, origin_branch_name);
 }
 
-void Repository::new_branch(const std::string& branch_name, const:std::string& origin_branch_name)
+LibGitReference Repository::new_branch(const std::string& branch_name, const:std::string& origin_branch_name)
 {
     // checkout origin branch
     auto ref = branch_lookup(repo_.get(), origin_branch_name, GIT_BRANCH_LOCAL);
 
+    // get latest commit
+    auto commit = get_commit(reference_shorthand(ref));
+
     // create new branch
-    //branch_create();
+    LibGitReference ref = branch_create(git_repository* repo, std::string& new_branch_name, commit.get());
+
+    return ref;
 }
 
 void Repository::checkout(const std::string& branch_name, const std::vector<std::string>& paths)

@@ -703,6 +703,26 @@ TEST_CASE("Repository: push()", "[Repository]")
     REQUIRE(std::find(refs.begin(), refs.end(), "refs/heads/main"s) != refs.end());
 }
 
+TEST_CASE("Repository: checkout new branch", "[Repository]")
+{
+    // create test files
+
+    // create repository
+
+    // create new branch
+
+    // check reference shortname
+
+    // create new test files
+
+    // check last commit
+
+    // checkout to original branch
+
+    // check last commit
+    
+}
+
 /**
  * To test a remote repository, the following steps are executed
  * 1) Create a Repository with a link to a remote repository
