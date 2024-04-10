@@ -554,7 +554,7 @@ void Repository::clone_repo(const std::string& url, const std::filesystem::path&
     else
     {
         url_ = url;
-        remote_ = remote_lookup(repo.get(), "origin"); // TODO: origin korrekt?
+        remote_ = remote_lookup(repo_.get(), "origin"); // TODO: origin korrekt?
         repo_path_ = repo_path;
         repo_ = std::move(repo);
 
@@ -601,24 +601,22 @@ LibGitReference Repository::new_branch(const std::string& branch_name)
     auto head = repository_head(repo_.get());
 
     // get branch name from HEAD
-    std::string origin_branch_name = reference_shorthand(head);
+    const std::string origin_branch_name = reference_shorthand(head.get());
 
     // create branch
     return new_branch(branch_name, origin_branch_name);
 }
 
-LibGitReference Repository::new_branch(const std::string& branch_name, const:std::string& origin_branch_name)
+LibGitReference Repository::new_branch(const std::string& branch_name, const std::string& origin_branch_name)
 {
     // checkout origin branch
     auto ref = branch_lookup(repo_.get(), origin_branch_name, GIT_BRANCH_LOCAL);
 
     // get latest commit
-    auto commit = get_commit(reference_shorthand(ref));
+    auto commit = get_commit(reference_shorthand(ref.get()));
 
     // create new branch
-    LibGitReference ref = branch_create(git_repository* repo, std::string& new_branch_name, commit.get());
-
-    return ref;
+    return branch_create(repo_.get(), branch_name, commit.get(), 0);
 }
 
 void Repository::checkout(const std::string& branch_name, const std::vector<std::string>& paths)
@@ -634,9 +632,9 @@ void Repository::checkout(const std::string& branch_name, const std::vector<std:
     // find latest commit of said branch
     auto last_commit = get_commit(branch_name);
 
-    auto tree = commit_tree(last_commit.get());
+    //auto tree = commit_tree(last_commit.get());
 
-    error = git_checkout_tree(repo.get(), tree.get(), &checkout_opts)
+    auto error = git_checkout_tree(repo_.get(), (const git_object*) last_commit.get(), &checkout_opts);
     if (error)
         throw Error{ cat("Checkout: ", git_error_last()->message) };
 }

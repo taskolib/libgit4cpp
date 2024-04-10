@@ -248,12 +248,15 @@ public:
      * \param branch_name name of the new branch
      * \param origin_branch_name name of the existing branch to checkout from
     */
-    LibGitReference new_branch(const std::string& branch_name, const:std::string& origin_branch_name);
+    LibGitReference new_branch(const std::string& branch_name, const std::string& origin_branch_name);
 
     /**
-     * Checkout a branch with options
+     * Checkout a branch with options.
+     * The path parameter takes a list of files, directories. It supports pattern matching
+     * \param branch_name The branch to checkout
+     * \param paths specifies the files to checkout
     */
-    void checkout(const std::string& branch_name, const std::string& paths = "*");
+    void checkout(const std::string& branch_name, const std::vector<std::string>& paths);
 
     /**
      * Remove all entries from the index under a given directory.

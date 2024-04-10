@@ -180,7 +180,7 @@ LibGitTree commit_tree(git_commit* commit)
     return { tree, git_tree_free };
 }
 
-LibGitReference branch_create(git_repository* repo, std::string& new_branch_name, const git_commit* starting_commit, int force)
+LibGitReference branch_create(git_repository* repo, const std::string& new_branch_name, const git_commit* starting_commit, int force)
 {
     git_reference* ref;
     if(git_branch_create(&ref, repo, new_branch_name.c_str(), starting_commit, force))

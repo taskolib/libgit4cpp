@@ -706,8 +706,13 @@ TEST_CASE("Repository: push()", "[Repository]")
 TEST_CASE("Repository: checkout new branch", "[Repository]")
 {
     // create test files
+    std::filesystem::remove_all(reporoot);
+    create_testfiles("checkout_test", 2, "new");
 
     // create repository
+    Repository repo {reporoot};
+    repo.add();
+    repo.commit("Second commit on main branch");
 
     // create new branch
 

@@ -4,6 +4,7 @@
             "name": "Ubuntu-x64",
             "includePath": [
                 "${workspaceFolder}/**",
+                "/export/doocs/lib/include",
                 "/export/doocs/lib/include"
             ],
             "browse": {
