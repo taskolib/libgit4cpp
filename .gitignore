@@ -4,3 +4,4 @@ docs/html/
 .vscode/settings.json
 .vscode/cspell.json
 unit_test_files/
+sequences/

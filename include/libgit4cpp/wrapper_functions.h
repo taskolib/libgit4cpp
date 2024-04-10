@@ -147,13 +147,21 @@ LibGitReference branch_lookup(git_repository* repo, const std::string& branch_na
 
 
 /**
+ * Get the tree of a commit.
+ * \param libgit2 git_commit pointer
+ * \return git_tree wrapper
+*/
+LibGitTree commit_tree(git_commit* commit);
+
+
+/**
  * Create a new branch.
  * \param repo Pointer to repository object
  * \param new_branch_name The name of the new branch
  * \param branch_type Which branch type to find, enum with 1=GIT_BRANCH_LOCAL, 2=GIT_BRANCH_REMOTE, 3=GIT_BRANCH_ALL
  * \return new git_reference object
 */
-LibGitReference branch_create(git_repository* repo, std::string& new_branch_name);
+LibGitReference branch_create(git_repository* repo, const std::string& new_branch_name, const git_commit* starting_commit, int force);
 
 /**
  * Find the name of a branch on the remote.
