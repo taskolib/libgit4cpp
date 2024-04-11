@@ -100,7 +100,7 @@ TEST_CASE("Repository Wrapper Test all", "[Repository]")
         REQUIRE(gl.get_last_commit_message() == "Initial commit");
 
         // We have no remote at this point
-        REQUIRE_THROWS(branch_remote_name(gl.get_repo(), "master"));
+        REQUIRE_THROWS(branch_remote_name(gl.get_repo(), "main"));
     }
 
 
@@ -714,18 +714,41 @@ TEST_CASE("Repository: checkout new branch", "[Repository]")
     repo.add();
     repo.commit("Second commit on main branch");
 
+    // check origin branch
+    REQUIRE(repo.get_current_branch() == "main");
+
     // create new branch
+    repo.new_branch("new_branch");
+    repo.checkout("new_branch", {"*"});
 
     // check reference shortname
+    REQUIRE(repo.get_current_branch() == "new_branch");
+    REQUIRE(repo.get_last_commit_message() == "Second commit on main branch");
 
     // create new test files
+    // file_0 stays the same
+    // file_1 changes
+    // file_2 new file
+    create_testfiles("checkout_test", 3, "branch_file");
+    create_testfiles("checkout_test", 1, "new");
+
+    // apply changes
+    repo.add();
+    repo.commit("Commit on new branch");
 
     // check last commit
+    REQUIRE(repo.get_last_commit_message() == "Commit on new branch");
 
     // checkout to original branch
+    repo.checkout("main", {"*"});
 
     // check last commit
-    
+    REQUIRE(repo.get_last_commit_message() == "Second commit on main branch");
+}
+
+TEST_CASE("Repository: partially checkout other branch", "[Repository]")
+{
+
 }
 
 /**
@@ -781,12 +804,12 @@ TEST_CASE("Repository Wrapper Test Remote", "[GitWrapper]")
         }
 
         // check if remote and local repo are not in the same state
-        REQUIRE( ! gl.branch_up_to_date("master"));
+        REQUIRE( ! gl.branch_up_to_date("main"));
 
         gl.push();
 
         // check if remote and local repo are in same state
-        REQUIRE( gl.branch_up_to_date("master"));
+        REQUIRE( gl.branch_up_to_date("main"));
 
     }
 
@@ -800,16 +823,16 @@ TEST_CASE("Repository Wrapper Test Remote", "[GitWrapper]")
         gl.commit("Second commit");
         gl.push();
 
-        REQUIRE( gl.branch_up_to_date("master"));
+        REQUIRE( gl.branch_up_to_date("main"));
 
         // reset local repository
         gl.reset(1);
 
-        REQUIRE_FALSE( gl.branch_up_to_date("master"));
+        REQUIRE_FALSE( gl.branch_up_to_date("main"));
 
         gl.pull();
 
-        REQUIRE( gl.branch_up_to_date("master"));
+        REQUIRE( gl.branch_up_to_date("main"));
     }
 
 

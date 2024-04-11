@@ -179,6 +179,21 @@ std::string branch_remote_name(git_repository* repo, const std::string& branch_n
 */
 std::string reference_shorthand(const git_reference* ref);
 
+/**
+ * Get full name of a reference.
+ * \param ref libgit2 reference object
+ * \return full name of reference (e.g. "refs/heads/master" == full name of "master")
+*/
+std::string reference_name(git_reference* ref);
+
+/**
+ * Find reference object from shortname, longname or id specification.
+ * \param repo Pointer to repository object
+ * \param name specification of reference (eg. refs/heads/master, main, e934a2, master@{2}, ...)
+ * \return reference object
+*/
+LibGitReference parse_reference_from_name(git_repository* repo, const std::string& name);
+
 /** \} */ // end of group lgptrfunc
 
 } // namespace git
