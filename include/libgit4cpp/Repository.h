@@ -251,12 +251,17 @@ public:
     LibGitReference new_branch(const std::string& branch_name, const std::string& origin_branch_name);
 
     /**
+     * Returns the active branch in the repository
+    */
+    std::string get_current_branch();
+
+    /**
      * Checkout a branch with options.
      * The path parameter takes a list of files, directories. It supports pattern matching
      * \param branch_name The branch to checkout
      * \param paths specifies the files to checkout
     */
-    void checkout(const std::string& branch_name, const std::vector<std::string>& paths);
+    void checkout(const std::string& branch_name, const std::vector<std::string>& paths = {"*"});
 
     /**
      * Remove all entries from the index under a given directory.

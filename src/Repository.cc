@@ -597,14 +597,7 @@ bool Repository::branch_up_to_date(const std::string& branch_name)
 
 LibGitReference Repository::new_branch(const std::string& branch_name)
 {
-    // get current HEAD
-    auto head = repository_head(repo_.get());
-
-    // get branch name from HEAD
-    const std::string origin_branch_name = reference_shorthand(head.get());
-
-    // create branch
-    return new_branch(branch_name, origin_branch_name);
+    return new_branch(branch_name, get_current_branch());
 }
 
 LibGitReference Repository::new_branch(const std::string& branch_name, const std::string& origin_branch_name)
@@ -613,10 +606,19 @@ LibGitReference Repository::new_branch(const std::string& branch_name, const std
     auto ref = branch_lookup(repo_.get(), origin_branch_name, GIT_BRANCH_LOCAL);
 
     // get latest commit
-    auto commit = get_commit(reference_shorthand(ref.get()));
+    auto commit = get_commit(reference_name(ref.get()));
 
     // create new branch
     return branch_create(repo_.get(), branch_name, commit.get(), 0);
+}
+
+std::string Repository::get_current_branch()
+{
+    // get current HEAD
+    auto head = repository_head(repo_.get());
+
+    // get branch name from HEAD
+    return reference_shorthand(head.get());
 }
 
 void Repository::checkout(const std::string& branch_name, const std::vector<std::string>& paths)
@@ -630,7 +632,8 @@ void Repository::checkout(const std::string& branch_name, const std::vector<std:
     checkout_opts.checkout_strategy = GIT_CHECKOUT_SAFE;
   
     // find latest commit of said branch
-    auto last_commit = get_commit(branch_name);
+    auto full_branch_name = reference_name(parse_reference_from_name(repo_.get(), branch_name).get());
+    auto last_commit = get_commit(full_branch_name);
 
     //auto tree = commit_tree(last_commit.get());
 
@@ -638,6 +641,8 @@ void Repository::checkout(const std::string& branch_name, const std::vector<std:
     if (error)
         throw Error{ cat("Checkout: ", git_error_last()->message) };
 }
+
+//TODO: list of all branches
 
 
 } // namespace git

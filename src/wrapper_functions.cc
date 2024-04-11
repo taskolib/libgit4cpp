@@ -208,4 +208,36 @@ std::string reference_shorthand(const git_reference* ref)
     return std::string(name_cstr);
 }
 
+std::string reference_name(git_reference* ref)
+{
+    const char* name_cstr = git_reference_name(ref);
+    if (name_cstr == nullptr)
+        throw Error{gul14::cat("reference_name: ", git_error_last()->message) };
+    return std::string(name_cstr);
+}
+
+/*
+LibGitReference parse_reference_from_name(git_repository* repo, const std::string& name)
+{
+    git_object* ref;
+    auto error = git_revparse_single(&ref, repo, name.c_str());
+    if (error)
+        throw Error{gul14::cat("parse_reference_from_name: ", git_error_last()->message) };
+    if (git_object_type(ref) != GIT_OBJ_REF_DELTA)
+        throw Error{gul14::cat("parse_reference_from_name: found object from type ",
+                                git_object_type2string(git_object_type(ref)),
+                                " instead of reference") };
+    return {(git_reference*) ref, git_reference_free};
+}
+*/
+
+LibGitReference parse_reference_from_name(git_repository* repo, const std::string& name)
+{
+    git_reference* ref;
+    auto error = git_reference_dwim(&ref, repo, name.c_str());
+    if (error)
+        throw Error{gul14::cat("parse_reference_from_name: ", git_error_last()->message) };
+    return {ref, git_reference_free};
+}
+
 } // namespace git
