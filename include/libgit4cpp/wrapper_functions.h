@@ -194,6 +194,20 @@ std::string reference_name(git_reference* ref);
 */
 LibGitReference parse_reference_from_name(git_repository* repo, const std::string& name);
 
+/**
+ * returns an iterator of the branches.
+*/
+LibGitBranchIterator branch_iterator(git_repository* repo, git_branch_t flag);
+
+/**
+ * Iterates branches over an iterator object.
+ * \exception ref will be nullptr only if ieration object reached its end.
+ *  otherwise exception will be thrown
+ * \param branch_type defines if iterator is for local or remote branches
+ * \param iter iterator object 
+*/
+LibGitReference branch_next(git_branch_t* branch_type, git_branch_iterator* iter);
+
 /** \} */ // end of group lgptrfunc
 
 } // namespace git

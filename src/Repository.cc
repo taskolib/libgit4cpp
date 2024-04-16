@@ -621,6 +621,27 @@ std::string Repository::get_current_branch()
     return reference_shorthand(head.get());
 }
 
+std::vector<std::string> Repository::list_branches(int type_flag)
+{
+    git_branch_t flag;
+    if      (type_flag == 0) flag = GIT_BRANCH_ALL;
+    else if (type_flag == 1) flag = GIT_BRANCH_LOCAL;
+    else if (type_flag == 2) flag = GIT_BRANCH_REMOTE;
+    else throw Error{ cat("list_branches: unknown type_flag ", type_flag) };
+
+    std::vector<std::string> ret;
+
+    LibGitBranchIterator iter = branch_iterator(repo_.get(), flag);
+    
+    LibGitReference ref = branch_next(&flag, iter.get());
+    while(ref != nullptr)
+    {
+        ret.push_back(reference_name(ref.get()));
+        ref = branch_next(&flag, iter.get());
+    }
+    return ret;
+}
+
 void Repository::checkout(const std::string& branch_name, const std::vector<std::string>& paths)
 {
      
@@ -642,7 +663,18 @@ void Repository::checkout(const std::string& branch_name, const std::vector<std:
         throw Error{ cat("Checkout: ", git_error_last()->message) };
 }
 
-//TODO: list of all branches
+void Repository::switch_branch(const std::string& branch_name)
+{
+    // get full name from branch identifier
+    auto branch_ref = parse_reference_from_name(repo_.get(), branch_name);
+    auto branch_full_name = reference_name(branch_ref.get());
+
+    // switch HEAD
+    int error = git_repository_set_head(repo_.get(), branch_full_name.c_str());
+    if (error)
+        throw Error{ cat("switch_branch: ", git_error_last()->message) };
+}
+
 
 
 } // namespace git

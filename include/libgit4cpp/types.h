@@ -39,6 +39,7 @@ using LibGitCommit = std::unique_ptr<git_commit, void(*)(git_commit*)>;
 using LibGitStatusList = std::unique_ptr<git_status_list, void(*)(git_status_list*)>;
 using LibGitReference = std::unique_ptr<git_reference, void(*)(git_reference*)>;
 using LibGitBuf = std::unique_ptr<git_buf, void(*)(git_buf*)>;
+using LibGitBranchIterator = std::unique_ptr<git_branch_iterator, void(*)(git_branch_iterator*)>;
 
 } // namespace git
 

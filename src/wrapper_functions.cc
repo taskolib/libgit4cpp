@@ -240,4 +240,22 @@ LibGitReference parse_reference_from_name(git_repository* repo, const std::strin
     return {ref, git_reference_free};
 }
 
+LibGitBranchIterator branch_iterator(git_repository* repo, git_branch_t flag)
+{
+    git_branch_iterator* iter;
+    auto error = git_branch_iterator_new(&iter, repo, flag);
+    if (error)
+        throw Error{gul14::cat("get_branch_iterator: ", git_error_last()->message) };
+    return {iter, git_branch_iterator_free};
+}
+
+LibGitReference branch_next(git_branch_t* branch_type, git_branch_iterator* iter)
+{
+    git_reference* ref;
+    int error = git_branch_next(&ref, branch_type, iter);
+    if (error == GIT_ITEROVER)
+        ref = nullptr;
+    return {ref, git_reference_free};
+}
+
 } // namespace git

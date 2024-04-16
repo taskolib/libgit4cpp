@@ -705,6 +705,13 @@ TEST_CASE("Repository: push()", "[Repository]")
 
 TEST_CASE("Repository: checkout new branch", "[Repository]")
 {
+    /**
+     * The test refers to the term "checkout" mainly
+     * because it is used to switch the HEAD in the command line with
+     * e.g. "git checkout feature/cool_feature".
+     * The real checkout is tested in partial checkout in the
+     * following test.
+    */
     // create test files
     std::filesystem::remove_all(reporoot);
     create_testfiles("checkout_test", 2, "new");
@@ -719,7 +726,10 @@ TEST_CASE("Repository: checkout new branch", "[Repository]")
 
     // create new branch
     repo.new_branch("new_branch");
-    repo.checkout("new_branch", {"*"});
+    repo.switch_branch("new_branch");
+
+    auto branches = repo.list_branches(1);
+    REQUIRE(branches.size() == 2);
 
     // check reference shortname
     REQUIRE(repo.get_current_branch() == "new_branch");
@@ -740,7 +750,7 @@ TEST_CASE("Repository: checkout new branch", "[Repository]")
     REQUIRE(repo.get_last_commit_message() == "Commit on new branch");
 
     // checkout to original branch
-    repo.checkout("main", {"*"});
+    repo.switch_branch("main");
 
     // check last commit
     REQUIRE(repo.get_last_commit_message() == "Second commit on main branch");
