@@ -648,16 +648,21 @@ void Repository::checkout(const std::string& branch_name, const std::vector<std:
     git_checkout_options checkout_opts = GIT_CHECKOUT_OPTIONS_INIT;
     // define the paths of files to checkout
     checkout_opts.paths.count = paths.size();
-    checkout_opts.paths.strings = (char **) paths.data();
-    // dont enforce checkout (all changes must be committed) 
-    checkout_opts.checkout_strategy = GIT_CHECKOUT_SAFE;
+
+    // transform std::string input into readbale data for libgit2
+    std::vector<const char*> paths_as_cstr;
+    for(const auto& path: paths)
+        paths_as_cstr.push_back(path.c_str());
+    checkout_opts.paths.strings = const_cast<char **>(paths_as_cstr.data());
+
+    //TODO: What is the reight checkout strategy? GIT_CHECKOUT_SAFE not fitting, ..._FORCE too radical?
+    checkout_opts.checkout_strategy = GIT_CHECKOUT_FORCE;
   
     // find latest commit of said branch
     auto full_branch_name = reference_name(parse_reference_from_name(repo_.get(), branch_name).get());
     auto last_commit = get_commit(full_branch_name);
 
-    //auto tree = commit_tree(last_commit.get());
-
+    // checkout
     auto error = git_checkout_tree(repo_.get(), (const git_object*) last_commit.get(), &checkout_opts);
     if (error)
         throw Error{ cat("Checkout: ", git_error_last()->message) };
@@ -673,6 +678,10 @@ void Repository::switch_branch(const std::string& branch_name)
     int error = git_repository_set_head(repo_.get(), branch_full_name.c_str());
     if (error)
         throw Error{ cat("switch_branch: ", git_error_last()->message) };
+    
+    // go back to original state on this branch
+    // TODO: Do we want this?
+    reset(0);
 }
 
 
