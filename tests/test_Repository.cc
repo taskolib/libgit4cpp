@@ -758,6 +758,84 @@ TEST_CASE("Repository: checkout new branch", "[Repository]")
 
 TEST_CASE("Repository: partially checkout other branch", "[Repository]")
 {
+    // create test files
+    std::filesystem::remove_all(reporoot);
+    create_testfiles("partial_checkout_test", 2, "new");
+
+    // create repository
+    Repository repo {reporoot};
+    repo.add();
+    repo.commit("Second commit on main branch");
+
+    // create new branch
+    repo.new_branch("new_branch");
+    repo.switch_branch("new_branch");
+
+
+
+    // create new test files
+    // file_0 stays the same
+    // file_1 changes
+    // file_2 new file
+    // file_3 new file
+    create_testfiles("partial_checkout_test", 4, "branch_file");
+    create_testfiles("partial_checkout_test", 1, "new");
+
+    // apply changes
+    repo.add();
+    repo.commit("Commit on new branch");
+
+
+    // checkout to original branch
+    repo.switch_branch("main");
+
+    // check file status before
+    auto ss = std::stringstream{ };
+    ss << repo.status();
+    auto est = gul14::trim(ss.str());
+    REQUIRE(gul14::trim(ss.str()) == "RepoState {\n" \
+        "FileStatus{ \"partial_checkout_test/file0.txt\": unchanged; unchanged }\n" \
+        "FileStatus{ \"partial_checkout_test/file1.txt\": unchanged; unchanged }\n" \
+        "}");
+
+    // partial checkout of evrything from new_branch
+    repo.checkout("new_branch", {"*"});
+    ss.str("");
+    ss << repo.status();
+    est = gul14::trim(ss.str());
+    REQUIRE(gul14::trim(ss.str()) == "RepoState {\n" \
+        "FileStatus{ \"partial_checkout_test/file0.txt\": unchanged; unchanged }\n" \
+        "FileStatus{ \"partial_checkout_test/file1.txt\": staged; modified }\n" \
+        "FileStatus{ \"partial_checkout_test/file2.txt\": staged; new file }\n" \
+        "FileStatus{ \"partial_checkout_test/file3.txt\": staged; new file }\n" \
+        "}");
+    
+
+    // reset to last commit and partial checkout of one file
+    repo.reset(0);
+    repo.checkout("new_branch", {"*file3*"});
+    ss.str("");
+    ss << repo.status();
+    est = gul14::trim(ss.str());
+    REQUIRE(gul14::trim(ss.str()) == "RepoState {\n" \
+    "FileStatus{ \"partial_checkout_test/file0.txt\": unchanged; unchanged }\n" \
+    "FileStatus{ \"partial_checkout_test/file1.txt\": unchanged; unchanged }\n" \
+    "FileStatus{ \"partial_checkout_test/file3.txt\": staged; new file }\n" \
+    "}");
+
+
+    // reset to last commit and try new partial checkout
+    repo.reset(0);
+    repo.checkout("new_branch", {"*file1*", "*file2*"});
+    ss.str("");
+    ss << repo.status();
+    est = gul14::trim(ss.str());
+    REQUIRE(gul14::trim(ss.str()) == "RepoState {\n" \
+    "FileStatus{ \"partial_checkout_test/file0.txt\": unchanged; unchanged }\n" \
+    "FileStatus{ \"partial_checkout_test/file1.txt\": staged; modified }\n" \
+    "FileStatus{ \"partial_checkout_test/file2.txt\": staged; new file }\n" \
+    "}");
+
 
 }
 
