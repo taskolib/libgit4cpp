@@ -251,9 +251,20 @@ public:
     LibGitReference new_branch(const std::string& branch_name, const std::string& origin_branch_name);
 
     /**
-     * Returns the active branch in the repository
+     * Returns the active branch in the repository.
+     * \return shorthand name of current branch (eg. master)
     */
     std::string get_current_branch();
+
+    /**
+     * List the longnames of all branches.
+     * \param type_flag defines which types of branches should be listed
+     *  0 -> All
+     *  1 -> Local
+     *  2 -> Remote
+     * \return vector of branch longnames
+    */
+    std::vector<std::string> list_branches(int type_flag = 0);
 
     /**
      * Checkout a branch with options.
@@ -262,6 +273,14 @@ public:
      * \param paths specifies the files to checkout
     */
     void checkout(const std::string& branch_name, const std::vector<std::string>& paths = {"*"});
+
+    /**
+     * Switch branches by setting HEAD to an existing branch.
+     * \attention If the branch doesn't exist yet, no error will be thrown.
+     *            The HEAD will then be attached to an unborn branch.
+     * \param branch_name ID, shorthand or full reference name of branch
+    */
+   void switch_branch(const std::string& branch_name);
 
     /**
      * Remove all entries from the index under a given directory.
