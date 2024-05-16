@@ -554,7 +554,7 @@ void Repository::clone_repo(const std::string& url, const std::filesystem::path&
     else
     {
         url_ = url;
-        remote_ = remote_lookup(repo_.get(), "origin"); // TODO: origin korrekt?
+        remote_ = remote_lookup(repo.get(), "origin"); // TODO: origin korrekt?
         repo_path_ = repo_path;
         repo_ = std::move(repo);
 
@@ -597,7 +597,7 @@ bool Repository::branch_up_to_date(const std::string& branch_name)
 
 LibGitReference Repository::new_branch(const std::string& branch_name)
 {
-    return new_branch(branch_name, get_current_branch());
+    return new_branch(branch_name, get_current_branch_name());
 }
 
 LibGitReference Repository::new_branch(const std::string& branch_name, const std::string& origin_branch_name)
@@ -612,7 +612,7 @@ LibGitReference Repository::new_branch(const std::string& branch_name, const std
     return branch_create(repo_.get(), branch_name, commit.get(), 0);
 }
 
-std::string Repository::get_current_branch()
+std::string Repository::get_current_branch_name()
 {
     // get current HEAD
     auto head = repository_head(repo_.get());
@@ -621,13 +621,14 @@ std::string Repository::get_current_branch()
     return reference_shorthand(head.get());
 }
 
-std::vector<std::string> Repository::list_branches(int type_flag)
+std::vector<std::string> Repository::list_branches(BranchType type_flag)
 {
+    // transform libgit4cpp enum into libgit2 object
     git_branch_t flag;
-    if      (type_flag == 0) flag = GIT_BRANCH_ALL;
-    else if (type_flag == 1) flag = GIT_BRANCH_LOCAL;
-    else if (type_flag == 2) flag = GIT_BRANCH_REMOTE;
-    else throw Error{ cat("list_branches: unknown type_flag ", type_flag) };
+    if      (type_flag == BranchType::ALL) flag = GIT_BRANCH_ALL;
+    else if (type_flag == BranchType::LOCAL) flag = GIT_BRANCH_LOCAL;
+    else if (type_flag == BranchType::REMOTE) flag = GIT_BRANCH_REMOTE;
+    else throw Error{"list_branches: unknown type_flag"};
 
     std::vector<std::string> ret;
 
@@ -649,13 +650,12 @@ void Repository::checkout(const std::string& branch_name, const std::vector<std:
     // define the paths of files to checkout
     checkout_opts.paths.count = paths.size();
 
-    // transform std::string input into readbale data for libgit2
+    // transform std::string input into readaable data for libgit2
     std::vector<const char*> paths_as_cstr;
     for(const auto& path: paths)
         paths_as_cstr.push_back(path.c_str());
     checkout_opts.paths.strings = const_cast<char **>(paths_as_cstr.data());
 
-    //TODO: What is the reight checkout strategy? GIT_CHECKOUT_SAFE not fitting, ..._FORCE too radical?
     checkout_opts.checkout_strategy = GIT_CHECKOUT_FORCE;
   
     // find latest commit of said branch
@@ -680,7 +680,6 @@ void Repository::switch_branch(const std::string& branch_name)
         throw Error{ cat("switch_branch: ", git_error_last()->message) };
     
     // go back to original state on this branch
-    // TODO: Do we want this?
     reset(0);
 }
 

@@ -63,6 +63,8 @@ inline std::ostream& operator<<(std::ostream& stream, const RepoState& repostate
     return stream;
 }
 
+enum class BranchType {ALL = 0, LOCAL =1, REMOTE=2};
+
 
 /**
  * A class to wrap used methods from C-Library libgit2.
@@ -166,7 +168,7 @@ public:
     /**
      * Hard reset of repository.
      * \param nr_of_commits number of commits to jump back
-    */
+     */
     void reset(unsigned int nr_of_commits);
 
     /**
@@ -225,13 +227,13 @@ public:
     /**
      * Clone a repository.
      * \param addr Address of the git repository host
-    */
+     */
     void clone_repo(const std::string& url, const std::filesystem::path& repo_path);
 
     /**
      * Check if remote and local branch are in same state.
      * \param branch_name
-    */
+     */
     bool branch_up_to_date(const std::string& branch_name);
 
 #endif
@@ -240,7 +242,7 @@ public:
     /**
      * Create a new branch from the current branch.
      * \param branch_name name of the new branch
-    */
+     */
     LibGitReference new_branch(const std::string& branch_name);
 
     /**
@@ -254,25 +256,23 @@ public:
     /**
      * Returns the active branch in the repository.
      * \return shorthand name of current branch (eg. master)
-    */
-    std::string get_current_branch();
+     */
+    std::string get_current_branch_name();
 
     /**
      * List the longnames of all branches.
      * \param type_flag defines which types of branches should be listed
-     *  0 -> All
-     *  1 -> Local
-     *  2 -> Remote
      * \return vector of branch longnames
-    */
-    std::vector<std::string> list_branches(int type_flag = 0);
+     */
+    std::vector<std::string> list_branches(BranchType type_flag = BranchType::ALL);
 
     /**
-     * Checkout a branch with options.
+     * Check out selected files from branch.
      * The path parameter takes a list of files, directories. It supports pattern matching
+     * \attention GIT_FORCE flag is used. It may overwrite uncommitted changes in the current branch 
      * \param branch_name The branch to checkout
      * \param paths specifies the files to checkout
-    */
+     */
     void checkout(const std::string& branch_name, const std::vector<std::string>& paths = {"*"});
 
     /**
@@ -312,7 +312,7 @@ public:
      * \param filepaths list of files
      * \attention files in filepaths are relative to repo_path_
      * \see remove_directory()
-    */
+     */
     void remove_files(const std::vector<std::filesystem::path>& filepaths);
 
     /**

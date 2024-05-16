@@ -216,21 +216,6 @@ std::string reference_name(git_reference* ref)
     return std::string(name_cstr);
 }
 
-/*
-LibGitReference parse_reference_from_name(git_repository* repo, const std::string& name)
-{
-    git_object* ref;
-    auto error = git_revparse_single(&ref, repo, name.c_str());
-    if (error)
-        throw Error{gul14::cat("parse_reference_from_name: ", git_error_last()->message) };
-    if (git_object_type(ref) != GIT_OBJ_REF_DELTA)
-        throw Error{gul14::cat("parse_reference_from_name: found object from type ",
-                                git_object_type2string(git_object_type(ref)),
-                                " instead of reference") };
-    return {(git_reference*) ref, git_reference_free};
-}
-*/
-
 LibGitReference parse_reference_from_name(git_repository* repo, const std::string& name)
 {
     git_reference* ref;
