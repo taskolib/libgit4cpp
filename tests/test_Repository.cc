@@ -83,7 +83,7 @@ TEST_CASE("Repository Wrapper Test all", "[Repository]")
      * Check if a repository is created (HEAD exists)
      * Check if a comit was created (initial commit)
      *
-    */
+     */
     SECTION("Construct Repository object")
     {
         std::filesystem::remove_all(reporoot);
@@ -196,7 +196,7 @@ TEST_CASE("Repository Wrapper Test all", "[Repository]")
      * 2) check if status of them is modified, but unstaged
      * 3) stage file1 of unit_test_1
      * 4) file1 should be staged and file0 still be unstaged
-    */
+     */
     SECTION("Add by path")
     {
         Repository gl{ reporoot };
@@ -711,7 +711,7 @@ TEST_CASE("Repository: checkout new branch", "[Repository]")
      * e.g. "git checkout feature/cool_feature".
      * The real checkout is tested in partial checkout in the
      * following test.
-    */
+     */
     // create test files
     std::filesystem::remove_all(reporoot);
     create_testfiles("checkout_test", 2, "new");
@@ -722,17 +722,17 @@ TEST_CASE("Repository: checkout new branch", "[Repository]")
     repo.commit("Second commit on main branch");
 
     // check origin branch
-    REQUIRE(repo.get_current_branch() == "main");
+    REQUIRE(repo.get_current_branch_name() == "main");
 
     // create new branch
     repo.new_branch("new_branch");
     repo.switch_branch("new_branch");
 
-    auto branches = repo.list_branches(1);
+    auto branches = repo.list_branches(BranchType::LOCAL);
     REQUIRE(branches.size() == 2);
 
     // check reference shortname
-    REQUIRE(repo.get_current_branch() == "new_branch");
+    REQUIRE(repo.get_current_branch_name() == "new_branch");
     REQUIRE(repo.get_last_commit_message() == "Second commit on main branch");
 
     // create new test files
