@@ -1,8 +1,8 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 
 Files: *
-Copyright: 2023 libgit4cpp contributors
-           2023 DESY
+Copyright: 2023-2024 libgit4cpp contributors
+           2023-2024 DESY
 License: LGPL-2.1+
 
 License: LGPL-2.1+
