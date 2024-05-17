@@ -728,7 +728,7 @@ TEST_CASE("Repository: checkout new branch", "[Repository]")
     repo.new_branch("new_branch");
     repo.switch_branch("new_branch");
 
-    auto branches = repo.list_branches(BranchType::LOCAL);
+    auto branches = repo.list_branches(BranchType::local);
     REQUIRE(branches.size() == 2);
 
     // check reference shortname
@@ -809,7 +809,7 @@ TEST_CASE("Repository: partially checkout other branch", "[Repository]")
         "FileStatus{ \"partial_checkout_test/file2.txt\": staged; new file }\n" \
         "FileStatus{ \"partial_checkout_test/file3.txt\": staged; new file }\n" \
         "}");
-    
+
 
     // reset to last commit and partial checkout of one file
     repo.reset(0);

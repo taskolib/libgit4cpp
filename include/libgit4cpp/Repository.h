@@ -63,7 +63,7 @@ inline std::ostream& operator<<(std::ostream& stream, const RepoState& repostate
     return stream;
 }
 
-enum class BranchType {ALL = 0, LOCAL =1, REMOTE=2};
+enum class BranchType {all = 0, local =1, remote=2};
 
 
 /**
@@ -251,7 +251,8 @@ public:
      * \param origin_branch_name name of the existing branch to checkout from
      * \return The reference object of the new branch
     */
-    LibGitReference new_branch(const std::string& branch_name, const std::string& origin_branch_name);
+    LibGitReference new_branch(const std::string& branch_name,
+        const std::string& origin_branch_name);
 
     /**
      * Returns the active branch in the repository.
@@ -264,16 +265,18 @@ public:
      * \param type_flag defines which types of branches should be listed
      * \return vector of branch longnames
      */
-    std::vector<std::string> list_branches(BranchType type_flag = BranchType::ALL);
+    std::vector<std::string> list_branches(BranchType type_flag = BranchType::all);
 
     /**
      * Check out selected files from branch.
      * The path parameter takes a list of files, directories. It supports pattern matching
-     * \attention GIT_FORCE flag is used. It may overwrite uncommitted changes in the current branch 
+     * \attention GIT_FORCE flag is used. It may overwrite uncommitted changes in the
+     *            current branch
      * \param branch_name The branch to checkout
      * \param paths specifies the files to checkout
      */
-    void checkout(const std::string& branch_name, const std::vector<std::string>& paths = {"*"});
+    void checkout(const std::string& branch_name,
+        const std::vector<std::string>& paths = {"*"});
 
     /**
      * Switch branches by setting HEAD to an existing branch.
