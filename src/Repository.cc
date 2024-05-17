@@ -600,7 +600,8 @@ LibGitReference Repository::new_branch(const std::string& branch_name)
     return new_branch(branch_name, get_current_branch_name());
 }
 
-LibGitReference Repository::new_branch(const std::string& branch_name, const std::string& origin_branch_name)
+LibGitReference Repository::new_branch(const std::string& branch_name,
+    const std::string& origin_branch_name)
 {
     // checkout origin branch
     auto ref = branch_lookup(repo_.get(), origin_branch_name, GIT_BRANCH_LOCAL);
@@ -625,15 +626,19 @@ std::vector<std::string> Repository::list_branches(BranchType type_flag)
 {
     // transform libgit4cpp enum into libgit2 object
     git_branch_t flag;
-    if      (type_flag == BranchType::ALL) flag = GIT_BRANCH_ALL;
-    else if (type_flag == BranchType::LOCAL) flag = GIT_BRANCH_LOCAL;
-    else if (type_flag == BranchType::REMOTE) flag = GIT_BRANCH_REMOTE;
-    else throw Error{"list_branches: unknown type_flag"};
+    if (type_flag == BranchType::all)
+        flag = GIT_BRANCH_ALL;
+    else if (type_flag == BranchType::local)
+        flag = GIT_BRANCH_LOCAL;
+    else if (type_flag == BranchType::remote)
+        flag = GIT_BRANCH_REMOTE;
+    else
+        throw Error{"list_branches: unknown type_flag"};
 
     std::vector<std::string> ret;
 
     LibGitBranchIterator iter = branch_iterator(repo_.get(), flag);
-    
+
     LibGitReference ref = branch_next(&flag, iter.get());
     while(ref != nullptr)
     {
@@ -643,9 +648,10 @@ std::vector<std::string> Repository::list_branches(BranchType type_flag)
     return ret;
 }
 
-void Repository::checkout(const std::string& branch_name, const std::vector<std::string>& paths)
+void Repository::checkout(const std::string& branch_name,
+    const std::vector<std::string>& paths)
 {
-     
+
     git_checkout_options checkout_opts = GIT_CHECKOUT_OPTIONS_INIT;
     // define the paths of files to checkout
     checkout_opts.paths.count = paths.size();
@@ -657,7 +663,7 @@ void Repository::checkout(const std::string& branch_name, const std::vector<std:
     checkout_opts.paths.strings = const_cast<char **>(paths_as_cstr.data());
 
     checkout_opts.checkout_strategy = GIT_CHECKOUT_FORCE;
-  
+
     // find latest commit of said branch
     auto full_branch_name = reference_name(parse_reference_from_name(repo_.get(), branch_name).get());
     auto last_commit = get_commit(full_branch_name);
@@ -678,7 +684,7 @@ void Repository::switch_branch(const std::string& branch_name)
     int error = git_repository_set_head(repo_.get(), branch_full_name.c_str());
     if (error)
         throw Error{ cat("switch_branch: ", git_error_last()->message) };
-    
+
     // go back to original state on this branch
     reset(0);
 }
