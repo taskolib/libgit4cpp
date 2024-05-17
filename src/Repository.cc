@@ -665,11 +665,14 @@ void Repository::checkout(const std::string& branch_name,
     checkout_opts.checkout_strategy = GIT_CHECKOUT_FORCE;
 
     // find latest commit of said branch
-    auto full_branch_name = reference_name(parse_reference_from_name(repo_.get(), branch_name).get());
+    auto full_branch_name = reference_name(
+        parse_reference_from_name(repo_.get(), branch_name).get());
     auto last_commit = get_commit(full_branch_name);
 
-    // checkout
-    auto error = git_checkout_tree(repo_.get(), (const git_object*) last_commit.get(), &checkout_opts);
+    // checkout (the cast is necessary because libgit2 simulates inheritance by having a
+    // struct git_object as the first member of the opaque struct git_commit)
+    auto error = git_checkout_tree(repo_.get(),
+        reinterpret_cast<const git_object*>(last_commit.get()), &checkout_opts);
     if (error)
         throw Error{ cat("Checkout: ", git_error_last()->message) };
 }
