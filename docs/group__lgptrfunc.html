@@ -20,7 +20,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libgit4cpp
-   &#160;<span id="projectnumber">0.2.1</span>
+   &#160;<span id="projectnumber">0.3.1</span>
    </div>
   </td>
  </tr>
@@ -88,11 +88,126 @@ Functions</h2></td></tr>
 <tr class="memitem:ga286555a049d8e3650ec2bc6ef73c88e1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacegit.html#aee525396cf5bb68a3dff4d92983dd4c4">LibGitReference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#ga286555a049d8e3650ec2bc6ef73c88e1">git::branch_lookup</a> (git_repository *repo, const std::string &amp;branch_name, git_branch_t branch_type)</td></tr>
 <tr class="memdesc:ga286555a049d8e3650ec2bc6ef73c88e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find a named branch.  <a href="group__lgptrfunc.html#ga286555a049d8e3650ec2bc6ef73c88e1">More...</a><br /></td></tr>
 <tr class="separator:ga286555a049d8e3650ec2bc6ef73c88e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2096624d0d2f1a873941d024d5489a78"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacegit.html#a7aeaa54e1150f1d32255ab49dd9fdbe7">LibGitTree</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#ga2096624d0d2f1a873941d024d5489a78">git::commit_tree</a> (git_commit *commit)</td></tr>
+<tr class="memdesc:ga2096624d0d2f1a873941d024d5489a78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the tree of a commit.  <a href="group__lgptrfunc.html#ga2096624d0d2f1a873941d024d5489a78">More...</a><br /></td></tr>
+<tr class="separator:ga2096624d0d2f1a873941d024d5489a78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae67698639e6f14961408b52ad054261d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacegit.html#aee525396cf5bb68a3dff4d92983dd4c4">LibGitReference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#gae67698639e6f14961408b52ad054261d">git::branch_create</a> (git_repository *repo, const std::string &amp;new_branch_name, const git_commit *starting_commit, int force)</td></tr>
+<tr class="memdesc:gae67698639e6f14961408b52ad054261d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new branch.  <a href="group__lgptrfunc.html#gae67698639e6f14961408b52ad054261d">More...</a><br /></td></tr>
+<tr class="separator:gae67698639e6f14961408b52ad054261d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga940c39825defe26e9b9849d1f6bd99b4"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#ga940c39825defe26e9b9849d1f6bd99b4">git::branch_remote_name</a> (git_repository *repo, const std::string &amp;branch_name)</td></tr>
 <tr class="memdesc:ga940c39825defe26e9b9849d1f6bd99b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the name of a branch on the remote.  <a href="group__lgptrfunc.html#ga940c39825defe26e9b9849d1f6bd99b4">More...</a><br /></td></tr>
 <tr class="separator:ga940c39825defe26e9b9849d1f6bd99b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf66242365a8abd8c39dd3498371a471c"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#gaf66242365a8abd8c39dd3498371a471c">git::reference_shorthand</a> (const git_reference *ref)</td></tr>
+<tr class="memdesc:gaf66242365a8abd8c39dd3498371a471c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the human-readable name of a reference.  <a href="group__lgptrfunc.html#gaf66242365a8abd8c39dd3498371a471c">More...</a><br /></td></tr>
+<tr class="separator:gaf66242365a8abd8c39dd3498371a471c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga305a533ba27c26414946711a9fa8a560"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#ga305a533ba27c26414946711a9fa8a560">git::reference_name</a> (git_reference *ref)</td></tr>
+<tr class="memdesc:ga305a533ba27c26414946711a9fa8a560"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get full name of a reference.  <a href="group__lgptrfunc.html#ga305a533ba27c26414946711a9fa8a560">More...</a><br /></td></tr>
+<tr class="separator:ga305a533ba27c26414946711a9fa8a560"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2f4f00ef88a1cb9901afe2e589e64306"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacegit.html#aee525396cf5bb68a3dff4d92983dd4c4">LibGitReference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#ga2f4f00ef88a1cb9901afe2e589e64306">git::parse_reference_from_name</a> (git_repository *repo, const std::string &amp;name)</td></tr>
+<tr class="memdesc:ga2f4f00ef88a1cb9901afe2e589e64306"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find reference object from shortname, longname or id specification.  <a href="group__lgptrfunc.html#ga2f4f00ef88a1cb9901afe2e589e64306">More...</a><br /></td></tr>
+<tr class="separator:ga2f4f00ef88a1cb9901afe2e589e64306"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gade30b989a87189b4f9d6fba4a1eb5bea"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacegit.html#a2c6d08a47ecf6dbe9cce61d707d052c0">LibGitBranchIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#gade30b989a87189b4f9d6fba4a1eb5bea">git::branch_iterator</a> (git_repository *repo, git_branch_t flag)</td></tr>
+<tr class="memdesc:gade30b989a87189b4f9d6fba4a1eb5bea"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns an iterator of the branches.  <a href="group__lgptrfunc.html#gade30b989a87189b4f9d6fba4a1eb5bea">More...</a><br /></td></tr>
+<tr class="separator:gade30b989a87189b4f9d6fba4a1eb5bea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab8071c4f3471a491434c0b5f9cf001dd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacegit.html#aee525396cf5bb68a3dff4d92983dd4c4">LibGitReference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#gab8071c4f3471a491434c0b5f9cf001dd">git::branch_next</a> (git_branch_t *branch_type, git_branch_iterator *iter)</td></tr>
+<tr class="memdesc:gab8071c4f3471a491434c0b5f9cf001dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterates branches over an iterator object.  <a href="group__lgptrfunc.html#gab8071c4f3471a491434c0b5f9cf001dd">More...</a><br /></td></tr>
+<tr class="separator:gab8071c4f3471a491434c0b5f9cf001dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="gae67698639e6f14961408b52ad054261d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae67698639e6f14961408b52ad054261d">&#9670;&nbsp;</a></span>branch_create()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacegit.html#aee525396cf5bb68a3dff4d92983dd4c4">LibGitReference</a> git::branch_create </td>
+          <td>(</td>
+          <td class="paramtype">git_repository *&#160;</td>
+          <td class="paramname"><em>repo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>new_branch_name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const git_commit *&#160;</td>
+          <td class="paramname"><em>starting_commit</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>force</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create a new branch. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">repo</td><td>Pointer to repository object </td></tr>
+    <tr><td class="paramname">new_branch_name</td><td>The name of the new branch </td></tr>
+    <tr><td class="paramname">starting_commit</td><td>reference object from where to branch out </td></tr>
+    <tr><td class="paramname">force</td><td>if True, it will force the creation even with uncommited changes </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>new git_reference object </dd></dl>
+
+<p class="reference">Referenced by <a class="el" href="classgit_1_1Repository.html#a3cb15cd3cdd46f7a7535a5ef4c58dff0">git::Repository::new_branch()</a>.</p>
+
+</div>
+</div>
+<a id="gade30b989a87189b4f9d6fba4a1eb5bea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gade30b989a87189b4f9d6fba4a1eb5bea">&#9670;&nbsp;</a></span>branch_iterator()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacegit.html#a2c6d08a47ecf6dbe9cce61d707d052c0">LibGitBranchIterator</a> git::branch_iterator </td>
+          <td>(</td>
+          <td class="paramtype">git_repository *&#160;</td>
+          <td class="paramname"><em>repo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">git_branch_t&#160;</td>
+          <td class="paramname"><em>flag</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>returns an iterator of the branches. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">repo</td><td>Pointer to repository object </td></tr>
+    <tr><td class="paramname">flag</td><td>bitwise flag libgit2 object. choices: GIT_BRANCH_LOCAL, GIT_BRANCH_REMOTE, GIT_BRANCH_ALL </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>iterator for existing branches </dd></dl>
+
+<p class="reference">Referenced by <a class="el" href="classgit_1_1Repository.html#a5ff4057f08845f0271d77ffd32cff86c">git::Repository::list_branches()</a>.</p>
+
+</div>
+</div>
 <a id="ga286555a049d8e3650ec2bc6ef73c88e1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga286555a049d8e3650ec2bc6ef73c88e1">&#9670;&nbsp;</a></span>branch_lookup()</h2>
 
@@ -135,6 +250,53 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>new git_reference object </dd></dl>
+
+<p class="reference">Referenced by <a class="el" href="classgit_1_1Repository.html#a3cb15cd3cdd46f7a7535a5ef4c58dff0">git::Repository::new_branch()</a>.</p>
+
+</div>
+</div>
+<a id="gab8071c4f3471a491434c0b5f9cf001dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab8071c4f3471a491434c0b5f9cf001dd">&#9670;&nbsp;</a></span>branch_next()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacegit.html#aee525396cf5bb68a3dff4d92983dd4c4">LibGitReference</a> git::branch_next </td>
+          <td>(</td>
+          <td class="paramtype">git_branch_t *&#160;</td>
+          <td class="paramname"><em>branch_type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">git_branch_iterator *&#160;</td>
+          <td class="paramname"><em>iter</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Iterates branches over an iterator object. </p>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">ref</td><td>will be nullptr only if iteration object reached its end. otherwise exception will be thrown </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">branch_type</td><td>defines if iterator is for local or remote branches </td></tr>
+    <tr><td class="paramname">iter</td><td>iterator object </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="reference">Referenced by <a class="el" href="classgit_1_1Repository.html#a5ff4057f08845f0271d77ffd32cff86c">git::Repository::list_branches()</a>.</p>
 
 </div>
 </div>
@@ -214,6 +376,131 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ga2096624d0d2f1a873941d024d5489a78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2096624d0d2f1a873941d024d5489a78">&#9670;&nbsp;</a></span>commit_tree()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacegit.html#a7aeaa54e1150f1d32255ab49dd9fdbe7">LibGitTree</a> git::commit_tree </td>
+          <td>(</td>
+          <td class="paramtype">git_commit *&#160;</td>
+          <td class="paramname"><em>commit</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the tree of a commit. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">libgit2</td><td>git_commit pointer </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>git_tree wrapper </dd></dl>
+
+</div>
+</div>
+<a id="ga2f4f00ef88a1cb9901afe2e589e64306"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2f4f00ef88a1cb9901afe2e589e64306">&#9670;&nbsp;</a></span>parse_reference_from_name()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacegit.html#aee525396cf5bb68a3dff4d92983dd4c4">LibGitReference</a> git::parse_reference_from_name </td>
+          <td>(</td>
+          <td class="paramtype">git_repository *&#160;</td>
+          <td class="paramname"><em>repo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Find reference object from shortname, longname or id specification. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">repo</td><td>Pointer to repository object </td></tr>
+    <tr><td class="paramname">name</td><td>specification of reference (eg. refs/heads/master, main, e934a2, master2}, ...) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>reference object </dd></dl>
+
+<p class="reference">Referenced by <a class="el" href="classgit_1_1Repository.html#a857f1d887631846efdd48359f54067c7">git::Repository::checkout()</a>, and <a class="el" href="classgit_1_1Repository.html#a6b81a4623d8e14f5b8eb6695f700d9ca">git::Repository::switch_branch()</a>.</p>
+
+</div>
+</div>
+<a id="ga305a533ba27c26414946711a9fa8a560"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga305a533ba27c26414946711a9fa8a560">&#9670;&nbsp;</a></span>reference_name()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string git::reference_name </td>
+          <td>(</td>
+          <td class="paramtype">git_reference *&#160;</td>
+          <td class="paramname"><em>ref</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get full name of a reference. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ref</td><td>libgit2 reference object </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>full name of reference (e.g. "refs/heads/master" == full name of "master") </dd></dl>
+
+<p class="reference">Referenced by <a class="el" href="classgit_1_1Repository.html#a857f1d887631846efdd48359f54067c7">git::Repository::checkout()</a>, <a class="el" href="classgit_1_1Repository.html#a5ff4057f08845f0271d77ffd32cff86c">git::Repository::list_branches()</a>, <a class="el" href="classgit_1_1Repository.html#a3cb15cd3cdd46f7a7535a5ef4c58dff0">git::Repository::new_branch()</a>, and <a class="el" href="classgit_1_1Repository.html#a6b81a4623d8e14f5b8eb6695f700d9ca">git::Repository::switch_branch()</a>.</p>
+
+</div>
+</div>
+<a id="gaf66242365a8abd8c39dd3498371a471c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf66242365a8abd8c39dd3498371a471c">&#9670;&nbsp;</a></span>reference_shorthand()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string git::reference_shorthand </td>
+          <td>(</td>
+          <td class="paramtype">const git_reference *&#160;</td>
+          <td class="paramname"><em>ref</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the human-readable name of a reference. </p>
+<p>It is required for functions like <code><a class="el" href="group__lgptrfunc.html#ga286555a049d8e3650ec2bc6ef73c88e1" title="Find a named branch.">git::branch_lookup()</a></code> which requires a name instead of a reference object </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ref</td><td>constant git_reference object </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>readable name of reference (e.g. master, main, ...) </dd></dl>
+
+<p class="reference">Referenced by <a class="el" href="classgit_1_1Repository.html#a240028341d29c368a759defa63891ec9">git::Repository::get_current_branch_name()</a>.</p>
+
+</div>
+</div>
 <a id="ga16104435825c0175b6093c1b61d1e0d9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga16104435825c0175b6093c1b61d1e0d9">&#9670;&nbsp;</a></span>remote_create()</h2>
 
@@ -257,6 +544,8 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>new git_remote object </dd></dl>
 
+<p class="reference">References <a class="el" href="namespacegit.html#a81ba1b25d8b84182708baed5518decfaa2c18e486683a3db1e645ad8523223b72">git::remote</a>.</p>
+
 <p class="reference">Referenced by <a class="el" href="classgit_1_1Repository.html#a8200dea313a38b5e1820f07f069d0b9d">git::Repository::add_remote()</a>.</p>
 
 </div>
@@ -297,6 +586,8 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>a pointer to a git_remote object (null if not found) </dd></dl>
 
+<p class="reference">References <a class="el" href="namespacegit.html#a81ba1b25d8b84182708baed5518decfaa2c18e486683a3db1e645ad8523223b72">git::remote</a>.</p>
+
 <p class="reference">Referenced by <a class="el" href="classgit_1_1Repository.html#add513dd1fa3fd91b4e6c43a94649472e">git::Repository::get_remote()</a>.</p>
 
 </div>
@@ -325,6 +616,8 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>new git_reference object </dd></dl>
+
+<p class="reference">Referenced by <a class="el" href="classgit_1_1Repository.html#a240028341d29c368a759defa63891ec9">git::Repository::get_current_branch_name()</a>.</p>
 
 </div>
 </div>
@@ -592,7 +885,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Mar 7 2024 13:52:10 for libgit4cpp by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Fri May 17 2024 11:32:15 for libgit4cpp by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

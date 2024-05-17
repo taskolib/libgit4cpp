@@ -20,7 +20,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libgit4cpp
-   &#160;<span id="projectnumber">0.2.1</span>
+   &#160;<span id="projectnumber">0.3.1</span>
    </div>
   </td>
  </tr>
@@ -44,6 +44,7 @@ $(function() {
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">git Namespace Reference</div>  </div>
@@ -94,8 +95,18 @@ Typedefs</h2></td></tr>
 <tr class="separator:aee525396cf5bb68a3dff4d92983dd4c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a59da38690afb266a8d8c3ab3da971e86"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegit.html#a59da38690afb266a8d8c3ab3da971e86">LibGitBuf</a> = std::unique_ptr&lt; git_buf, void(*)(git_buf *)&gt;</td></tr>
 <tr class="separator:a59da38690afb266a8d8c3ab3da971e86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c6d08a47ecf6dbe9cce61d707d052c0"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegit.html#a2c6d08a47ecf6dbe9cce61d707d052c0">LibGitBranchIterator</a> = std::unique_ptr&lt; git_branch_iterator, void(*)(git_branch_iterator *)&gt;</td></tr>
+<tr class="separator:a2c6d08a47ecf6dbe9cce61d707d052c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa9ec8cbe4ae1c9d213ea21f48292571f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegit.html#aa9ec8cbe4ae1c9d213ea21f48292571f">CredentialsCallback</a> = int(*)(git_cred **, const char *, const char *, unsigned int, void *)</td></tr>
 <tr class="separator:aa9ec8cbe4ae1c9d213ea21f48292571f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a81ba1b25d8b84182708baed5518decfa"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegit.html#a81ba1b25d8b84182708baed5518decfa">BranchType</a> { <a class="el" href="namespacegit.html#a81ba1b25d8b84182708baed5518decfaaa181a603769c1f98ad927e7367c7aa51">all</a> = 0
+, <a class="el" href="namespacegit.html#a81ba1b25d8b84182708baed5518decfaaf5ddaf0ca7929578b408c909429f68f2">local</a> =1
+, <a class="el" href="namespacegit.html#a81ba1b25d8b84182708baed5518decfaa2c18e486683a3db1e645ad8523223b72">remote</a> =2
+ }</td></tr>
+<tr class="separator:a81ba1b25d8b84182708baed5518decfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -140,12 +151,34 @@ Functions</h2></td></tr>
 <tr class="memitem:ga286555a049d8e3650ec2bc6ef73c88e1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacegit.html#aee525396cf5bb68a3dff4d92983dd4c4">LibGitReference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#ga286555a049d8e3650ec2bc6ef73c88e1">branch_lookup</a> (git_repository *repo, const std::string &amp;branch_name, git_branch_t branch_type)</td></tr>
 <tr class="memdesc:ga286555a049d8e3650ec2bc6ef73c88e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find a named branch.  <a href="group__lgptrfunc.html#ga286555a049d8e3650ec2bc6ef73c88e1">More...</a><br /></td></tr>
 <tr class="separator:ga286555a049d8e3650ec2bc6ef73c88e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2096624d0d2f1a873941d024d5489a78"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacegit.html#a7aeaa54e1150f1d32255ab49dd9fdbe7">LibGitTree</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#ga2096624d0d2f1a873941d024d5489a78">commit_tree</a> (git_commit *commit)</td></tr>
+<tr class="memdesc:ga2096624d0d2f1a873941d024d5489a78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the tree of a commit.  <a href="group__lgptrfunc.html#ga2096624d0d2f1a873941d024d5489a78">More...</a><br /></td></tr>
+<tr class="separator:ga2096624d0d2f1a873941d024d5489a78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae67698639e6f14961408b52ad054261d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacegit.html#aee525396cf5bb68a3dff4d92983dd4c4">LibGitReference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#gae67698639e6f14961408b52ad054261d">branch_create</a> (git_repository *repo, const std::string &amp;new_branch_name, const git_commit *starting_commit, int force)</td></tr>
+<tr class="memdesc:gae67698639e6f14961408b52ad054261d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new branch.  <a href="group__lgptrfunc.html#gae67698639e6f14961408b52ad054261d">More...</a><br /></td></tr>
+<tr class="separator:gae67698639e6f14961408b52ad054261d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga940c39825defe26e9b9849d1f6bd99b4"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#ga940c39825defe26e9b9849d1f6bd99b4">branch_remote_name</a> (git_repository *repo, const std::string &amp;branch_name)</td></tr>
 <tr class="memdesc:ga940c39825defe26e9b9849d1f6bd99b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the name of a branch on the remote.  <a href="group__lgptrfunc.html#ga940c39825defe26e9b9849d1f6bd99b4">More...</a><br /></td></tr>
 <tr class="separator:ga940c39825defe26e9b9849d1f6bd99b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf66242365a8abd8c39dd3498371a471c"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#gaf66242365a8abd8c39dd3498371a471c">reference_shorthand</a> (const git_reference *ref)</td></tr>
+<tr class="memdesc:gaf66242365a8abd8c39dd3498371a471c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the human-readable name of a reference.  <a href="group__lgptrfunc.html#gaf66242365a8abd8c39dd3498371a471c">More...</a><br /></td></tr>
+<tr class="separator:gaf66242365a8abd8c39dd3498371a471c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga305a533ba27c26414946711a9fa8a560"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#ga305a533ba27c26414946711a9fa8a560">reference_name</a> (git_reference *ref)</td></tr>
+<tr class="memdesc:ga305a533ba27c26414946711a9fa8a560"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get full name of a reference.  <a href="group__lgptrfunc.html#ga305a533ba27c26414946711a9fa8a560">More...</a><br /></td></tr>
+<tr class="separator:ga305a533ba27c26414946711a9fa8a560"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e2a9442cf8a7de44671b743b388d45a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacegit.html#aa9ec8cbe4ae1c9d213ea21f48292571f">CredentialsCallback</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegit.html#a0e2a9442cf8a7de44671b743b388d45a">get_dummy_credentials_callback</a> ()</td></tr>
 <tr class="memdesc:a0e2a9442cf8a7de44671b743b388d45a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a dummy credentials callback function for libgit2.  <a href="namespacegit.html#a0e2a9442cf8a7de44671b743b388d45a">More...</a><br /></td></tr>
 <tr class="separator:a0e2a9442cf8a7de44671b743b388d45a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader"></div></td></tr>
+<tr class="memitem:ga2f4f00ef88a1cb9901afe2e589e64306"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacegit.html#aee525396cf5bb68a3dff4d92983dd4c4">LibGitReference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#ga2f4f00ef88a1cb9901afe2e589e64306">parse_reference_from_name</a> (git_repository *repo, const std::string &amp;name)</td></tr>
+<tr class="memdesc:ga2f4f00ef88a1cb9901afe2e589e64306"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find reference object from shortname, longname or id specification.  <a href="group__lgptrfunc.html#ga2f4f00ef88a1cb9901afe2e589e64306">More...</a><br /></td></tr>
+<tr class="separator:ga2f4f00ef88a1cb9901afe2e589e64306"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gade30b989a87189b4f9d6fba4a1eb5bea"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacegit.html#a2c6d08a47ecf6dbe9cce61d707d052c0">LibGitBranchIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#gade30b989a87189b4f9d6fba4a1eb5bea">branch_iterator</a> (git_repository *repo, git_branch_t flag)</td></tr>
+<tr class="memdesc:gade30b989a87189b4f9d6fba4a1eb5bea"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns an iterator of the branches.  <a href="group__lgptrfunc.html#gade30b989a87189b4f9d6fba4a1eb5bea">More...</a><br /></td></tr>
+<tr class="separator:gade30b989a87189b4f9d6fba4a1eb5bea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab8071c4f3471a491434c0b5f9cf001dd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacegit.html#aee525396cf5bb68a3dff4d92983dd4c4">LibGitReference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lgptrfunc.html#gab8071c4f3471a491434c0b5f9cf001dd">branch_next</a> (git_branch_t *branch_type, git_branch_iterator *iter)</td></tr>
+<tr class="memdesc:gab8071c4f3471a491434c0b5f9cf001dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterates branches over an iterator object.  <a href="group__lgptrfunc.html#gab8071c4f3471a491434c0b5f9cf001dd">More...</a><br /></td></tr>
+<tr class="separator:gab8071c4f3471a491434c0b5f9cf001dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
 <a id="aa9ec8cbe4ae1c9d213ea21f48292571f"></a>
@@ -156,6 +189,20 @@ Functions</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">using <a class="el" href="namespacegit.html#aa9ec8cbe4ae1c9d213ea21f48292571f">git::CredentialsCallback</a> = typedef int (*)(git_cred**, const char*, const char*, unsigned int, void*)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2c6d08a47ecf6dbe9cce61d707d052c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c6d08a47ecf6dbe9cce61d707d052c0">&#9670;&nbsp;</a></span>LibGitBranchIterator</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespacegit.html#a2c6d08a47ecf6dbe9cce61d707d052c0">git::LibGitBranchIterator</a> = typedef std::unique_ptr&lt;git_branch_iterator, void(*)(git_branch_iterator*)&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -302,6 +349,34 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="a81ba1b25d8b84182708baed5518decfa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81ba1b25d8b84182708baed5518decfa">&#9670;&nbsp;</a></span>BranchType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="namespacegit.html#a81ba1b25d8b84182708baed5518decfa">git::BranchType</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a81ba1b25d8b84182708baed5518decfaaa181a603769c1f98ad927e7367c7aa51"></a>all&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a81ba1b25d8b84182708baed5518decfaaf5ddaf0ca7929578b408c909429f68f2"></a>local&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a81ba1b25d8b84182708baed5518decfaa2c18e486683a3db1e645ad8523223b72"></a>remote&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a0e2a9442cf8a7de44671b743b388d45a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0e2a9442cf8a7de44671b743b388d45a">&#9670;&nbsp;</a></span>get_dummy_credentials_callback()</h2>
@@ -385,7 +460,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Mar 7 2024 13:52:10 for libgit4cpp by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Fri May 17 2024 11:32:15 for libgit4cpp by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
