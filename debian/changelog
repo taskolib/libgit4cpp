@@ -1,3 +1,9 @@
+libgit4cpp-0-4-3 (0.4.4) unstable; urgency=low
+
+  * new version 
+
+ -- Jannik Woehnert <jannik.woehnert@desy.de>  Mon, 05 Aug 2024 18:19:18 +0200
+
 libgit4cpp-0-4-3 (0.4.3) unstable; urgency=low
 
   * automatically added debian changelog entry
