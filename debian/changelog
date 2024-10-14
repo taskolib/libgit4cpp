@@ -1,3 +1,10 @@
+libgit4cpp-0-4-5 (0.4.5) unstable; urgency=low
+
+  * automatically added debian changelog entry
+    by the DOOCS script check_changelog
+
+ -- Jannik Woehnert <jannik.woehnert@desy.de>  Mon, 14 Oct 2024 11:26:08 +0200
+
 libgit4cpp-0-4-4 (0.4.5) unstable; urgency=low
 
   * new version 
