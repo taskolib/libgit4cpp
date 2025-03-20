@@ -11,7 +11,10 @@ test_src = files(
 test('all',
     executable(meson.project_name() + '_test',
         test_src,
-        dependencies : libgit4cpp_dep,
+        dependencies : [
+            dependency('catch2'),
+            libgit4cpp_dep,
+        ],
     ),
     workdir : meson.current_build_dir(),
     timeout : 10,

@@ -1,9 +1,10 @@
 /**
- * \file   test_Error.cc
- * \date   Created on January 23, 2024
- * \brief  Test suite for the git::Error exception class.
+ * \file    test_Error.cc
+ * \authors Fini Jastrow, Lars Fröhlich
+ * \date    Created on January 23, 2024
+ * \brief   Test suite for the git::Error exception class.
  *
- * \copyright Copyright 2024 Deutsches Elektronen-Synchrotron (DESY), Hamburg
+ * \copyright Copyright 2024-2025 Deutsches Elektronen-Synchrotron (DESY), Hamburg
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -23,7 +24,7 @@
 
 #include <string>
 
-#include <gul14/catch.h>
+#include <catch2/catch_test_macros.hpp>
 
 #include "libgit4cpp/Error.h"
 
