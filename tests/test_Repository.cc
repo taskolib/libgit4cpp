@@ -4,7 +4,7 @@
  * \date   Created on March 22, 2023
  * \brief  Test suite for the Repository class.
  *
- * \copyright Copyright 2023-2024 Deutsches Elektronen-Synchrotron (DESY), Hamburg
+ * \copyright Copyright 2023-2025 Deutsches Elektronen-Synchrotron (DESY), Hamburg
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -26,8 +26,8 @@
 #include <fstream>
 #include <iostream>
 
+#include <catch2/catch_test_macros.hpp>
 #include <git2.h>
-#include <gul14/catch.h>
 #include <gul14/gul.h>
 
 #include "libgit4cpp/Error.h"
