@@ -45,7 +45,7 @@ jobs:
       uses: robinraju/release-downloader@v1.6
       with:
         repository: "mesonbuild/meson"
-        tag: "0.53.2"
+        tag: "1.7.0"
         fileName: "*.tar.gz"
     - name: Unpack meson tar ball and remove downloaded file
       run: |
@@ -61,8 +61,8 @@ jobs:
 
     - name: Configure build directories
       run: |
-        ./meson.py --buildtype=release build.release
-        ./meson.py --buildtype=debug build.asan -Db_sanitize=address
+        ./meson.py setup --buildtype=release build.release
+        ./meson.py setup --buildtype=debug build.asan -Db_sanitize=address
     - name: Build and run release tests
       id: buildnormal
       run: ./meson.py test -C build.release
