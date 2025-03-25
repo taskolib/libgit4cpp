@@ -12,7 +12,7 @@ test('all',
     executable(meson.project_name() + '_test',
         test_src,
         dependencies : [
-            dependency('catch2'),
+            dependency('catch2', version : '>3.4.0'),
             libgit4cpp_dep,
         ],
     ),
