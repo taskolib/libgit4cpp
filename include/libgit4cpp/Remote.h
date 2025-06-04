@@ -4,7 +4,7 @@
  * \date   Created on January 15, 2024
  * \brief  Declaration of the Remote class.
  *
- * \copyright Copyright 2024 Deutsches Elektronen-Synchrotron (DESY), Hamburg
+ * \copyright Copyright 2024-2025 Deutsches Elektronen-Synchrotron (DESY), Hamburg
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -26,10 +26,9 @@
 #define LIBGIT4CPP_REMOTE_H_
 
 #include <string>
+#include <vector>
 
 #include <git2.h>
-#include <gul14/optional.h>
-#include <gul14/SmallVector.h>
 
 #include "libgit4cpp/types.h"
 

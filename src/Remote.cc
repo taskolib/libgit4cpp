@@ -4,7 +4,7 @@
  * \date   Created on January 15, 2024
  * \brief  Implementation of the Remote class.
  *
- * \copyright Copyright 2024 Deutsches Elektronen-Synchrotron (DESY), Hamburg
+ * \copyright Copyright 2024-2025 Deutsches Elektronen-Synchrotron (DESY), Hamburg
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -23,14 +23,14 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 
 #include <git2.h>
-#include <gul14/cat.h>
+#include <gul17/cat.h>
 
+#include "credentials_callback.h"
 #include "libgit4cpp/Error.h"
 #include "libgit4cpp/Remote.h"
 #include "libgit4cpp/wrapper_functions.h"
-#include "credentials_callback.h"
 
-using gul14::cat;
+using gul17::cat;
 
 namespace git {
 

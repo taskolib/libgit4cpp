@@ -4,7 +4,7 @@
  * \date   Created on March 20, 2023
  * \brief  Implementation of the Repository class.
  *
- * \copyright Copyright 2023-2024 Deutsches Elektronen-Synchrotron (DESY), Hamburg
+ * \copyright Copyright 2023-2025 Deutsches Elektronen-Synchrotron (DESY), Hamburg
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -22,19 +22,20 @@
 
 // SPDX-License-Identifier: LGPL-2.1-or-later
 
+#include <cstring>
 #include <iostream>
 #include <vector>
 
 #include <git2.h>
-#include <gul14/cat.h>
-#include <gul14/finalizer.h>
+#include <gul17/cat.h>
+#include <gul17/finalizer.h>
 
 #include "libgit4cpp/Error.h"
 #include "libgit4cpp/Repository.h"
 #include "libgit4cpp/wrapper_functions.h"
 #include "credentials_callback.h"
 
-using gul14::cat;
+using gul17::cat;
 
 namespace git {
 
@@ -441,7 +442,7 @@ Remote Repository::add_remote(const std::string& remote_name, const std::string&
     return Remote{ std::move(remote) };
 }
 
-gul14::optional<Remote> Repository::get_remote(const std::string& remote_name) const
+std::optional<Remote> Repository::get_remote(const std::string& remote_name) const
 {
     auto remote = remote_lookup(repo_.get(), remote_name);
     if (!remote)
@@ -477,7 +478,7 @@ std::vector<std::string> Repository::list_remote_names() const
     int err = git_remote_list(&remotes, repo_.get());
     if (err)
         throw Error{ cat("Cannot list remotes: ", git_error_last()->message) };
-    auto cleanup = gul14::finally([&remotes]() { git_strarray_free(&remotes); });
+    auto cleanup = gul17::finally([&remotes]() { git_strarray_free(&remotes); });
 
     std::vector<std::string> list;
     list.reserve(remotes.count);
