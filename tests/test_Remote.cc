@@ -22,12 +22,12 @@
 
 // SPDX-License-Identifier: LGPL-2.1-or-later
 
+#include <algorithm>
 #include <filesystem>
 #include <fstream>
 
 #include <catch2/catch_test_macros.hpp>
 #include <git2.h>
-#include <gul14/gul.h>
 
 #include "libgit4cpp/Error.h"
 #include "libgit4cpp/Repository.h"
@@ -37,7 +37,6 @@
 
 using namespace git;
 using namespace std::literals;
-using gul14::cat;
 
 static const auto working_dir = unit_test_folder() / "Remote_list_references";
 static const auto remote_repo = unit_test_folder() / "Remote_list_references.remote";
