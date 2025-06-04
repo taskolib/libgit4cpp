@@ -55,7 +55,7 @@ inc = [ ]
 subdir('include')
 subdir('src')
 
-gul_dep = dependency('libgul14', version : '> 2.6', fallback : [ 'libgul14', 'libgul_dep' ])
+gul_dep = dependency('gul17', fallback : [ 'gul17', 'libgul_dep' ])
 libgit2_dep = dependency('libgit2')
 
 deps = [
@@ -93,7 +93,7 @@ pkg.generate(lib,
     version : libno,
     filebase : pkg_config_name,
     libraries : [ '-Wl,-rpath,${libdir}' ],
-    requires : [ 'libgul14', 'libgit2' ],
+    requires : [ 'gul17', 'libgit2' ],
 )
 
 

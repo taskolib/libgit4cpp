@@ -28,7 +28,9 @@
 
 #include <catch2/catch_test_macros.hpp>
 #include <git2.h>
-#include <gul14/gul.h>
+#include <gul17/cat.h>
+#include <gul17/substring_checks.h>
+#include <gul17/trim.h>
 
 #include "libgit4cpp/Error.h"
 #include "libgit4cpp/Repository.h"
@@ -37,7 +39,7 @@
 
 using namespace git;
 using namespace std::literals;
-using gul14::cat;
+using gul17::cat;
 
 namespace {
 
@@ -121,7 +123,7 @@ TEST_CASE("Repository Wrapper Test all", "[Repository]")
         REQUIRE(stats.size() != 0);
         for (const auto& elm: stats)
         {
-            if (gul14::starts_with(elm.path_name, "unit_test_1") || gul14::starts_with(elm.path_name, "unit_test_2"))
+            if (gul17::starts_with(elm.path_name, "unit_test_1") || gul17::starts_with(elm.path_name, "unit_test_2"))
             {
                 REQUIRE(elm.handling == "untracked");
                 REQUIRE(elm.changes == "untracked");
@@ -136,7 +138,7 @@ TEST_CASE("Repository Wrapper Test all", "[Repository]")
         REQUIRE(stats.size() != 0);
         for (const auto& elm: stats)
         {
-            if (gul14::starts_with(elm.path_name, "unit_test_1") || gul14::starts_with(elm.path_name, "unit_test_2"))
+            if (gul17::starts_with(elm.path_name, "unit_test_1") || gul17::starts_with(elm.path_name, "unit_test_2"))
             {
                 REQUIRE(elm.handling == "staged");
                 REQUIRE(elm.changes == "new file");
@@ -163,7 +165,7 @@ TEST_CASE("Repository Wrapper Test all", "[Repository]")
         REQUIRE(stats.size() != 0);
         for (const auto& elm: stats)
         {
-            if (gul14::starts_with(elm.path_name, "unit_test_1") || gul14::starts_with(elm.path_name, "unit_test_2"))
+            if (gul17::starts_with(elm.path_name, "unit_test_1") || gul17::starts_with(elm.path_name, "unit_test_2"))
             {
                 REQUIRE(elm.handling == "staged");
                 REQUIRE(elm.changes == "new file");
@@ -179,7 +181,7 @@ TEST_CASE("Repository Wrapper Test all", "[Repository]")
         REQUIRE(stats.size() != 0);
         for (const auto& elm: stats)
         {
-            if (gul14::starts_with(elm.path_name, "unit_test_1") || gul14::starts_with(elm.path_name, "unit_test_2"))
+            if (gul17::starts_with(elm.path_name, "unit_test_1") || gul17::starts_with(elm.path_name, "unit_test_2"))
             {
                 REQUIRE(elm.handling == "unchanged");
                 REQUIRE(elm.changes == "unchanged");
@@ -207,12 +209,12 @@ TEST_CASE("Repository Wrapper Test all", "[Repository]")
         REQUIRE(stats.size() != 0);
         for (const auto& elm: stats)
         {
-            if (gul14::starts_with(elm.path_name, "unit_test_1/file"))
+            if (gul17::starts_with(elm.path_name, "unit_test_1/file"))
             {
                 REQUIRE(elm.handling == "unstaged");
                 REQUIRE(elm.changes == "modified");
             }
-            else if (gul14::starts_with(elm.path_name, "unit_test_2/file"))
+            else if (gul17::starts_with(elm.path_name, "unit_test_2/file"))
             {
                 REQUIRE(elm.handling == "unchanged");
                 REQUIRE(elm.changes == "unchanged");
@@ -222,7 +224,7 @@ TEST_CASE("Repository Wrapper Test all", "[Repository]")
         // Try the dump to stream operator with some 'interesting' state:
         std::stringstream ss{ };
         ss << stats;
-        REQUIRE(gul14::trim(ss.str()) == "RepoState {\n" \
+        REQUIRE(gul17::trim(ss.str()) == "RepoState {\n" \
             "FileStatus{ \"unit_test_1/file0.txt\": unstaged; modified }\n" \
             "FileStatus{ \"unit_test_1/file1.txt\": unstaged; modified }\n" \
             "FileStatus{ \"unit_test_2/file0.txt\": unchanged; unchanged }\n" \
@@ -238,17 +240,17 @@ TEST_CASE("Repository Wrapper Test all", "[Repository]")
         REQUIRE(stats.size() != 0);
         for(const auto& elm: stats)
         {
-            if (gul14::starts_with(elm.path_name, "unit_test_1/file0"))
+            if (gul17::starts_with(elm.path_name, "unit_test_1/file0"))
             {
                 REQUIRE(elm.handling == "unstaged");
                 REQUIRE(elm.changes == "modified");
             }
-            else if (gul14::starts_with(elm.path_name, "unit_test_1/file1"))
+            else if (gul17::starts_with(elm.path_name, "unit_test_1/file1"))
             {
                 REQUIRE(elm.handling == "staged");
                 REQUIRE(elm.changes == "modified");
             }
-            else if (gul14::starts_with(elm.path_name, "unit_test_2/file"))
+            else if (gul17::starts_with(elm.path_name, "unit_test_2/file"))
             {
                 REQUIRE(elm.handling == "unchanged");
                 REQUIRE(elm.changes == "unchanged");
@@ -274,7 +276,7 @@ TEST_CASE("Repository Wrapper Test all", "[Repository]")
         REQUIRE(stats.size() != 0);
         for(const auto& elm: stats)
         {
-            if (gul14::starts_with(elm.path_name, "unit_test_2/file1.txt"))
+            if (gul17::starts_with(elm.path_name, "unit_test_2/file1.txt"))
             {
                 REQUIRE(elm.handling == "staged");
                 REQUIRE(elm.changes == "deleted");
@@ -294,7 +296,7 @@ TEST_CASE("Repository Wrapper Test all", "[Repository]")
 
         std::stringstream ss{ };
         ss << gl.status();
-        REQUIRE(gul14::trim(ss.str()) == "RepoState {\n" \
+        REQUIRE(gul17::trim(ss.str()) == "RepoState {\n" \
             "FileStatus{ \"unit_test_1/file0.txt\": unstaged; modified }\n" \
             "FileStatus{ \"unit_test_1/file1.txt\": unchanged; unchanged }\n" \
             "FileStatus{ \"unit_test_2/file0.txt\": unchanged; unchanged }\n" \
@@ -304,7 +306,7 @@ TEST_CASE("Repository Wrapper Test all", "[Repository]")
 
         ss.str("");
         ss << gl.status();
-        REQUIRE(gul14::trim(ss.str()) == "RepoState {\n" \
+        REQUIRE(gul17::trim(ss.str()) == "RepoState {\n" \
             "FileStatus{ \"unit_test_1/file0.txt\": unchanged; unchanged }\n" \
             "FileStatus{ \"unit_test_1/file1.txt\": unchanged; unchanged }\n" \
             "FileStatus{ \"unit_test_2/file0.txt\": unchanged; unchanged }\n" \
@@ -314,7 +316,7 @@ TEST_CASE("Repository Wrapper Test all", "[Repository]")
 
         ss.str("");
         ss << gl.status();
-        REQUIRE(gul14::trim(ss.str()) == "RepoState {\n" \
+        REQUIRE(gul17::trim(ss.str()) == "RepoState {\n" \
             "FileStatus{ \"unit_test_1/file0.txt\": unchanged; unchanged }\n" \
             "FileStatus{ \"unit_test_1/file1.txt\": unchanged; unchanged }\n" \
             "FileStatus{ \"unit_test_2/file0.txt\": unchanged; unchanged }\n" \
@@ -348,7 +350,7 @@ TEST_CASE("Repository Wrapper Test all", "[Repository]")
         REQUIRE(stats.size() != 0);
         for(const auto& elm: stats)
         {
-            if (gul14::starts_with(elm.path_name, "unit_test_2"))
+            if (gul17::starts_with(elm.path_name, "unit_test_2"))
             {
                 REQUIRE(elm.handling == "staged");
                 REQUIRE(elm.changes == "deleted");
@@ -363,7 +365,7 @@ TEST_CASE("Repository Wrapper Test all", "[Repository]")
         REQUIRE(stats.size() != 0);
         for(const auto& elm: stats)
         {
-            if (gul14::starts_with(elm.path_name, "unit_test_2/file"))
+            if (gul17::starts_with(elm.path_name, "unit_test_2/file"))
                 REQUIRE (elm.changes == "untracked");
         }
 
@@ -375,7 +377,7 @@ TEST_CASE("Repository Wrapper Test all", "[Repository]")
         Repository gl{ reporoot };
         auto ss = std::stringstream{ };
         ss << gl.status();
-        REQUIRE(gul14::trim(ss.str()) == "RepoState {\n" \
+        REQUIRE(gul17::trim(ss.str()) == "RepoState {\n" \
             "FileStatus{ \"unit_test_1/file0.txt\": unchanged; unchanged }\n" \
             "FileStatus{ \"unit_test_1/file1.txt\": unchanged; unchanged }\n" \
             "FileStatus{ \"unit_test_2/file0.txt\": untracked; untracked }\n" \
@@ -386,7 +388,7 @@ TEST_CASE("Repository Wrapper Test all", "[Repository]")
 
         ss.str("");
         ss << gl.status();
-        REQUIRE(gul14::trim(ss.str()) == "RepoState {\n" \
+        REQUIRE(gul17::trim(ss.str()) == "RepoState {\n" \
             "FileStatus{ \"unit_test_1/file0.txt\": unchanged; unchanged }\n" \
             "FileStatus{ \"unit_test_1/file1.txt\": unchanged; unchanged }\n" \
             "FileStatus{ \"unit_test_2/file0.txt\": untracked; untracked }\n" \
@@ -452,7 +454,7 @@ TEST_CASE("Repository add() with glob", "[Repository]")
         stats.erase(new_end, stats.end());
         std::stringstream ss{ };
         ss << stats;
-        INFO(gul14::trim(ss.str()));
+        INFO(gul17::trim(ss.str()));
         REQUIRE(stats.size() == 0);
     }
     SECTION("Star glob on files 2")
@@ -470,7 +472,7 @@ TEST_CASE("Repository add() with glob", "[Repository]")
         stats.erase(new_end, stats.end());
         std::stringstream ss{ };
         ss << stats;
-        INFO(gul14::trim(ss.str()));
+        INFO(gul17::trim(ss.str()));
         REQUIRE(stats.size() == 5);
     }
     SECTION("Star glob on directories 1")
@@ -489,7 +491,7 @@ TEST_CASE("Repository add() with glob", "[Repository]")
         stats.erase(new_end, stats.end());
         std::stringstream ss{ };
         ss << stats;
-        INFO(gul14::trim(ss.str()));
+        INFO(gul17::trim(ss.str()));
         REQUIRE(stats.size() == 3);
     }
     SECTION("Star glob on directories 2")
@@ -506,7 +508,7 @@ TEST_CASE("Repository add() with glob", "[Repository]")
         stats.erase(new_end, stats.end());
         std::stringstream ss{ };
         ss << stats;
-        INFO(gul14::trim(ss.str()));
+        INFO(gul17::trim(ss.str()));
         REQUIRE(stats.size() == 1);
     }
     SECTION("Questionmark glob")
@@ -521,7 +523,7 @@ TEST_CASE("Repository add() with glob", "[Repository]")
         stats.erase(new_end, stats.end());
         std::stringstream ss{ };
         ss << stats;
-        INFO(gul14::trim(ss.str()));
+        INFO(gul17::trim(ss.str()));
         REQUIRE(stats.size() == 2);
     }
     SECTION("Selection glob simple")
@@ -543,7 +545,7 @@ TEST_CASE("Repository add() with glob", "[Repository]")
         stats.erase(new_end, stats.end());
         std::stringstream ss{ };
         ss << stats;
-        INFO(gul14::trim(ss.str()));
+        INFO(gul17::trim(ss.str()));
         REQUIRE(stats.size() == 7);
     }
     SECTION("Selection glob range")
@@ -562,7 +564,7 @@ TEST_CASE("Repository add() with glob", "[Repository]")
         stats.erase(new_end, stats.end());
         std::stringstream ss{ };
         ss << stats;
-        INFO(gul14::trim(ss.str()));
+        INFO(gul17::trim(ss.str()));
         REQUIRE(stats.size() == 6);
     }
     SECTION("Hidden files need extra globs")
@@ -576,7 +578,7 @@ TEST_CASE("Repository add() with glob", "[Repository]")
         stats.erase(new_end, stats.end());
         std::stringstream ss{ };
         ss << stats;
-        INFO(gul14::trim(ss.str()));
+        INFO(gul17::trim(ss.str()));
         REQUIRE(stats.size() == 1);
     }
 }
@@ -792,8 +794,8 @@ TEST_CASE("Repository: partially checkout other branch", "[Repository]")
     // check file status before
     auto ss = std::stringstream{ };
     ss << repo.status();
-    auto est = gul14::trim(ss.str());
-    REQUIRE(gul14::trim(ss.str()) == "RepoState {\n" \
+    auto est = gul17::trim(ss.str());
+    REQUIRE(gul17::trim(ss.str()) == "RepoState {\n" \
         "FileStatus{ \"partial_checkout_test/file0.txt\": unchanged; unchanged }\n" \
         "FileStatus{ \"partial_checkout_test/file1.txt\": unchanged; unchanged }\n" \
         "}");
@@ -802,8 +804,8 @@ TEST_CASE("Repository: partially checkout other branch", "[Repository]")
     repo.checkout("new_branch", {"*"});
     ss.str("");
     ss << repo.status();
-    est = gul14::trim(ss.str());
-    REQUIRE(gul14::trim(ss.str()) == "RepoState {\n" \
+    est = gul17::trim(ss.str());
+    REQUIRE(gul17::trim(ss.str()) == "RepoState {\n" \
         "FileStatus{ \"partial_checkout_test/file0.txt\": unchanged; unchanged }\n" \
         "FileStatus{ \"partial_checkout_test/file1.txt\": staged; modified }\n" \
         "FileStatus{ \"partial_checkout_test/file2.txt\": staged; new file }\n" \
@@ -816,8 +818,8 @@ TEST_CASE("Repository: partially checkout other branch", "[Repository]")
     repo.checkout("new_branch", {"*file3*"});
     ss.str("");
     ss << repo.status();
-    est = gul14::trim(ss.str());
-    REQUIRE(gul14::trim(ss.str()) == "RepoState {\n" \
+    est = gul17::trim(ss.str());
+    REQUIRE(gul17::trim(ss.str()) == "RepoState {\n" \
     "FileStatus{ \"partial_checkout_test/file0.txt\": unchanged; unchanged }\n" \
     "FileStatus{ \"partial_checkout_test/file1.txt\": unchanged; unchanged }\n" \
     "FileStatus{ \"partial_checkout_test/file3.txt\": staged; new file }\n" \
@@ -829,8 +831,8 @@ TEST_CASE("Repository: partially checkout other branch", "[Repository]")
     repo.checkout("new_branch", {"*file1*", "*file2*"});
     ss.str("");
     ss << repo.status();
-    est = gul14::trim(ss.str());
-    REQUIRE(gul14::trim(ss.str()) == "RepoState {\n" \
+    est = gul17::trim(ss.str());
+    REQUIRE(gul17::trim(ss.str()) == "RepoState {\n" \
     "FileStatus{ \"partial_checkout_test/file0.txt\": unchanged; unchanged }\n" \
     "FileStatus{ \"partial_checkout_test/file1.txt\": staged; modified }\n" \
     "FileStatus{ \"partial_checkout_test/file2.txt\": staged; new file }\n" \
@@ -884,7 +886,7 @@ TEST_CASE("Repository Wrapper Test Remote", "[GitWrapper]")
         REQUIRE(stats.size() != 0);
         for(const auto& elm: stats)
         {
-            if (gul14::starts_with(elm.path_name, "unit_test_1"))
+            if (gul17::starts_with(elm.path_name, "unit_test_1"))
             {
                 REQUIRE(elm.handling == "unchanged");
                 REQUIRE(elm.changes == "unchanged");

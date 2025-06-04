@@ -4,7 +4,7 @@
  * \date   Created on March 20, 2023
  * \brief  Wrapper for C-Package libgit2
  *
- * \copyright Copyright 2023-2024 Deutsches Elektronen-Synchrotron (DESY), Hamburg
+ * \copyright Copyright 2023-2025 Deutsches Elektronen-Synchrotron (DESY), Hamburg
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -26,11 +26,12 @@
 #define LIBGIT4CPP_REPOSITORY_H_
 
 #include <filesystem>
+#include <optional>
 #include <string>
 #include <vector>
 
 #include <git2.h>
-#include <gul14/escape.h>
+#include <gul17/escape.h>
 
 #include "libgit4cpp/Remote.h"
 #include "libgit4cpp/types.h"
@@ -47,7 +48,7 @@ struct FileStatus
     std::string changes;   /// Change status of file [new file, deleted, renamed, typechanged, modified, unchanged, ignored, untracked]
 
     friend std::ostream& operator<<(std::ostream& stream, FileStatus const& state) {
-        stream << "FileStatus{ \"" << gul14::escape(state.path_name) << "\": " << state.handling << "; " << state.changes << " }";
+        stream << "FileStatus{ \"" << gul17::escape(state.path_name) << "\": " << state.handling << "; " << state.changes << " }";
         return stream;
     }
 };
@@ -189,7 +190,7 @@ public:
      * Look up a git remote by name in the repository.
      * \returns a Remote object if the remote exists, or an empty optional otherwise.
      */
-    gul14::optional<Remote> get_remote(const std::string& remote_name) const;
+    std::optional<Remote> get_remote(const std::string& remote_name) const;
 
     /**
      * Return a list of all configured remote repositories.
