@@ -20,7 +20,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libgit4cpp
-   &#160;<span id="projectnumber">0.3.1</span>
+   &#160;<span id="projectnumber">0.5.2</span>
    </div>
   </td>
  </tr>
@@ -54,37 +54,36 @@ $(function() {
 <div class="textblock"><p>Implementation of the Remote class. </p>
 <dl class="section author"><dt>Author</dt><dd>Lars Fröhlich </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>Created on January 15, 2024</dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>Copyright 2024 Deutsches Elektronen-Synchrotron (DESY), Hamburg</dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright 2024-2025 Deutsches Elektronen-Synchrotron (DESY), Hamburg</dd></dl>
 <p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 2.1 of the license, or (at your option) any later version.</p>
 <p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.</p>
 <p>You should have received a copy of the GNU Lesser General Public License along with this program. If not, see <a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>. </p>
 </div><div class="textblock"><code>#include &lt;git2.h&gt;</code><br />
-<code>#include &lt;gul14/cat.h&gt;</code><br />
+<code>#include &lt;gul17/cat.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="credentials__callback_8h_source.html">credentials_callback.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Error_8h_source.html">libgit4cpp/Error.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Remote_8h_source.html">libgit4cpp/Remote.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="wrapper__functions_8h_source.html">libgit4cpp/wrapper_functions.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="credentials__callback_8h_source.html">credentials_callback.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for Remote.cc:</div>
 <div class="dyncontent">
 <div class="center"><img src="Remote_8cc__incl.png" border="0" usemap="#aRemote_8cc" alt=""/></div>
 <map name="aRemote_8cc" id="aRemote_8cc">
-<area shape="rect" title="Implementation of the Remote class." alt="" coords="335,5,426,32"/>
-<area shape="rect" title=" " alt="" coords="64,244,123,271"/>
-<area shape="rect" title=" " alt="" coords="569,87,664,114"/>
-<area shape="rect" href="Error_8h.html" title="Definition of the Error exception class." alt="" coords="926,87,1058,114"/>
-<area shape="rect" href="Remote_8h.html" title="Declaration of the Remote class." alt="" coords="392,87,545,114"/>
-<area shape="rect" href="wrapper__functions_8h.html" title="Declaration of wrappers for libgit2 functions." alt="" coords="224,80,366,121"/>
-<area shape="rect" href="credentials__callback_8h.html" title="Declaration of the credentials callback function." alt="" coords="32,87,198,114"/>
-<area shape="rect" title=" " alt="" coords="938,169,1046,196"/>
-<area shape="rect" title=" " alt="" coords="1071,169,1172,196"/>
-<area shape="rect" title=" " alt="" coords="316,169,375,196"/>
-<area shape="rect" title=" " alt="" coords="613,169,740,196"/>
-<area shape="rect" title=" " alt="" coords="764,169,914,196"/>
-<area shape="rect" href="types_8h.html" title="Definition of owner types for raw pointers." alt="" coords="399,169,538,196"/>
-<area shape="rect" title=" " alt="" coords="430,244,507,271"/>
-<area shape="rect" title=" " alt="" coords="132,169,208,196"/>
-<area shape="rect" title=" " alt="" coords="232,169,292,196"/>
+<area shape="rect" title="Implementation of the Remote class." alt="" coords="334,5,425,32"/>
+<area shape="rect" title=" " alt="" coords="153,244,211,271"/>
+<area shape="rect" title=" " alt="" coords="561,87,656,114"/>
+<area shape="rect" href="credentials__callback_8h.html" title="Declaration of the credentials callback function." alt="" coords="27,87,193,114"/>
+<area shape="rect" href="Error_8h.html" title="Definition of the Error exception class." alt="" coords="685,87,817,114"/>
+<area shape="rect" href="Remote_8h.html" title="Declaration of the Remote class." alt="" coords="217,87,371,114"/>
+<area shape="rect" href="wrapper__functions_8h.html" title="Declaration of wrappers for libgit2 functions." alt="" coords="395,80,537,121"/>
+<area shape="rect" title=" " alt="" coords="827,169,935,196"/>
+<area shape="rect" title=" " alt="" coords="701,169,802,196"/>
+<area shape="rect" title=" " alt="" coords="382,169,441,196"/>
+<area shape="rect" title=" " alt="" coords="81,169,144,196"/>
+<area shape="rect" href="types_8h.html" title="Definition of owner types for raw pointers." alt="" coords="219,169,358,196"/>
+<area shape="rect" title=" " alt="" coords="250,244,327,271"/>
+<area shape="rect" title=" " alt="" coords="600,169,676,196"/>
+<area shape="rect" title=" " alt="" coords="516,169,576,196"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -97,7 +96,7 @@ Namespaces</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri May 17 2024 11:32:15 for libgit4cpp by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Thu Jun 12 2025 16:32:45 for libgit4cpp by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

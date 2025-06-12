@@ -1,9 +1,8 @@
 <map id="Remote.h" name="Remote.h">
-<area shape="rect" id="node1" title="Declaration of the Remote class." alt="" coords="160,5,245,32"/>
+<area shape="rect" id="node1" title="Declaration of the Remote class." alt="" coords="112,5,197,32"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,80,64,107"/>
-<area shape="rect" id="node3" title=" " alt="" coords="243,155,301,181"/>
-<area shape="rect" id="node4" title=" " alt="" coords="139,80,266,107"/>
-<area shape="rect" id="node5" title=" " alt="" coords="290,80,441,107"/>
-<area shape="rect" id="node6" href="$types_8h.html" title="Definition of owner types for raw pointers." alt="" coords="465,80,604,107"/>
-<area shape="rect" id="node7" title=" " alt="" coords="496,155,573,181"/>
+<area shape="rect" id="node3" title=" " alt="" coords="89,80,151,107"/>
+<area shape="rect" id="node4" title=" " alt="" coords="168,155,227,181"/>
+<area shape="rect" id="node5" href="$types_8h.html" title="Definition of owner types for raw pointers." alt="" coords="227,80,365,107"/>
+<area shape="rect" id="node6" title=" " alt="" coords="257,155,335,181"/>
 </map>

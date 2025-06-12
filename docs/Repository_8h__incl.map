@@ -1,13 +1,12 @@
 <map id="Repository.h" name="Repository.h">
-<area shape="rect" id="node1" title="Wrapper for C&#45;Package libgit2." alt="" coords="221,5,323,32"/>
+<area shape="rect" id="node1" title="Wrapper for C&#45;Package libgit2." alt="" coords="289,5,391,32"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,80,96,107"/>
-<area shape="rect" id="node3" title=" " alt="" coords="207,155,265,181"/>
-<area shape="rect" id="node4" title=" " alt="" coords="171,80,234,107"/>
-<area shape="rect" id="node5" title=" " alt="" coords="273,229,332,256"/>
-<area shape="rect" id="node6" title=" " alt="" coords="309,80,429,107"/>
-<area shape="rect" id="node7" href="$Remote_8h.html" title="Declaration of the Remote class." alt="" coords="454,80,607,107"/>
-<area shape="rect" id="node10" href="$types_8h.html" title="Definition of owner types for raw pointers." alt="" coords="667,155,805,181"/>
-<area shape="rect" id="node8" title=" " alt="" coords="341,155,467,181"/>
-<area shape="rect" id="node9" title=" " alt="" coords="491,155,642,181"/>
-<area shape="rect" id="node11" title=" " alt="" coords="697,229,775,256"/>
+<area shape="rect" id="node3" title=" " alt="" coords="120,80,195,107"/>
+<area shape="rect" id="node4" title=" " alt="" coords="212,155,271,181"/>
+<area shape="rect" id="node5" title=" " alt="" coords="333,155,395,181"/>
+<area shape="rect" id="node6" title=" " alt="" coords="483,229,541,256"/>
+<area shape="rect" id="node7" title=" " alt="" coords="600,80,720,107"/>
+<area shape="rect" id="node8" href="$Remote_8h.html" title="Declaration of the Remote class." alt="" coords="321,80,474,107"/>
+<area shape="rect" id="node9" href="$types_8h.html" title="Definition of owner types for raw pointers." alt="" coords="549,155,688,181"/>
+<area shape="rect" id="node10" title=" " alt="" coords="580,229,657,256"/>
 </map>
