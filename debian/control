@@ -1,11 +1,11 @@
-Source: libgit4cpp-0-5-1
+Source: libgit4cpp-0-5-3
 Section: devel
 Priority: optional
 Maintainer: Jannik Woehnert <jannik.woehnert@desy.de>
 Standards-Version: 4.6.0
 Build-Depends: gul17-dev, meson (>=0.50.0), pkg-config, debhelper-compat (=12), catch2 (>=3.4.0) | libcatch2, libgit2-dev
 
-Package: libgit4cpp-0-5-1
+Package: libgit4cpp-0-5-3
 Section: libs
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
