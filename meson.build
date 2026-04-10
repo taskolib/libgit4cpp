@@ -8,7 +8,7 @@ project(
         check : true,
     ).stdout().split('=')[1].strip(),
     default_options : [
-        'cpp_std=c++17',
+        'cpp_std=c++20',
         'warning_level=3',
         'buildtype=release',
         'prefix=/usr',
