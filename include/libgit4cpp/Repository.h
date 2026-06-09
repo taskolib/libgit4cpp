@@ -43,12 +43,17 @@ namespace git {
  */
 struct FileStatus
 {
-    std::string path_name; /// Relative path to file. If the path changed this value will have the shape "OLD_NAME -> NEW_NAME".
-    std::string handling;  /// Handling status of file [unchanged, unstaged, staged, untracked, ignored]
-    std::string changes;   /// Change status of file [new file, deleted, renamed, typechanged, modified, unchanged, ignored, untracked]
+    std::string
+        path_name; /// Relative path to file. If the path changed this value will have the shape "OLD_NAME -> NEW_NAME".
+    std::string
+        handling; /// Handling status of file [unchanged, unstaged, staged, untracked, ignored]
+    std::string
+        changes; /// Change status of file [new file, deleted, renamed, typechanged, modified, unchanged, ignored, untracked]
 
-    friend std::ostream& operator<<(std::ostream& stream, FileStatus const& state) {
-        stream << "FileStatus{ \"" << gul17::escape(state.path_name) << "\": " << state.handling << "; " << state.changes << " }";
+    friend std::ostream& operator<<(std::ostream& stream, FileStatus const& state)
+    {
+        stream << "FileStatus{ \"" << gul17::escape(state.path_name)
+               << "\": " << state.handling << "; " << state.changes << " }";
         return stream;
     }
 };
@@ -64,7 +69,12 @@ inline std::ostream& operator<<(std::ostream& stream, const RepoState& repostate
     return stream;
 }
 
-enum class BranchType {all = 0, local =1, remote=2};
+enum class BranchType
+{
+    all = 0,
+    local = 1,
+    remote = 2
+};
 
 
 /**
@@ -80,7 +90,6 @@ enum class BranchType {all = 0, local =1, remote=2};
 class Repository
 {
 public:
-
     /**
      * Constructor which specifies the root dir of the git repository.
      * \param file_path  Path to git directory
@@ -152,7 +161,7 @@ public:
      *          files were staged successfully.
      * \see add()
      */
-   std::vector <int> add_files(const std::vector<std::filesystem::path>& filepaths);
+    std::vector<int> add_files(const std::vector<std::filesystem::path>& filepaths);
 
     /**
      * Return the commit message of the HEAD commit.
@@ -252,8 +261,8 @@ public:
      * \param origin_branch_name name of the existing branch to checkout from
      * \return The reference object of the new branch
     */
-    LibGitReference new_branch(const std::string& branch_name,
-        const std::string& origin_branch_name);
+    LibGitReference new_branch(
+        const std::string& branch_name, const std::string& origin_branch_name);
 
     /**
      * Returns the active branch in the repository.
@@ -276,8 +285,8 @@ public:
      * \param branch_name The branch to checkout
      * \param paths specifies the files to checkout
      */
-    void checkout(const std::string& branch_name,
-        const std::vector<std::string>& paths = {"*"});
+    void checkout(
+        const std::string& branch_name, const std::vector<std::string>& paths = { "*" });
 
     /**
      * Switch branches by setting HEAD to an existing branch.
@@ -285,7 +294,7 @@ public:
      *            The HEAD will then be attached to an unborn branch.
      * \param branch_name ID, shorthand or full reference name of branch
     */
-   void switch_branch(const std::string& branch_name);
+    void switch_branch(const std::string& branch_name);
 
     /**
      * Remove all entries from the index under a given directory.
@@ -334,7 +343,6 @@ public:
     ~Repository();
 
 private:
-
     /// Path to the repository.
     std::filesystem::path repo_path_;
 
@@ -401,7 +409,6 @@ private:
      * \return true if file is staged (and filestats initialized), else false
      */
     static bool is_staged(FileStatus& filestats, const git_status_entry* s);
-
 };
 
 } // namespace git

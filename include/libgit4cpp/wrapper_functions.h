@@ -82,7 +82,8 @@ LibGitSignature signature_default(git_repository* repo);
  * \param offset Timezone adjustment for the timestamp
  * \return new git_signature object
  */
-LibGitSignature signature_new(const std::string& name, const std::string& email, time_t time, int offset);
+LibGitSignature signature_new(
+    const std::string& name, const std::string& email, time_t time, int offset);
 
 
 /**
@@ -100,7 +101,8 @@ LibGitTree tree_lookup(git_repository* repo, git_oid tree_id);
  * \param status_opt Struct of status options
  * \return new git_status_list object
  */
-LibGitStatusList status_list_new(git_repository* repo, const git_status_options& status_opt);
+LibGitStatusList status_list_new(
+    git_repository* repo, const git_status_options& status_opt);
 
 /**
  * Collect the reference to the repository head.
@@ -116,8 +118,8 @@ LibGitReference repository_head(git_repository* repo);
  * \param url Adress of remote connection, e.g https://github.com/...
  * \return new git_remote object
  */
-LibGitRemote remote_create (git_repository* repo, const std::string& remote_name,
-                const std::string& url);
+LibGitRemote remote_create(
+    git_repository* repo, const std::string& remote_name, const std::string& url);
 
 /**
  * Find a remote repository by the name under which it is configured in the given
@@ -143,7 +145,8 @@ LibGitRepository clone(const std::string& url, const std::string& repo_path);
  * \param branch_type Which branch type to find, enum with 1=GIT_BRANCH_LOCAL, 2=GIT_BRANCH_REMOTE, 3=GIT_BRANCH_ALL
  * \return new git_reference object
  */
-LibGitReference branch_lookup(git_repository* repo, const std::string& branch_name, git_branch_t branch_type);
+LibGitReference branch_lookup(
+    git_repository* repo, const std::string& branch_name, git_branch_t branch_type);
 
 
 /**
@@ -162,7 +165,8 @@ LibGitTree commit_tree(git_commit* commit);
  * \param force if True, it will force the creation even with uncommited changes
  * \return new git_reference object
  */
-LibGitReference branch_create(git_repository* repo, const std::string& new_branch_name, const git_commit* starting_commit, int force);
+LibGitReference branch_create(git_repository* repo, const std::string& new_branch_name,
+    const git_commit* starting_commit, int force);
 
 /**
  * Find the name of a branch on the remote.

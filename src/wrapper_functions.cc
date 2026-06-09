@@ -83,7 +83,8 @@ LibGitSignature signature_default(git_repository* repo)
     return { signature, git_signature_free };
 }
 
-LibGitSignature signature_new(const std::string& name, const std::string& email, time_t time, int offset)
+LibGitSignature signature_new(
+    const std::string& name, const std::string& email, time_t time, int offset)
 {
     git_signature* signature;
     if (git_signature_new(&signature, name.c_str(), email.c_str(), time, offset))
@@ -105,8 +106,8 @@ LibGitTree tree_lookup(git_repository* repo, git_oid tree_id)
     return { tree, git_tree_free };
 }
 
-LibGitRemote remote_create(git_repository* repo, const std::string& remote_name,
-              const std::string& url)
+LibGitRemote remote_create(
+    git_repository* repo, const std::string& remote_name, const std::string& url)
 {
     git_remote* remote;
     if (git_remote_create(&remote, repo, remote_name.c_str(), url.c_str()))
@@ -125,7 +126,8 @@ LibGitRemote remote_lookup(git_repository* repo, const std::string& remote_name)
     return { remote, git_remote_free };
 }
 
-LibGitStatusList status_list_new(git_repository* repo, const git_status_options& status_opt)
+LibGitStatusList status_list_new(
+    git_repository* repo, const git_status_options& status_opt)
 {
     git_status_list* status;
     if (git_status_list_new(&status, repo, &status_opt))
@@ -156,10 +158,10 @@ LibGitRepository clone(const std::string& url, const std::string& repo_path)
         repo = nullptr;
     }
     return { repo, git_repository_free };
-
 }
 
-LibGitReference branch_lookup(git_repository* repo, const std::string& branch_name, git_branch_t branch_type)
+LibGitReference branch_lookup(
+    git_repository* repo, const std::string& branch_name, git_branch_t branch_type)
 {
     git_reference* ref;
     if (git_branch_lookup(&ref, repo, branch_name.c_str(), branch_type))
@@ -180,21 +182,24 @@ LibGitTree commit_tree(git_commit* commit)
     return { tree, git_tree_free };
 }
 
-LibGitReference branch_create(git_repository* repo, const std::string& new_branch_name, const git_commit* starting_commit, int force)
+LibGitReference branch_create(git_repository* repo, const std::string& new_branch_name,
+    const git_commit* starting_commit, int force)
 {
     git_reference* ref;
-    if(git_branch_create(&ref, repo, new_branch_name.c_str(), starting_commit, force))
+    if (git_branch_create(&ref, repo, new_branch_name.c_str(), starting_commit, force))
         ref = nullptr;
-    return {ref, git_reference_free};
+    return { ref, git_reference_free };
 }
 
 std::string branch_remote_name(git_repository* repo, const std::string& branch_name)
 {
-    git_buf buf{ };
+    git_buf buf{};
     auto _ = gul17::finally([buf_addr = &buf]() { git_buf_dispose(buf_addr); });
     auto error = git_branch_remote_name(&buf, repo, branch_name.c_str());
-    if (error) {
-        throw Error{ error, gul17::cat("branch_remote_name: ", git_error_last()->message) };
+    if (error)
+    {
+        throw Error{ error,
+            gul17::cat("branch_remote_name: ", git_error_last()->message) };
     }
     auto ret = std::string{ buf.ptr };
     return ret;
@@ -204,7 +209,7 @@ std::string reference_shorthand(const git_reference* ref)
 {
     const char* name_cstr = git_reference_shorthand(ref);
     if (name_cstr == nullptr)
-        throw Error{gul17::cat("reference_shorthand: ", git_error_last()->message) };
+        throw Error{ gul17::cat("reference_shorthand: ", git_error_last()->message) };
     return std::string(name_cstr);
 }
 
@@ -212,7 +217,7 @@ std::string reference_name(git_reference* ref)
 {
     const char* name_cstr = git_reference_name(ref);
     if (name_cstr == nullptr)
-        throw Error{gul17::cat("reference_name: ", git_error_last()->message) };
+        throw Error{ gul17::cat("reference_name: ", git_error_last()->message) };
     return std::string(name_cstr);
 }
 
@@ -221,8 +226,9 @@ LibGitReference parse_reference_from_name(git_repository* repo, const std::strin
     git_reference* ref;
     auto error = git_reference_dwim(&ref, repo, name.c_str());
     if (error)
-        throw Error{gul17::cat("parse_reference_from_name: ", git_error_last()->message) };
-    return {ref, git_reference_free};
+        throw Error{ gul17::cat(
+            "parse_reference_from_name: ", git_error_last()->message) };
+    return { ref, git_reference_free };
 }
 
 LibGitBranchIterator branch_iterator(git_repository* repo, git_branch_t flag)
@@ -230,8 +236,8 @@ LibGitBranchIterator branch_iterator(git_repository* repo, git_branch_t flag)
     git_branch_iterator* iter;
     auto error = git_branch_iterator_new(&iter, repo, flag);
     if (error)
-        throw Error{gul17::cat("get_branch_iterator: ", git_error_last()->message) };
-    return {iter, git_branch_iterator_free};
+        throw Error{ gul17::cat("get_branch_iterator: ", git_error_last()->message) };
+    return { iter, git_branch_iterator_free };
 }
 
 LibGitReference branch_next(git_branch_t* branch_type, git_branch_iterator* iter)
@@ -240,7 +246,7 @@ LibGitReference branch_next(git_branch_t* branch_type, git_branch_iterator* iter
     int error = git_branch_next(&ref, branch_type, iter);
     if (error == GIT_ITEROVER)
         ref = nullptr;
-    return {ref, git_reference_free};
+    return { ref, git_reference_free };
 }
 
 } // namespace git

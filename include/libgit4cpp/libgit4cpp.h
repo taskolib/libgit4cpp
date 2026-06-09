@@ -31,6 +31,7 @@
 #include "libgit4cpp/wrapper_functions.h"
 
 /// Namespace git contains all functions, classes, and other declarations of libgit4cpp.
-namespace git { }
+namespace git {
+}
 
 #endif

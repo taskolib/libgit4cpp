@@ -60,12 +60,12 @@ std::vector<std::string> Remote::list_references()
         git_remote_callbacks callbacks = GIT_REMOTE_CALLBACKS_INIT;
         callbacks.credentials = get_dummy_credentials_callback();
 
-        int error = git_remote_connect(remote_.get(), GIT_DIRECTION_FETCH, &callbacks,
-            nullptr, nullptr);
+        int error = git_remote_connect(
+            remote_.get(), GIT_DIRECTION_FETCH, &callbacks, nullptr, nullptr);
         if (error < 0)
         {
-            throw Error{ cat("Cannot connect to remote \"", get_name(), "\": ",
-                git_error_last()->message) };
+            throw Error{ cat("Cannot connect to remote \"", get_name(),
+                "\": ", git_error_last()->message) };
         }
     }
 
@@ -74,8 +74,8 @@ std::vector<std::string> Remote::list_references()
     auto error = git_remote_ls(&out, &size, remote_.get());
     if (error)
     {
-        throw Error{ cat("Cannot list references on remote \"", get_name(), "\": ",
-            git_error_last()->message) };
+        throw Error{ cat("Cannot list references on remote \"", get_name(),
+            "\": ", git_error_last()->message) };
     }
 
     std::vector<std::string> refs;

@@ -46,7 +46,8 @@ TEST_CASE("Remote: Constructor", "[Remote]")
     const auto reporoot = unit_test_folder() / "Remote";
 
     const std::string repo_url{
-        "https://gitlab.desy.de/jannik.woehnert/taskolib_remote_test.git" };
+        "https://gitlab.desy.de/jannik.woehnert/taskolib_remote_test.git"
+    };
 
     Repository repo{ reporoot };
 
@@ -101,7 +102,6 @@ TEST_CASE("Remote: list_references()", "[Remote]")
     refs = remote.list_references();
     REQUIRE(refs.size() >= 1);
     REQUIRE(std::find(refs.begin(), refs.end(), "refs/heads/main"s) != refs.end());
-
 }
 
 TEST_CASE("wrapper_functions: branch_remote_name()", "[Remote]")
@@ -111,25 +111,33 @@ TEST_CASE("wrapper_functions: branch_remote_name()", "[Remote]")
 
     // The following test is modeled after the example code in Error.h class Error
     std::string name_str;
-    try {
+    try
+    {
         name_str = git::branch_remote_name(repo->get_repo(), "refs/remotes/origin/main"s);
     }
-    catch (const git::Error& e) {
-        if (e.code().category() == git::git_category() and e.code().value() == git::git_error_code::GIT_EAMBIGUOUS) {
+    catch (const git::Error& e)
+    {
+        if (e.code().category() == git::git_category()
+            and e.code().value() == git::git_error_code::GIT_EAMBIGUOUS)
+        {
             REQUIRE(false); // will not happen
         }
-        if (e.code() == git::git_error_code::GIT_EAMBIGUOUS) {
+        if (e.code() == git::git_error_code::GIT_EAMBIGUOUS)
+        {
             REQUIRE(false); // will not happen
         }
         throw;
     }
     REQUIRE(name_str == "origin"s);
 
-    try {
+    try
+    {
         name_str = git::branch_remote_name(repo->get_repo(), "vanillavoid"s);
     }
-    catch (const git::Error& e) {
-        if (e.code() == git::git_error_code::GIT_EAMBIGUOUS) {
+    catch (const git::Error& e)
+    {
+        if (e.code() == git::git_error_code::GIT_EAMBIGUOUS)
+        {
             REQUIRE(false); // must not happen
         }
     }

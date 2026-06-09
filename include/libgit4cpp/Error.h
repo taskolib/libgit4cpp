@@ -35,10 +35,11 @@ using ::git_error_code; // from git2/errors.h
 
 namespace detail {
 
-class git_category_impl : public std::error_category {
-    public:
-        virtual const char* name() const noexcept;
-        virtual std::string message(int ev) const;
+class git_category_impl : public std::error_category
+{
+public:
+    virtual const char* name() const noexcept;
+    virtual std::string message(int ev) const;
 };
 
 } // namespace detail
@@ -92,19 +93,24 @@ public:
     using std::system_error::system_error;
     Error(int ev)
         : std::system_error(ev, git_category())
-        { }
+    {
+    }
     Error(int ev, const std::string& what)
         : std::system_error(ev, git_category(), what)
-        { }
+    {
+    }
     Error(int ev, const char* what)
         : std::system_error(ev, git_category(), what)
-        { }
+    {
+    }
     Error(const std::string& what)
         : std::system_error(static_cast<int>(GIT_EUSER), git_category(), what)
-        { }
+    {
+    }
     Error(const char* what)
         : std::system_error(static_cast<int>(GIT_EUSER), git_category(), what)
-        { }
+    {
+    }
 
     /// The error category must be an unique object
     const std::error_category& git_category()
@@ -112,18 +118,17 @@ public:
         static detail::git_category_impl instance;
         return instance;
     }
-
 };
 
 } // namespace git
 
-namespace std
+namespace std {
+// register for implicit conversion to std::error_code
+template <>
+struct is_error_code_enum<git::git_error_code> : public true_type
 {
-    // register for implicit conversion to std::error_code
-    template <>
-    struct is_error_code_enum<git::git_error_code> : public true_type
-    { };
-}
+};
+} // namespace std
 
 std::error_code make_error_code(git::git_error_code e);
 

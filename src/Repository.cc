@@ -89,7 +89,7 @@ void Repository::update(const std::string& glob)
 {
     auto index = repository_index(repo_.get());
 
-    char *paths[1] = {const_cast<char*>(glob.c_str())};
+    char* paths[1] = { const_cast<char*>(glob.c_str()) };
     git_strarray array = { paths, 1 };
 
     // update index to check for files
@@ -128,18 +128,8 @@ void Repository::commit_initial()
     git_index_write_tree(&tree_id, index.get());
     auto tree = tree_lookup(repo_.get(), tree_id);
 
-    int error = git_commit_create(
-        &commit_id,
-        repo_.get(),
-        "HEAD",
-        my_signature_.get(),
-        my_signature_.get(),
-        "UTF-8",
-        "Initial commit",
-        tree.get(),
-        0,
-        nullptr
-    );
+    int error = git_commit_create(&commit_id, repo_.get(), "HEAD", my_signature_.get(),
+        my_signature_.get(), "UTF-8", "Initial commit", tree.get(), 0, nullptr);
 
     if (error)
         throw Error{ cat("Initial commit failed: ", git_error_last()->message) };
@@ -157,18 +147,8 @@ void Repository::commit(const std::string& commit_message)
     git_index_write_tree(&tree_id, index.get());
     auto tree = tree_lookup(repo_.get(), tree_id);
 
-    int error = git_commit_create(
-        &commit_id,
-        repo_.get(),
-        "HEAD",
-        my_signature_.get(),
-        my_signature_.get(),
-        "UTF-8",
-        commit_message.c_str(),
-        tree.get(),
-        1,
-        &raw_commit
-    );
+    int error = git_commit_create(&commit_id, repo_.get(), "HEAD", my_signature_.get(),
+        my_signature_.get(), "UTF-8", commit_message.c_str(), tree.get(), 1, &raw_commit);
 
     if (error)
         throw Error{ cat("Commit: ", git_error_last()->message) };
@@ -178,11 +158,11 @@ void Repository::add(const std::string& glob)
 {
     auto gindex = repository_index(repo_.get());
 
-    char *paths[] = { const_cast<char*>(glob.c_str()) };
+    char* paths[] = { const_cast<char*>(glob.c_str()) };
     git_strarray array = { paths, 1 };
 
-    int error = git_index_add_all(gindex.get(), &array, GIT_INDEX_ADD_DEFAULT, nullptr,
-        nullptr);
+    int error = git_index_add_all(
+        gindex.get(), &array, GIT_INDEX_ADD_DEFAULT, nullptr, nullptr);
     if (error)
         throw Error{ cat("Cannot stage files: ", git_error_last()->message) };
 
@@ -206,7 +186,7 @@ void Repository::remove_files(const std::vector<std::filesystem::path>& filepath
 
     //remove files from directory
     //TODO: Teste, ob oberer Teil ausreicht
-    for (auto gfile: filepaths)
+    for (auto gfile : filepaths)
     {
         int error = git_index_remove_bypath(gindex.get(), gfile.c_str());
         if (error)
@@ -221,7 +201,8 @@ LibGitCommit Repository::get_commit(unsigned int count)
     git_commit* parent;
     auto err = git_commit_nth_gen_ancestor(&parent, get_commit("HEAD").get(), count);
     if (err)
-        throw Error{ cat("Cannot find ", count, "th ancestor: ", git_error_last()->message) };
+        throw Error{ cat(
+            "Cannot find ", count, "th ancestor: ", git_error_last()->message) };
     return { parent, git_commit_free };
 }
 
@@ -233,7 +214,8 @@ LibGitCommit Repository::get_commit(const std::string& ref)
     // resolve HEAD into a SHA1
     int error = git_reference_name_to_id(&oid_parent_commit, repo_.get(), ref.c_str());
     if (error)
-        throw Error{ cat("Cannot find ID from reference name: ", git_error_last()->message) };
+        throw Error{ cat(
+            "Cannot find ID from reference name: ", git_error_last()->message) };
 
     // find commit object by commit ID
     error = git_commit_lookup(&commit, repo_.get(), &oid_parent_commit);
@@ -292,7 +274,7 @@ bool Repository::is_staged(FileStatus& filestats, const git_status_entry* s)
         return false;
 
     filestats.handling = "staged";
-    filestats.changes = std::string{istatus};
+    filestats.changes = std::string{ istatus };
 
     const char* old_path = s->head_to_index->old_file.path;
     const char* new_path = s->head_to_index->new_file.path;
@@ -311,8 +293,8 @@ RepoState Repository::collect_status(LibGitStatusList& status) const
     const size_t nr_entries = git_status_list_entrycount(status.get());
 
     // declare status holding vector for each submodule
-    RepoState return_array{ };
-    FileStatus filestats{ };
+    RepoState return_array{};
+    FileStatus filestats{};
 
     for (size_t i = 0; i < nr_entries; ++i)
     {
@@ -363,7 +345,6 @@ RepoState Repository::collect_status(LibGitStatusList& status) const
         //######################
         if (s->status == GIT_STATUS_WT_NEW)
         {
-
             filestats.handling = "untracked";
             filestats.changes = "untracked";
             filestats.path_name = s->index_to_workdir->old_file.path;
@@ -375,8 +356,8 @@ RepoState Repository::collect_status(LibGitStatusList& status) const
 
         // list ignored files
         //####################
-        if (s->status == GIT_STATUS_IGNORED) {
-
+        if (s->status == GIT_STATUS_IGNORED)
+        {
             filestats.handling = "ignored";
             filestats.changes = "ignored";
             filestats.path_name = s->index_to_workdir->old_file.path;
@@ -392,10 +373,10 @@ RepoState Repository::collect_status(LibGitStatusList& status) const
 RepoState Repository::status()
 {
     git_status_options status_opt = GIT_STATUS_OPTIONS_INIT;
-    status_opt.flags =  GIT_STATUS_OPT_INCLUDE_UNTRACKED |          // untracked files
-                        GIT_STATUS_OPT_RECURSE_UNTRACKED_DIRS |     // untracked directories
-                        GIT_STATUS_OPT_INCLUDE_UNMODIFIED |         // unmodified files
-                        GIT_STATUS_OPT_INCLUDE_IGNORED;             // ignored files
+    status_opt.flags = GIT_STATUS_OPT_INCLUDE_UNTRACKED | // untracked files
+        GIT_STATUS_OPT_RECURSE_UNTRACKED_DIRS |           // untracked directories
+        GIT_STATUS_OPT_INCLUDE_UNMODIFIED |               // unmodified files
+        GIT_STATUS_OPT_INCLUDE_IGNORED;                   // ignored files
 
     auto my_status = status_list_new(repo_.get(), status_opt);
     if (not my_status)
@@ -404,7 +385,8 @@ RepoState Repository::status()
     return collect_status(my_status);
 }
 
-std::vector<int> Repository::add_files(const std::vector<std::filesystem::path>& filepaths)
+std::vector<int> Repository::add_files(
+    const std::vector<std::filesystem::path>& filepaths)
 {
     auto gindex = repository_index(repo_.get());
 
@@ -426,7 +408,8 @@ std::vector<int> Repository::add_files(const std::vector<std::filesystem::path>&
 void Repository::reset(unsigned int nr_of_commits)
 {
     auto parent_commit = get_commit(nr_of_commits);
-    auto error = git_reset(repo_.get(), reinterpret_cast<git_object*>(parent_commit.get()), GIT_RESET_HARD, nullptr);
+    auto error = git_reset(repo_.get(),
+        reinterpret_cast<git_object*>(parent_commit.get()), GIT_RESET_HARD, nullptr);
     if (error)
         throw Error{ cat("Reset: ", git_error_last()->message) };
 }
@@ -436,8 +419,8 @@ Remote Repository::add_remote(const std::string& remote_name, const std::string&
     auto remote = remote_create(repo_.get(), remote_name, url);
     if (!remote)
     {
-        throw Error{ cat("Cannot create remote \"", remote_name, "\": ",
-            git_error_last()->message) };
+        throw Error{ cat(
+            "Cannot create remote \"", remote_name, "\": ", git_error_last()->message) };
     }
     return Remote{ std::move(remote) };
 }
@@ -463,8 +446,8 @@ std::vector<Remote> Repository::list_remotes() const
         auto maybe_remote = get_remote(name);
         if (!maybe_remote)
         {
-            throw Error(cat("Lookup failed for remote \"", name, "\": ",
-                git_error_last()->message));
+            throw Error(cat(
+                "Lookup failed for remote \"", name, "\": ", git_error_last()->message));
         }
         result.push_back(std::move(*maybe_remote));
     }
@@ -497,8 +480,8 @@ void Repository::push(const Remote& remote, const std::string& refspec)
     int error = git_remote_init_callbacks(&callbacks, GIT_REMOTE_CALLBACKS_VERSION);
     if (error)
     {
-        throw Error{ cat("Cannot initialize remote callbacks for push: ",
-            git_error_last()->message) };
+        throw Error{ cat(
+            "Cannot initialize remote callbacks for push: ", git_error_last()->message) };
     }
     callbacks.credentials = get_dummy_credentials_callback();
 
@@ -509,10 +492,7 @@ void Repository::push(const Remote& remote, const std::string& refspec)
     push_options.callbacks = callbacks;
 
     char* refspec_ptr = const_cast<char*>(refspec.c_str());
-    const git_strarray refspec_array = {
-        &refspec_ptr,
-        1
-    };
+    const git_strarray refspec_array = { &refspec_ptr, 1 };
 
     error = git_remote_push(remote.get(), &refspec_array, &push_options);
     if (error)
@@ -601,8 +581,8 @@ LibGitReference Repository::new_branch(const std::string& branch_name)
     return new_branch(branch_name, get_current_branch_name());
 }
 
-LibGitReference Repository::new_branch(const std::string& branch_name,
-    const std::string& origin_branch_name)
+LibGitReference Repository::new_branch(
+    const std::string& branch_name, const std::string& origin_branch_name)
 {
     // checkout origin branch
     auto ref = branch_lookup(repo_.get(), origin_branch_name, GIT_BRANCH_LOCAL);
@@ -634,14 +614,14 @@ std::vector<std::string> Repository::list_branches(BranchType type_flag)
     else if (type_flag == BranchType::remote)
         flag = GIT_BRANCH_REMOTE;
     else
-        throw Error{"list_branches: unknown type_flag"};
+        throw Error{ "list_branches: unknown type_flag" };
 
     std::vector<std::string> ret;
 
     LibGitBranchIterator iter = branch_iterator(repo_.get(), flag);
 
     LibGitReference ref = branch_next(&flag, iter.get());
-    while(ref != nullptr)
+    while (ref != nullptr)
     {
         ret.push_back(reference_name(ref.get()));
         ref = branch_next(&flag, iter.get());
@@ -649,25 +629,24 @@ std::vector<std::string> Repository::list_branches(BranchType type_flag)
     return ret;
 }
 
-void Repository::checkout(const std::string& branch_name,
-    const std::vector<std::string>& paths)
+void Repository::checkout(
+    const std::string& branch_name, const std::vector<std::string>& paths)
 {
-
     git_checkout_options checkout_opts = GIT_CHECKOUT_OPTIONS_INIT;
     // define the paths of files to checkout
     checkout_opts.paths.count = paths.size();
 
     // transform std::string input into readaable data for libgit2
     std::vector<const char*> paths_as_cstr;
-    for(const auto& path: paths)
+    for (const auto& path : paths)
         paths_as_cstr.push_back(path.c_str());
-    checkout_opts.paths.strings = const_cast<char **>(paths_as_cstr.data());
+    checkout_opts.paths.strings = const_cast<char**>(paths_as_cstr.data());
 
     checkout_opts.checkout_strategy = GIT_CHECKOUT_FORCE;
 
     // find latest commit of said branch
-    auto full_branch_name = reference_name(
-        parse_reference_from_name(repo_.get(), branch_name).get());
+    auto full_branch_name
+        = reference_name(parse_reference_from_name(repo_.get(), branch_name).get());
     auto last_commit = get_commit(full_branch_name);
 
     // checkout (the cast is necessary because libgit2 simulates inheritance by having a
@@ -692,7 +671,6 @@ void Repository::switch_branch(const std::string& branch_name)
     // go back to original state on this branch
     reset(0);
 }
-
 
 
 } // namespace git

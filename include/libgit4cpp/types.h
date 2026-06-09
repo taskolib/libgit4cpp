@@ -30,16 +30,17 @@
 
 namespace git {
 
-using LibGitTree = std::unique_ptr<git_tree, void(*)(git_tree*)>;
-using LibGitSignature = std::unique_ptr<git_signature, void(*)(git_signature*)>;
-using LibGitIndex = std::unique_ptr<git_index, void(*)(git_index*)>;
-using LibGitRepository = std::unique_ptr<git_repository, void(*)(git_repository*)>;
-using LibGitRemote = std::unique_ptr<git_remote, void(*)(git_remote*)>;
-using LibGitCommit = std::unique_ptr<git_commit, void(*)(git_commit*)>;
-using LibGitStatusList = std::unique_ptr<git_status_list, void(*)(git_status_list*)>;
-using LibGitReference = std::unique_ptr<git_reference, void(*)(git_reference*)>;
-using LibGitBuf = std::unique_ptr<git_buf, void(*)(git_buf*)>;
-using LibGitBranchIterator = std::unique_ptr<git_branch_iterator, void(*)(git_branch_iterator*)>;
+using LibGitTree = std::unique_ptr<git_tree, void (*)(git_tree*)>;
+using LibGitSignature = std::unique_ptr<git_signature, void (*)(git_signature*)>;
+using LibGitIndex = std::unique_ptr<git_index, void (*)(git_index*)>;
+using LibGitRepository = std::unique_ptr<git_repository, void (*)(git_repository*)>;
+using LibGitRemote = std::unique_ptr<git_remote, void (*)(git_remote*)>;
+using LibGitCommit = std::unique_ptr<git_commit, void (*)(git_commit*)>;
+using LibGitStatusList = std::unique_ptr<git_status_list, void (*)(git_status_list*)>;
+using LibGitReference = std::unique_ptr<git_reference, void (*)(git_reference*)>;
+using LibGitBuf = std::unique_ptr<git_buf, void (*)(git_buf*)>;
+using LibGitBranchIterator
+    = std::unique_ptr<git_branch_iterator, void (*)(git_branch_iterator*)>;
 
 } // namespace git
 
