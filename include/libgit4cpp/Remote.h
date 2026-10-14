@@ -1,10 +1,9 @@
 /**
- * \file   Remote.h
- * \author Lars Fröhlich
- * \date   Created on January 15, 2024
- * \brief  Declaration of the Remote class.
+ * \file  Remote.h
+ * \date  Created on January 15, 2024
+ * \brief Declaration of the Remote class.
  *
- * \copyright Copyright 2024-2025 Deutsches Elektronen-Synchrotron (DESY), Hamburg
+ * \copyright Copyright 2024-2026 Deutsches Elektronen-Synchrotron (DESY), Hamburg
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -72,6 +71,22 @@ public:
     std::vector<std::string> list_references();
 
 private:
+    /**
+     * The LibGitInitGuard keeps libgit2 initialized for as long as the remote exists,
+     * because the remote may outlive its Repository. Declared before remote_ so that it
+     * is destroyed after it. Note that git_libgit2_init() and git_libgit2_shutdown() may
+     * be called safely multiple times (they keep a counter).
+     */
+    struct LibGitInitGuard
+    {
+        LibGitInitGuard() { git_libgit2_init(); }
+        LibGitInitGuard(LibGitInitGuard&&) { git_libgit2_init(); }
+        LibGitInitGuard(const LibGitInitGuard&) = delete;
+        LibGitInitGuard& operator=(LibGitInitGuard&&) = default;
+        LibGitInitGuard& operator=(const LibGitInitGuard&) = delete;
+        ~LibGitInitGuard() { git_libgit2_shutdown(); }
+    } init_guard_;
+
     LibGitRemote remote_{ nullptr, git_remote_free };
 };
 
