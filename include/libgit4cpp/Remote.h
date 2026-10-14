@@ -72,6 +72,19 @@ public:
     std::vector<std::string> list_references();
 
 private:
+    // Keeps libgit2 initialized for as long as the remote exists, because the remote may
+    // outlive its Repository. Declared before remote_ so that it is destroyed after it.
+    struct LibGitInitGuard
+    {
+        LibGitInitGuard() { git_libgit2_init(); }
+        LibGitInitGuard(LibGitInitGuard&&) { git_libgit2_init(); }
+        LibGitInitGuard(const LibGitInitGuard&) = delete;
+        LibGitInitGuard& operator=(LibGitInitGuard&&) = default;
+        LibGitInitGuard& operator=(const LibGitInitGuard&) = delete;
+        ~LibGitInitGuard() { git_libgit2_shutdown(); }
+    };
+
+    LibGitInitGuard init_guard_;
     LibGitRemote remote_{ nullptr, git_remote_free };
 };
 
