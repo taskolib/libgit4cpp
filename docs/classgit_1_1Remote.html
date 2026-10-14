@@ -20,7 +20,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libgit4cpp
-   &#160;<span id="projectnumber">0.5.7</span>
+   &#160;<span id="projectnumber">0.5.9</span>
    </div>
   </td>
  </tr>
@@ -45,6 +45,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classgit_1_1Remote-members.html">List of all members</a>  </div>
@@ -58,6 +59,12 @@ $(function() {
 </div>
 <p><code>#include &lt;<a class="el" href="Remote_8h_source.html">Remote.h</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgit_1_1Remote_1_1LibGitInitGuard.html">LibGitInitGuard</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="structgit_1_1Remote_1_1LibGitInitGuard.html" title="The LibGitInitGuard keeps libgit2 initialized for as long as the remote exists, because the remote ma...">LibGitInitGuard</a> keeps libgit2 initialized for as long as the remote exists, because the remote may outlive its <a class="el" href="classgit_1_1Repository.html" title="A class to wrap used methods from C-Library libgit2.">Repository</a>.  <a href="structgit_1_1Remote_1_1LibGitInitGuard.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a4db2dbe21e08fccd85ac2b08121eae98"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgit_1_1Remote.html#a4db2dbe21e08fccd85ac2b08121eae98">Remote</a> (<a class="el" href="namespacegit.html#a0d0a000b27d080ec0dcfbe24e4d90c35">LibGitRemote</a> &amp;&amp;remote_ptr)</td></tr>
@@ -78,6 +85,8 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
+<tr class="memitem:a59a9d4cd14819cf06ad594851d830804"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structgit_1_1Remote_1_1LibGitInitGuard.html">git::Remote::LibGitInitGuard</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgit_1_1Remote.html#a59a9d4cd14819cf06ad594851d830804">init_guard_</a></td></tr>
+<tr class="separator:a59a9d4cd14819cf06ad594851d830804"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a18734be53ecf4e3f52b6cc57ab9d685c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacegit.html#a0d0a000b27d080ec0dcfbe24e4d90c35">LibGitRemote</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgit_1_1Remote.html#a18734be53ecf4e3f52b6cc57ab9d685c">remote_</a> { nullptr, git_remote_free }</td></tr>
 <tr class="separator:a18734be53ecf4e3f52b6cc57ab9d685c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -207,6 +216,28 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="a59a9d4cd14819cf06ad594851d830804"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59a9d4cd14819cf06ad594851d830804">&#9670;&nbsp;</a></span>init_guard_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structgit_1_1Remote_1_1LibGitInitGuard.html">git::Remote::LibGitInitGuard</a> git::Remote::init_guard_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a18734be53ecf4e3f52b6cc57ab9d685c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a18734be53ecf4e3f52b6cc57ab9d685c">&#9670;&nbsp;</a></span>remote_</h2>
 
@@ -238,7 +269,7 @@ Private Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jun 9 2026 06:54:50 for libgit4cpp by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Wed Oct 14 2026 14:55:32 for libgit4cpp by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
