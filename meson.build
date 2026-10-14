@@ -55,7 +55,7 @@ inc = [ ]
 subdir('include')
 subdir('src')
 
-gul_dep = dependency('gul17', fallback : [ 'gul17', 'libgul_dep' ])
+gul_dep = dependency('gul17', default_options : [ 'tests=false' ])
 libgit2_dep = dependency('libgit2')
 
 deps = [
